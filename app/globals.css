@@ -5,22 +5,54 @@
   --foreground: #171717;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+::selection {
+  background: #f0b8d3;
+  color: black;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@keyframes blink-thin {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.typewriter-wrapper::after {
+  content: '|';
+  color: black;
+  font-size: 1em;
+  font-weight: 100;
+  animation: blink-thin 1s steps(1) infinite;
+  margin-left: 4px;
+  display: inline-block;
+  transform: scaleX(0.3); /* Makes it appear thinner */
+  transform-origin: left;
 }
+
+.scrollbar-hide {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
+
+/* styles/globals.css or in <style jsx global> */
+.tooltip {
+  position: absolute;
+  padding: 6px;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  pointer-events: none;
+  font-size: 11px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  z-index: 9999;
+  transition: opacity 0.2s ease;
+}
+
+
+

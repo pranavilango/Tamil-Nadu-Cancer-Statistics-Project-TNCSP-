@@ -1,103 +1,151 @@
-import Image from "next/image";
+'use client';
+
+import Hero from "./components/Hero";
+import ProblemBadge from "./components/ProblemBadge";
+import { AnimatePresence, motion } from 'framer-motion';
+import { useState, useEffect } from "react";
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+  const problems = [
+    {
+      title: "The Late Screening Epidemic",
+      quote: "Over 60% of cancer patients in India are diagnosed in stages III or IV.",
+    },
+    {
+      title: "Clueless, Until It’s Too Late",
+      quote: "Nearly 70% of rural patients in Tamil Nadu are unaware of advanced cancer treatment options.",
+    },
+    {
+      title: "Silenced by Shame",
+      quote: "Fear of social judgment delays diagnosis in over 40% of female patients in South India.",
+    },
+    {
+      title: "When Pain Is Misread",
+      quote: "Up to 50% of early cancer symptoms are dismissed as minor ailments by local clinics.",
+    },
+    {
+      title: "Treatment That Breaks Families",
+      quote: "Over 75% of Indian families face catastrophic health costs during cancer treatment.",
+    },
+  ];
+
+
+  const [index, setIndex] = useState(0);
+  const [activeArrow, setActiveArrow] = useState<"left" | "right" | null>(null);
+
+  const handleNext = () => {
+    setIndex((prev) => (prev + 1) % problems.length);
+  };
+
+  const handlePrev = () => {
+    setIndex((prev) => (prev === 0 ? (prev - 1 + problems.length) % problems.length : (prev - 1) % problems.length));
+  };
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "ArrowLeft") {
+        setActiveArrow("left");
+        handlePrev(); // go to previous problem
+      }
+      if (e.key === "ArrowRight") {
+        setActiveArrow("right");
+        handleNext(); // go to next problem
+      }
+    };
+
+    const handleKeyUp = () => {
+      setActiveArrow(null);
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("keyup", handleKeyUp);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("keyup", handleKeyUp);
+    };
+  }, []);
+
+  return (
+    <>
+
+      <div className="absolute inset-0 -z-1">
+        <div className="absolute w-full h-[100%] bg-gradient-to-br from-[#f44e8b] via-[#5557fc] to-[#f44e8b] opacity-20 blur-[120px] rounded-full" />
+      </div>
+
+      <Hero />
+
+      <section
+        id="scroll-target"
+        className="relative w-full h-[100vh] rounded-tl-4xl rounded-br-4xl flex flex-col justify-center items-center space-y-[2vh]"
+      >
+        <ProblemBadge index={index} />
+
+        {/* Main Text Button */}
+        <h2
+          className="bg-gradient-to-t from-[#000000] to-[#878a89] bg-clip-text text-transparent text-center font-bold text-[3rem] z-4"
+        >
+          {problems[index].title}
+        </h2>
+
+        {/* Navigation Buttons */}
+        <div className="flex items-center space-x-[12vw] z-5">
+        <button
+          onClick={handlePrev}
+          className={`-mt-22 w-10 h-10 rounded-full bg-[url('/learn-more-grad.png')] bg-cover flex items-center justify-center cursor-pointer transition
+            hover:opacity-80 
+            ${activeArrow === "left" ? "opacity-80 scale-105" : ""}
+          `}
+        >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+          <span className="text-black text-lg font-medium max-w-md text-center">
+            {problems[index].quote}
+          </span>
+          <button
+            onClick={handleNext}
+            className={`-mt-22 w-10 h-10 rounded-full bg-[url('/learn-more-grad.png')] bg-cover flex items-center justify-center cursor-pointer transition
+              hover:opacity-80 
+              ${activeArrow === "right" ? "opacity-80 scale-105" : ""}
+            `}
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+
+        <div className="flex justify-center items-center mt-2 space-x-2">
+          {problems.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setIndex(i)}
+              aria-label={`Go to problem ${i + 1}`}
+              className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                i === index ? 'bg-black scale-115' : 'bg-gray-400 opacity-40'
+              }`}
+            />
+          ))}
+        </div>
+      </section>
+
+
+      <section id="scroll-target" className="w-full h-[100vh] bg-transparent flex items-center justify-center z-2">
+        <motion.h2
+          className="text-black font-bold text-[3rem] z-3"
+          animate={{ y: [0, -7.5, 0] }}
+          transition={{
+            duration: 1.5,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
         >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+          The Late Screening Epidemic.
+        </motion.h2>
+      </section>
+
+    </>
   );
 }
