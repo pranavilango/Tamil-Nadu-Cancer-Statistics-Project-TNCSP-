@@ -2,8 +2,8 @@
 
 import Hero from "./components/Hero";
 import ProblemBadge from "./components/ProblemBadge";
-import { AnimatePresence, motion } from 'framer-motion';
-import { useState, useEffect } from "react";
+import { motion } from 'framer-motion';
+import { useState, useEffect, useCallback } from "react";
 
 export default function Home() {
 
@@ -34,13 +34,13 @@ export default function Home() {
   const [index, setIndex] = useState(0);
   const [activeArrow, setActiveArrow] = useState<"left" | "right" | null>(null);
 
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     setIndex((prev) => (prev + 1) % problems.length);
-  };
+  }, [problems.length]);
 
-  const handlePrev = () => {
-    setIndex((prev) => (prev === 0 ? (prev - 1 + problems.length) % problems.length : (prev - 1) % problems.length));
-  };
+  const handlePrev = useCallback(() => {
+    setIndex((prev) => (prev - 1 + problems.length) % problems.length);
+  }, [problems.length]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -64,7 +64,7 @@ export default function Home() {
       window.removeEventListener("keydown", handleKeyDown);
       window.removeEventListener("keyup", handleKeyUp);
     };
-  }, []);
+  }, [handleNext, handlePrev]);
 
   return (
     <>
@@ -133,17 +133,11 @@ export default function Home() {
 
 
       <section id="scroll-target" className="w-full h-[100vh] bg-transparent flex items-center justify-center z-2">
-        <motion.h2
+        <h2
           className="text-black font-bold text-[3rem] z-3"
-          animate={{ y: [0, -7.5, 0] }}
-          transition={{
-            duration: 1.5,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
         >
           The Late Screening Epidemic.
-        </motion.h2>
+        </h2>
       </section>
 
     </>
