@@ -4,8 +4,10 @@ export default function NavBar() {
     return (
           <div
             className="fixed left-1/2 transform -translate-x-1/2 w-[100vw] z-10000 backdrop-blur-[4px]">
-            <div className="w-full h-[3.5rem] px-6 flex items-center justify-between bg-[#f7f7f7]/60 shadow-md">
-              <span className="text-[1.25rem] font-extrabold text-black leading-none ml-10">tncsp</span>
+            <div className="w-full h-[3.5rem] px-6 flex items-center justify-between bg-[#f7f7f7] shadow-md">
+              <span className="flex items-center gap-2 text-[1.25rem] text-black leading-none ml-4">
+                tncsp
+              </span>
               <div className="flex items-center space-x-10 h-full">
                 <Link href="/">
                   <span className="text-[1rem] text-black cursor-pointer hover:text-black transition

@@ -1,10 +1,5 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 ::selection {
   background: #f0b8d3;
   color: black;
@@ -53,6 +48,4 @@
   z-index: 9999;
   transition: opacity 0.2s ease;
 }
-
-
 

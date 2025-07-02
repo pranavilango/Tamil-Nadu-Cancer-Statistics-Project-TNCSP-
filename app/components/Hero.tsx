@@ -41,9 +41,7 @@ export default function Hero() {
               ?.scrollIntoView({ behavior: 'smooth' });
           }}
           className="flex items-center gap-2 px-6 py-3 rounded-full
-                      bg-[url('/learn-more-grad.png')]
-                      bg-cover
-                      backdrop-blur-md shadow-lg text-white text-lg
+                      bg-black shadow-lg text-white text-lg
                       hover:opacity-75 cursor-pointer z-5"
         >
           Learn More

@@ -1,6 +1,15 @@
 'use client';
 
 import { useState } from "react";
+import Sidebar from "./SideBar";
+
+// --- Step 2.1: Import all your new content components ---
+import Introduction from "../components/guide/Introduction";
+import DiseaseMechanism from "../components/guide/DiseaseMechanism";
+import CausativeAgents from "../components/guide/CausativeAgents";
+import StagesOfCancer from "../components/guide/StagesOfCancer";
+import Symptoms from "../components/guide/Symptoms";
+// etc.
 
 export default function GuidePage() {
   const sections = [
@@ -17,42 +26,45 @@ export default function GuidePage() {
 
   const [activeSection, setActiveSection] = useState("Introduction");
 
+  // --- Step 2.2: Create the content mapping object ---
+  // The keys MUST EXACTLY MATCH the strings in your 'sections' array.
+  const contentMap: { [key: string]: React.ReactNode } = {
+    "Introduction": <Introduction />,
+    "Disease Mechanism": <DiseaseMechanism />,
+    "Causative Agents": <CausativeAgents />,
+    "Stages of Cancer": <StagesOfCancer />,
+    "Symptoms": <Symptoms />,
+    "Detection": <p>Content for Detection coming soon...</p>,
+    "Stigmas": <p>Content for Stigmas coming soon...</p>,
+    "Lifestyle Changes": <p>Content for Lifestyle Changes coming soon...</p>,
+    "Conclusion": <p>Content for Conclusion coming soon...</p>,
+  };
+
   return (
     <div className="min-h-[300vh] pt-14 flex relative">
-      {/* Background */}
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute w-full h-[300vh] bg-gradient-to-br from-[#f44e8b] via-[#5557fc] to-[#f44e8b] opacity-20 blur-[120px] rounded-full" />
-      </div>
 
-      {/* Step 1: Fixed Sidebar with Selected Button Styling */}
-      <aside className="hidden md:flex fixed top-14 left-0 w-64 h-[calc(100vh-3.5rem)] p-6 border-r border-gray-200 bg-[#f7f7f7] backdrop-blur-lg shadow-sm z-10 flex-col">
-        <h2 className="text-lg font-semibold mb-6 text-gray-800">Guide Sections</h2>
-        <nav className="flex flex-col space-y-2">
-          {sections.map((section) => {
-            const isActive = activeSection === section;
-            return (
-              <button
-                key={section}
-                onClick={() => setActiveSection(section)}
-                className={`
-                  text-left text-sm font-lg px-4 py-2 rounded-xl transition
-                  ${isActive
-                    ? "bg-white border border-gray-200 shadow-xs text-gray-900 font-medium"
-                    : "text-gray-700 border border-transparent hover:bg-gray-200 hover:text-gray-900"}
-                `}
-              >
-                {section}
-              </button>
-            );
-          })}
-        </nav>
-      </aside>
-
-      {/* Content Area */}
-      <main className="flex-1 md:ml-64 p-6 md:p-10">
-        <h1 className="text-3xl font-bold">{activeSection}</h1>
-        <p className="mt-4 text-gray-600">Start adding content for <strong>{activeSection}</strong>...</p>
+      <Sidebar
+        title="Guide Sections"
+        sections={sections}
+        activeSection={activeSection}
+        onSectionClick={setActiveSection}
+        position="left"
+      />
+      
+      {/* --- Step 2.3: Render the component from the map --- */}
+      <main className="flex-1 md:ml-64 md:mr-64 p-6 md:p-10">
+        {/* This line dynamically renders the correct component */}
+        {contentMap[activeSection]}
       </main>
+
+      <Sidebar
+        title="On this page"
+        sections={sections}
+        activeSection={activeSection}
+        onSectionClick={setActiveSection}
+        position="right"
+      />
+
     </div>
   );
 }
