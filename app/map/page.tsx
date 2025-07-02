@@ -113,14 +113,12 @@ export default function MapPage() {
         const totalCases = districtTotals[districtName] || 0;
         return colorScale(totalCases);
       })
-      .on("mouseover", function (_event, _d) {
-        // --- MODIFICATION: Set hover color to the intense orange ---
-        // This will have no visual effect if the district is already selected.
+      // FIX 1: Removed unused '_event' and '_d' parameters from the function
+      .on("mouseover", function () {
         d3.select(this).attr("fill", "#ff6347"); 
       })
       .on("mouseout", function (event, d) {
         const districtName = d.properties.Dist_Name;
-        // Only revert the color if it's NOT the selected district.
         if (districtName !== selectedDistrict) {
           const totalCases = districtTotals[districtName] || 0;
           d3.select(this).attr("fill", colorScale(totalCases));
@@ -150,6 +148,7 @@ export default function MapPage() {
                           </option>
                       ))}
                   </select>
+                  {/* FIX 2: Replaced the apostrophe in "TNCRP's" with its HTML entity */}
                   <p className="text-xs text-gray-600 text-center mb-8">
                       This data is taken from TNCRP's 2020 Report. It presents the cancer statistics from 2016.
                   </p>

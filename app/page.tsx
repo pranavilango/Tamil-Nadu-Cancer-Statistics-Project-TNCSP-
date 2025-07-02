@@ -3,6 +3,7 @@
 import Hero from "./components/Hero";
 import ProblemBadge from "./components/ProblemBadge";
 import { useState, useEffect, useCallback } from "react";
+import Image from "next/image";
 
 export default function Home() {
 
@@ -151,7 +152,7 @@ export default function Home() {
         >
           {/* Elegant Icon Circle */}
           <div className="absolute top-[18%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-white rounded-full border-2 border-black flex items-center justify-center">
-            <img src="/map-icon.png" alt="Map Icon" className="w-8 h-8 object-contain" />
+            <Image src="/map-icon.png" alt="Map Icon" width={32} height={32} className="object-contain" />
           </div>
 
           <h2 className="bg-white text-black text-xl font-medium px-6 py-2 rounded-full mb-8 border border-black">
@@ -165,7 +166,7 @@ export default function Home() {
         >
           {/* Elegant Icon Circle */}
           <div className="absolute top-[18%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-white rounded-full border-2 border-black flex items-center justify-center">
-            <img src="/guide-icon.png" alt="Guide Icon" className="w-8 h-8 object-contain" />
+            <Image src="/guide-icon.png" alt="Guide Icon" width={32} height={32} className="object-contain" />
           </div>
 
           <h2 className="bg-white text-black text-xl font-medium px-6 py-2 rounded-full mb-8 border border-black">
@@ -179,7 +180,7 @@ export default function Home() {
         >
           {/* Elegant Icon Circle */}
           <div className="absolute top-[18%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-white rounded-full border-2 border-black flex items-center justify-center">
-            <img src="/report-icon.png" alt="Report Icon" className="w-8 h-8 object-contain" />
+            <Image src="/report-icon.png" alt="Report Icon" width={32} height={32} className="object-contain" />
           </div>
 
           <h2 className="bg-white text-black text-xl font-medium px-6 py-2 rounded-full mb-8 border border-black">
@@ -193,7 +194,7 @@ export default function Home() {
         >
           {/* Elegant Icon Circle */}
           <div className="absolute top-[18%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-white rounded-full border-2 border-black flex items-center justify-center">
-            <img src="/fund-icon.png" alt="Fund Icon" className="w-8 h-8 object-contain" />
+            <Image src="/fund-icon.png" alt="Fund Icon" width={32} height={32} className="object-contain" />
           </div>
           
           <h2 className="bg-white text-black text-xl font-medium px-6 py-2 rounded-full mb-8 border border-black">
@@ -201,13 +202,13 @@ export default function Home() {
           </h2>
         </div>
         <div
-          className="flex-1 h-full bg-[url('/mic-bg.jpg')] bg-cover bg-center border border-white rounded-2xl overflow-hidden
+          className="flex-1 h-full bg-[url('/mic-bg.jpg')] bg-cover bg-center border-white rounded-2xl overflow-hidden
                     grayscale hover:grayscale-0 cursor-pointer transition-all duration-300 ease-in-out
                     relative flex flex-col justify-end items-center"
         >
           {/* Elegant Icon Circle */}
           <div className="absolute top-[18%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-white rounded-full border-2 border-black flex items-center justify-center">
-            <img src="/interviews-icon.png" alt="Interviews Icon" className="w-8 h-8 object-contain" />
+            <Image src="/interviews-icon.png" alt="Interviews Icon" width={32} height={32} className="object-contain" />
           </div>
 
           <h2 className="bg-white text-black text-xl font-medium px-6 py-2 rounded-full mb-8 border border-black">
