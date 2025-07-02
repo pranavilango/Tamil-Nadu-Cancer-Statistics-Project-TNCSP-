@@ -77,20 +77,20 @@ export default function Home() {
 
       <section
         id="scroll-target"
-        // The `relative` class is crucial for positioning the absolute child button.
-        className="relative w-full h-[100vh] rounded-tl-4xl rounded-br-4xl flex flex-col justify-center items-center space-y-[2vh]"
+        className="relative w-full h-[100vh] rounded-tl-4xl rounded-br-4xl flex flex-col justify-center items-center space-y-6 md:space-y-[2vh] p-4"
       >
         <ProblemBadge index={index} />
 
-        {/* Main Text Button */}
         <h2
-          className="bg-gradient-to-t from-[#000000] to-[#878a89] bg-clip-text text-transparent text-center font-bold text-[3rem] z-4"
+          className="bg-gradient-to-t from-[#000000] to-[#878a89] bg-clip-text text-transparent text-center font-bold text-[2.25rem] leading-tight md:text-[3rem] z-4"
         >
           {problems[index].title}
         </h2>
 
-        {/* Navigation Buttons */}
-        <div className="flex items-center space-x-[12vw] z-5">
+        {/* --- START OF CORRECTED SECTION --- */}
+
+        {/* Desktop Layout: Hidden on mobile, flex on medium screens and up */}
+        <div className="hidden md:flex items-center space-x-[12vw] z-5">
           <button
             onClick={handlePrev}
             className={`-mt-22 w-10 h-10 rounded-full bg-black flex items-center justify-center cursor-pointer transition
@@ -118,8 +118,40 @@ export default function Home() {
           </button>
         </div>
 
-        {/* Pagination Dots */}
-        <div className="flex justify-center items-center mt-2 space-x-2">
+        {/* Mobile Layout: Block on mobile, hidden on medium screens and up */}
+        <div className="flex flex-col items-center gap-y-6 md:hidden z-5">
+          <span className="text-black text-lg font-medium max-w-sm text-center">
+            {problems[index].quote}
+          </span>
+          <div className="flex items-center space-x-12">
+            <button
+              onClick={handlePrev}
+              className={`w-10 h-10 rounded-full bg-black flex items-center justify-center cursor-pointer transition
+                hover:opacity-80
+                ${activeArrow === "left" ? "opacity-80 scale-105" : ""}
+              `}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+            <button
+              onClick={handleNext}
+              className={`w-10 h-10 rounded-full bg-black flex items-center justify-center cursor-pointer transition
+                  hover:opacity-80
+                  ${activeArrow === "right" ? "opacity-80 scale-105" : ""}
+                `}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        {/* --- END OF CORRECTED SECTION --- */}
+
+        <div className="flex justify-center items-center pt-2 md:pt-4 space-x-2">
           {problems.map((_, i) => (
             <button
               key={i}
@@ -137,80 +169,64 @@ export default function Home() {
 
       <section
         id="scroll-target-2"
-        className="w-full h-[100vh] bg-transparent flex p-4 gap-4 z-2"
+        className="w-full min-h-screen md:h-[100vh] bg-transparent flex flex-col md:flex-row p-4 gap-4 z-2"
       >
-        {/* 
-          Icon circles have been made smaller and moved higher up.
-          - Position is now `top-[18%]`.
-          - Circle size is `w-16 h-16`.
-          - Icon size is `w-8 h-8`.
-        */}
         <div
-          className="flex-1 h-full bg-[url('/map-bg.jpg')] bg-cover border border-white rounded-2xl overflow-hidden 
+          className="w-full h-72 md:h-full md:flex-1 bg-[url('/map-bg.jpg')] bg-cover border border-white rounded-2xl overflow-hidden 
                     grayscale hover:grayscale-0 cursor-pointer transition-all duration-300 ease-in-out
                     relative flex flex-col justify-end items-center"
         >
-          {/* Elegant Icon Circle */}
           <div className="absolute top-[18%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-white rounded-full border-2 border-black flex items-center justify-center">
             <Image src="/map-icon.png" alt="Map Icon" width={32} height={32} className="object-contain" />
           </div>
-
           <h2 className="bg-white text-black text-xl font-medium px-6 py-2 rounded-full mb-8 border border-black">
             map
           </h2>
         </div>
         <div
-          className="flex-1 h-full bg-[url('/book-bg.jpeg')] bg-cover bg-center border-white rounded-2xl overflow-hidden
+          className="w-full h-72 md:h-full md:flex-1 bg-[url('/book-bg.jpeg')] bg-cover bg-center border-white rounded-2xl overflow-hidden
                     grayscale hover:grayscale-0 cursor-pointer transition-all duration-300 ease-in-out
                     relative flex flex-col justify-end items-center"
         >
-          {/* Elegant Icon Circle */}
           <div className="absolute top-[18%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-white rounded-full border-2 border-black flex items-center justify-center">
             <Image src="/guide-icon.png" alt="Guide Icon" width={32} height={32} className="object-contain" />
           </div>
-
           <h2 className="bg-white text-black text-xl font-medium px-6 py-2 rounded-full mb-8 border border-black">
             guide
           </h2>
         </div>
         <div
-          className="flex-1 h-full bg-[url('/report-bg.jpg')] bg-cover bg-center border border-white rounded-2xl overflow-hidden
+          className="w-full h-72 md:h-full md:flex-1 bg-[url('/report-bg.jpg')] bg-cover bg-center border-white rounded-2xl overflow-hidden
                     grayscale hover:grayscale-0 cursor-pointer transition-all duration-300 ease-in-out
                     relative flex flex-col justify-end items-center"
         >
-          {/* Elegant Icon Circle */}
           <div className="absolute top-[18%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-white rounded-full border-2 border-black flex items-center justify-center">
             <Image src="/report-icon.png" alt="Report Icon" width={32} height={32} className="object-contain" />
           </div>
-
           <h2 className="bg-white text-black text-xl font-medium px-6 py-2 rounded-full mb-8 border border-black">
             report
           </h2>
         </div>
         <div
-          className="flex-1 h-full bg-[url('/money-bg.jpg')] bg-cover bg-center border border-white rounded-2xl overflow-hidden
+          className="w-full h-72 md:h-full md:flex-1 bg-[url('/money-bg.jpg')] bg-cover bg-center border-white rounded-2xl overflow-hidden
                     grayscale hover:grayscale-0 cursor-pointer transition-all duration-300 ease-in-out
                     relative flex flex-col justify-end items-center"
         >
-          {/* Elegant Icon Circle */}
           <div className="absolute top-[18%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-white rounded-full border-2 border-black flex items-center justify-center">
             <Image src="/fund-icon.png" alt="Fund Icon" width={32} height={32} className="object-contain" />
           </div>
-          
           <h2 className="bg-white text-black text-xl font-medium px-6 py-2 rounded-full mb-8 border border-black">
             fund
           </h2>
         </div>
         <div
-          className="flex-1 h-full bg-[url('/mic-bg.jpg')] bg-cover bg-center border-white rounded-2xl overflow-hidden
+          className="w-full h-72 md:h-full md:flex-1 bg-[url('/mic-bg.jpg')] bg-cover bg-center border-white rounded-2xl overflow-hidden
                     grayscale hover:grayscale-0 cursor-pointer transition-all duration-300 ease-in-out
                     relative flex flex-col justify-end items-center"
         >
-          {/* Elegant Icon Circle */}
           <div className="absolute top-[18%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-white rounded-full border-2 border-black flex items-center justify-center">
             <Image src="/interviews-icon.png" alt="Interviews Icon" width={32} height={32} className="object-contain" />
           </div>
-
           <h2 className="bg-white text-black text-xl font-medium px-6 py-2 rounded-full mb-8 border border-black">
             interviews
           </h2>

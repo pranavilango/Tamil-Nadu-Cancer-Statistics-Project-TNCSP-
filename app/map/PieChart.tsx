@@ -34,8 +34,9 @@ export default function PieChart({ data }: Props) {
     const radius = Math.min(width, height) / 2 - 10;
 
     const chart = svg
-      .attr("width", width)
-      .attr("height", height)
+      .attr("viewBox", `0 0 ${width} ${height}`)
+      .attr("width", "100%")
+      .attr("height", "100%")
       .append("g")
       .attr("transform", `translate(${width / 2}, ${height / 2})`);
 
@@ -106,35 +107,25 @@ export default function PieChart({ data }: Props) {
   }, [data, chartData, color]);
 
   return (
-    <div className="flex gap-4 items-center">
-      <div>
+    <div className="flex flex-col sm:flex-row gap-4 items-center justify-center w-full">
+      {/* FIX 2: Constrained chart width on mobile */}
+      <div className="w-full max-w-xs sm:max-w-none sm:w-auto">
         <svg ref={ref}></svg>
         <div id="d3-tooltip-container" />
       </div>
+      {/* FIX 3: Removed `scrollbar-hide` to make the legend visibly scrollable */}
       <div
-        style={{
-          maxHeight: "280px",
-          overflowY: "auto",
-          padding: "8px",
-          border: "1px solid #ccc",
-          borderRadius: "6px",
-          width: "160px",
-          fontSize: "11px",
-
-          /* Hide scrollbar */
-          scrollbarWidth: "none",       // Firefox
-          msOverflowStyle: "none",      // IE/Edge
-        }}
-        className="scrollbar-hide shadow-lg"
+        className="w-full sm:w-[160px] max-h-[200px] sm:max-h-[280px] overflow-y-auto p-2 border border-gray-300 rounded-lg shadow-inner bg-white"
       >
         {chartData.map((d, i) => (
-            <div key={i} className="flex items-center mb-2">
+            <div key={i} className="flex items-center mb-2 text-xs">
               <div
                 style={{
                   backgroundColor: color(d.type),
                   width: "10px",
                   height: "10px",
                   marginRight: "8px",
+                  flexShrink: 0,
                 }}
               />
               <span>{d.type}</span>

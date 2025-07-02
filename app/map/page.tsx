@@ -1,5 +1,3 @@
-// --- START OF FILE page.tsx ---
-
 "use client";
 
 import { useEffect, useRef, useState, useMemo } from "react";
@@ -124,53 +122,63 @@ export default function MapPage() {
       });
   }, [selectedDistrict, geoData, districtTotals]);
 
-  // --- JSX Layout (Unchanged) ---
+  // --- JSX Layout (RESPONSIVE) ---
   return (
-    <div className="w-full h-full flex justify-start items-center z-2">
-      <div className="fixed top-0 h-[100vh] w-[50vw] flex items-center justify-start z-50 ml-2 sm:ml-4 lg:ml-6">
-        <div className="w-full rounded-4xl bg-gray-100 flex z-3" style={{ boxShadow: "0 0 25px rgba(0,0,0,0.2)" }}>
-          <div className="w-2/5 flex flex-col justify-start rounded-l-4xl" style={{ boxShadow: "5px 0 15px rgba(0,0,0,0.1)" }}>
-              <div className="pt-5 pl-4 pr-4">
-                  <label htmlFor="district-select" className="block text-sm mb-2 font-semibold">
-                      District
-                  </label>
-                  <select
-                      id="district-select"
-                      className="w-[100%] border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-black mb-8"
-                      value={selectedDistrict}
-                      onChange={(e) => setSelectedDistrict(e.target.value)}
-                  >
-                      {geoData?.features.map((feature: DistrictFeature) => (
-                          <option key={feature.properties.Dist_Name} value={feature.properties.Dist_Name}>
-                              {feature.properties.Dist_Name}
-                          </option>
-                      ))}
-                  </select>
-                  <p className="text-xs text-gray-600 text-center mb-8">
-                      This data is taken from the 2020 Report of TNCRP. It presents the cancer statistics from 2016.
-                  </p>
-                  <p className="text-xs text-gray-600 text-center mb-8">
-                      The pie chart represents both male and female cases.
-                  </p>
-                  <p className="text-xs text-gray-600 text-center">
-                      Hovering on each slice of the pie chart presents a toolkit with gender-wise case data and proportion of the respective cancer type in relation to the total number of cases.
-                  </p>
-                  <div className="mt-8 bg-gray-200 rounded-lg p-3 text-center">
-                      <p className="text-xs text-gray-600 font-medium">
-                          Other selectors coming soon.
-                      </p>
-                  </div>
+    // FIX 1: Added `overflow-x-hidden` to prevent horizontal scrollbar on mobile.
+    <div className="w-full min-h-screen flex flex-col lg:flex-row lg:justify-start lg:items-center p-4 pt-20 lg:p-0 z-2 overflow-x-hidden">
+      
+      {/* Map & Selector Container */}
+      <div className="w-full lg:fixed lg:top-0 lg:h-[100vh] lg:w-[50vw] flex lg:items-center lg:justify-start z-50 lg:ml-6">
+        <div className="w-full rounded-4xl bg-gray-100 flex flex-col lg:flex-row z-3" style={{ boxShadow: "0 0 25px rgba(0,0,0,0.2)" }}>
+          
+          {/* Selector Panel */}
+          <div className="w-full lg:w-2/5 flex flex-col justify-start rounded-t-4xl lg:rounded-l-4xl lg:rounded-tr-none p-6" style={{ boxShadow: "0 5px 15px rgba(0,0,0,0.05)" }}>
+              <label htmlFor="district-select" className="block text-sm mb-2 font-semibold">
+                  District
+              </label>
+              <select
+                  id="district-select"
+                  className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-black"
+                  value={selectedDistrict}
+                  onChange={(e) => setSelectedDistrict(e.target.value)}
+              >
+                  {geoData?.features.map((feature: DistrictFeature) => (
+                      <option key={feature.properties.Dist_Name} value={feature.properties.Dist_Name}>
+                          {feature.properties.Dist_Name}
+                      </option>
+                  ))}
+              </select>
+              {/* Text hidden on mobile for a cleaner look, visible on desktop */}
+              <div className="hidden lg:block mt-8">
+                <p className="text-xs text-gray-600 text-center mb-4">
+                    This data is from the 2020 TNCRP Report, presenting statistics from 2016.
+                </p>
+                <p className="text-xs text-gray-600 text-center mb-4">
+                    The pie chart includes both male and female cases. Hover over slices for details.
+                </p>
+                <div className="mt-4 bg-gray-200 rounded-lg p-3 text-center">
+                    <p className="text-xs text-gray-600 font-medium">
+                        Other selectors coming soon.
+                    </p>
+                </div>
               </div>
           </div>
-          <div className="w-3/5">
-            <svg ref={svgRef} className="w-full h-auto m-4" />
+          
+          {/* Map SVG Container */}
+          {/* FIX 2: Centered map on mobile with max-width to prevent it from looking too wide. */}
+          <div className="w-full lg:w-3/5 p-4 flex justify-center">
+            <div className="w-full max-w-md lg:max-w-full">
+              <svg ref={svgRef} className="w-full h-auto" />
+            </div>
           </div>
         </div>
       </div>
-      <div className="ml-[52vw] w-[48vw] h-screen flex flex-col items-center justify-center px-6">
+
+      {/* Pie Chart Container */}
+      <div className="w-full mt-8 lg:mt-0 lg:ml-[52vw] lg:w-[48vw] h-auto lg:h-screen flex flex-col items-center justify-center px-2 lg:px-6">
         {selectedDistrict && cancerData && cancerData[selectedDistrict] && (
           <>
-            <h2 className="text-3xl font-bold mb-8 text-center">
+            <h2 className="text-2xl lg:text-3xl font-bold mb-4 lg:mb-8 text-center">
               Cancer in {selectedDistrict}
             </h2>
             <PieChart

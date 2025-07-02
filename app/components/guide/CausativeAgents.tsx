@@ -1,11 +1,19 @@
+import { Heading } from "./OnPageSidebar";
+
+export const causativeAgentsHeadings: Heading[] = [
+  { id: "genetics", title: "Genetics", level: 2 },
+  { id: "environmental-factors", title: "Environmental Factors", level: 2 },
+  { id: "lifestyle-choices", title: "Lifestyle Choices", level: 2 },
+  { id: "age-and-other-risks", title: "Age & Other Risks", level: 2 },
+];
+
 export default function CancerCauses() {
   return (
-    <section className="bg-white py-12 px-6 md:px-16 lg:px-24">
+    <section className="bg-white">
       <div className="max-w-5xl mx-auto space-y-10">
 
-        {/* Title */}
         <div className="text-center">
-          <h2 className="text-4xl md:text-5xl font-bold text-black">
+          <h2 className="text-3xl md:text-4xl font-bold text-black">
             ⚠️ What Causes Cancer?
           </h2>
           <p className="mt-4 text-lg md:text-xl text-gray-600 italic">
@@ -13,7 +21,6 @@ export default function CancerCauses() {
           </p>
         </div>
 
-        {/* Overview */}
         <div className="space-y-4 pt-4">
           <p className="text-black text-sm md:text-base leading-relaxed">
             At its core, cancer begins when a cell’s <strong>DNA is damaged or mutated</strong>.
@@ -26,8 +33,7 @@ export default function CancerCauses() {
           </p>
         </div>
 
-        {/* Section: Genetics */}
-        <div className="space-y-4 pt-4">
+        <div id="genetics" className="space-y-4 pt-4 scroll-mt-20">
           <h3 className="text-2xl font-semibold text-black">🧬 Genetics</h3>
           <p className="text-black text-sm md:text-base leading-relaxed">
             Some people are <strong>born with mutations</strong> in their DNA that raise their cancer risk. These are passed down through families and cannot be prevented.
@@ -40,8 +46,7 @@ export default function CancerCauses() {
           </p>
         </div>
 
-        {/* Section: Environment */}
-        <div className="space-y-4 pt-4">
+        <div id="environmental-factors" className="space-y-4 pt-4 scroll-mt-20">
           <h3 className="text-2xl font-semibold text-black">🌍 Environmental Factors</h3>
           <p className="text-black text-sm md:text-base leading-relaxed">
             Prolonged exposure to harmful substances in our surroundings is a leading cause of cancer.
@@ -57,8 +62,7 @@ export default function CancerCauses() {
           </p>
         </div>
 
-        {/* Section: Lifestyle */}
-        <div className="space-y-4 pt-4">
+        <div id="lifestyle-choices" className="space-y-4 pt-4 scroll-mt-20">
           <h3 className="text-2xl font-semibold text-black">💡 Lifestyle Choices</h3>
           <p className="text-black text-sm md:text-base leading-relaxed">
             Everyday habits play a major role in cancer risk.
@@ -71,8 +75,7 @@ export default function CancerCauses() {
           </p>
         </div>
 
-        {/* Section: Age & Other Factors */}
-        <div className="space-y-4 pt-4">
+        <div id="age-and-other-risks" className="space-y-4 pt-4 scroll-mt-20">
           <h3 className="text-2xl font-semibold text-black">⏳ Age & Other Risks</h3>
           <p className="text-black text-sm md:text-base leading-relaxed">
             As we age, our cells have more time to accumulate mutations — which is why cancer is more common in older adults.

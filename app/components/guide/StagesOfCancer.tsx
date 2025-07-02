@@ -1,11 +1,18 @@
+import { Heading } from "./OnPageSidebar";
+
+export const stagesOfCancerHeadings: Heading[] = [
+  { id: "tnm-system", title: "The TNM System", level: 2 },
+  { id: "stages-at-a-glance", title: "Stages 0 to IV — At a Glance", level: 2 },
+  { id: "why-staging-is-key", title: "Why Staging Is Key", level: 2 },
+];
+
 export default function StagesOfCancer() {
   return (
-    <section className="bg-white py-12 px-6 md:px-16 lg:px-24">
+    <section className="bg-white">
       <div className="max-w-5xl mx-auto space-y-10">
 
-        {/* Title */}
         <div className="text-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-black">
+          <h1 className="text-3xl md:text-4xl font-bold text-black">
             🧗‍♂️ Understanding Cancer Stages
           </h1>
           <p className="mt-4 text-lg md:text-xl text-gray-600 italic">
@@ -13,7 +20,6 @@ export default function StagesOfCancer() {
           </p>
         </div>
 
-        {/* Overview Paragraphs */}
         <div className="space-y-4 pt-4">
           <p className="text-black text-sm md:text-base">
             Cancer isn’t just one thing. Doctors classify it into <strong>stages from 0 to IV</strong> to describe how far it has grown or spread.
@@ -23,27 +29,27 @@ export default function StagesOfCancer() {
           </p>
         </div>
 
-        {/* TNM System Breakdown in a Styled Card */}
-        <div className="bg-gray-50 shadow-lg rounded-2xl border border-gray-200 p-6 md:p-8 space-y-4">
-          <h2 className="text-2xl font-semibold text-black">📊 The TNM System</h2>
-          <p className="text-black text-sm md:text-base">
-            One of the most common staging methods is the <strong>TNM system</strong>. It provides a detailed snapshot based on three key factors:
-          </p>
-          <ul className="list-disc list-inside text-black text-sm md:text-base space-y-2 pl-4">
-            <li>
-              <strong>T (Tumor):</strong> Measures the size and extent of the original tumor.
-            </li>
-            <li>
-              <strong>N (Nodes):</strong> Indicates whether the cancer has spread to nearby lymph nodes.
-            </li>
-            <li>
-              <strong>M (Metastasis):</strong> Confirms if the cancer has spread to distant parts of the body.
-            </li>
-          </ul>
+        <div id="tnm-system" className="scroll-mt-20">
+          <div className="bg-gray-50 shadow-lg rounded-2xl border border-gray-200 p-6 md:p-8 space-y-4">
+            <h2 className="text-2xl font-semibold text-black">📊 The TNM System</h2>
+            <p className="text-black text-sm md:text-base">
+              One of the most common staging methods is the <strong>TNM system</strong>. It provides a detailed snapshot based on three key factors:
+            </p>
+            <ul className="list-disc list-inside text-black text-sm md:text-base space-y-2 pl-4">
+              <li>
+                <strong>T (Tumor):</strong> Measures the size and extent of the original tumor.
+              </li>
+              <li>
+                <strong>N (Nodes):</strong> Indicates whether the cancer has spread to nearby lymph nodes.
+              </li>
+              <li>
+                <strong>M (Metastasis):</strong> Confirms if the cancer has spread to distant parts of the body.
+              </li>
+            </ul>
+          </div>
         </div>
 
-        {/* Stage Table */}
-        <div className="space-y-4 pt-4">
+        <div id="stages-at-a-glance" className="space-y-4 pt-4 scroll-mt-20">
           <h2 className="text-2xl font-semibold text-black">📶 Stages 0 to IV — At a Glance</h2>
           <div className="overflow-x-auto rounded-xl shadow-lg border border-gray-200">
             <table className="w-full table-auto text-left text-sm md:text-base text-black">
@@ -75,8 +81,7 @@ export default function StagesOfCancer() {
           </div>
         </div>
 
-        {/* Summary */}
-        <div className="space-y-4 pt-4 text-center">
+        <div id="why-staging-is-key" className="space-y-4 pt-4 text-center scroll-mt-20">
            <h3 className="text-2xl font-semibold text-black">Why Staging Is Key</h3>
           <p className="text-black text-sm md:text-base max-w-3xl mx-auto">
             Ultimately, <strong>early-stage cancers (0 & I)</strong> have the highest chance of successful treatment, while <strong>late-stage cancers (III & IV)</strong> are more complex and require more aggressive therapies. This is why early detection is so vital.
