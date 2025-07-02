@@ -146,9 +146,8 @@ export default function MapPage() {
                           </option>
                       ))}
                   </select>
-                  {/* FIX: Replaced ' with ' */}
                   <p className="text-xs text-gray-600 text-center mb-8">
-                      This data is taken from TNCRP's 2020 Report. It presents the cancer statistics from 2016.
+                      This data is taken from the 2020 Report of TNCRP. It presents the cancer statistics from 2016.
                   </p>
                   <p className="text-xs text-gray-600 text-center mb-8">
                       The pie chart represents both male and female cases.

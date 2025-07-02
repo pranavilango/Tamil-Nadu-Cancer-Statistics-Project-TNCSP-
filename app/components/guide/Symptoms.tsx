@@ -15,7 +15,7 @@ export default function Symptoms() {
             <div className="space-y-4 pt-4">
             {/* FIX: Replaced unescaped characters */}
             <p className="text-black text-sm md:text-base">
-                Cancer symptoms can vary widely depending on the type and location of the disease. Some early-stage cancers show <strong>no symptoms at all</strong>, while others share signs with common, less serious illnesses. That's why it's crucial to be vigilant and <strong>consult a doctor</strong> if you notice any persistent or unusual changes in your body.
+                Cancer symptoms can vary widely depending on the type and location of the disease. Some early-stage cancers show <strong>no symptoms at all</strong>, while others share signs with common, less serious illnesses. That is why it is crucial to be vigilant and <strong>consult a doctor</strong> if you notice any persistent or unusual changes in your body.
             </p>
             </div>
             <div className="bg-gray-50 shadow-lg rounded-2xl border border-gray-200 p-6 md:p-8 space-y-4">
@@ -24,7 +24,7 @@ export default function Symptoms() {
                     <li>Unexplained weight loss or gain</li>
                     <li>A lump or swelling anywhere</li>
                     {/* FIX: Replaced unescaped characters */}
-                    <li>A sore that doesn't heal</li>
+                    <li>A sore that does not heal</li>
                     <li>Unusual bleeding or discharge</li>
                     <li>Persistent cough or hoarseness</li>
                     <li>Difficulty swallowing</li>
@@ -58,7 +58,7 @@ export default function Symptoms() {
                         <h3 className="text-lg font-semibold text-black">🫁 Lung Cancer</h3>
                         <ul className="list-disc list-inside text-black text-sm md:text-base ml-2 mt-1">
                             {/* FIX: Replaced unescaped characters */}
-                            <li>A cough that doesn't go away</li>
+                            <li>A cough that does not go away</li>
                             <li>Chest pain or shortness of breath</li>
                             <li>Coughing up blood</li>
                         </ul>
@@ -74,10 +74,10 @@ export default function Symptoms() {
                 </div>
             </div>
             <div className="space-y-4 pt-4 text-center">
-                <h3 className="text-2xl font-semibold text-black">Don't Ignore the Signs</h3>
+                <h3 className="text-2xl font-semibold text-black">Do not Ignore the Signs</h3>
                 {/* FIX: Replaced unescaped characters */}
                 <p className="text-black text-sm md:text-base max-w-3xl mx-auto">
-                    If you notice any of these signs, <strong>don't wait.</strong> Seeing a doctor for a checkup can lead to a faster diagnosis and a much better outcome. It's not overreacting—it's being proactive about your health.
+                    If you notice any of these signs, <strong>do not wait.</strong> Seeing a doctor for a checkup can lead to a faster diagnosis and a much better outcome. It is not overreacting—it is being proactive about your health.
                 </p>
             </div>
         </div>
