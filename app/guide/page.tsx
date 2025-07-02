@@ -6,7 +6,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import Sidebar from "../components/guide/SideBar";
 import OnPageSidebar, { Heading } from "../components/guide/OnPageSidebar";
 
-// Import all components AND their heading data (imports remain the same)
+// Import all components AND their heading data
 import Introduction, { introductionHeadings } from "../components/guide/Introduction";
 import DiseaseMechanism, { diseaseMechanismHeadings } from "../components/guide/DiseaseMechanism";
 import CausativeAgents, { causativeAgentsHeadings } from "../components/guide/CausativeAgents";
@@ -16,6 +16,24 @@ import Detection, { detectionHeadings } from "../components/guide/Detection";
 import Stigmas, { stigmasHeadings } from "../components/guide/Stigmas";
 import Lifestyle, { lifestyleHeadings } from "../components/guide/Lifestyle";
 import Conclusion, { conclusionHeadings } from "../components/guide/Conclusion";
+
+// --- FIX: Moved headingsMap and contentMap outside the component ---
+// Since this data is static, it doesn't need to be recreated on every render.
+// This resolves the exhaustive-deps warning.
+const contentMap: { [key: string]: React.ReactNode } = {
+  "Introduction": <Introduction />, "Disease Mechanism": <DiseaseMechanism />,
+  "Causative Agents": <CausativeAgents />, "Stages of Cancer": <StagesOfCancer />,
+  "Symptoms": <Symptoms />, "Detection": <Detection />, "Stigmas": <Stigmas />,
+  "Lifestyle Changes": <Lifestyle />, "Conclusion": <Conclusion />,
+};
+
+const headingsMap: { [key:string]: Heading[] } = {
+  "Introduction": introductionHeadings, "Disease Mechanism": diseaseMechanismHeadings,
+  "Causative Agents": causativeAgentsHeadings, "Stages of Cancer": stagesOfCancerHeadings,
+  "Symptoms": symptomsHeadings, "Detection": detectionHeadings, "Stigmas": stigmasHeadings,
+  "Lifestyle Changes": lifestyleHeadings, "Conclusion": conclusionHeadings,
+};
+
 
 export default function GuidePage() {
   const router = useRouter();
@@ -29,30 +47,15 @@ export default function GuidePage() {
   const activeSection = searchParams.get('section') || sections[0];
   const [activeHeading, setActiveHeading] = useState('');
 
-  // --- State for Mobile Sidebars ---
   const [isLeftSidebarOpen, setIsLeftSidebarOpen] = useState(false);
   const [isRightSidebarOpen, setIsRightSidebarOpen] = useState(false);
 
   const isClickScrolling = useRef(false);
   const scrollTimeout = useRef<NodeJS.Timeout | null>(null);
 
-  const contentMap: { [key: string]: React.ReactNode } = {
-    "Introduction": <Introduction />, "Disease Mechanism": <DiseaseMechanism />,
-    "Causative Agents": <CausativeAgents />, "Stages of Cancer": <StagesOfCancer />,
-    "Symptoms": <Symptoms />, "Detection": <Detection />, "Stigmas": <Stigmas />,
-    "Lifestyle Changes": <Lifestyle />, "Conclusion": <Conclusion />,
-  };
-  
-  const headingsMap: { [key:string]: Heading[] } = {
-    "Introduction": introductionHeadings, "Disease Mechanism": diseaseMechanismHeadings,
-    "Causative Agents": causativeAgentsHeadings, "Stages of Cancer": stagesOfCancerHeadings,
-    "Symptoms": symptomsHeadings, "Detection": detectionHeadings, "Stigmas": stigmasHeadings,
-    "Lifestyle Changes": lifestyleHeadings, "Conclusion": conclusionHeadings,
-  };
-
   const handleSectionClick = (section: string) => {
     router.push(`/guide?section=${encodeURIComponent(section)}`, { scroll: false });
-    setIsLeftSidebarOpen(false); // Close mobile sidebar on selection
+    setIsLeftSidebarOpen(false);
   };
   
   const handleHeadingClick = (id: string) => {
@@ -60,7 +63,7 @@ export default function GuidePage() {
     setActiveHeading(id);
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     window.history.pushState(null, '', `#${id}`);
-    setIsRightSidebarOpen(false); // Close mobile sidebar on selection
+    setIsRightSidebarOpen(false);
 
     if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
     scrollTimeout.current = setTimeout(() => { isClickScrolling.current = false; }, 1000);
@@ -93,6 +96,7 @@ export default function GuidePage() {
       });
       if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
     };
+  // The dependency array is now correct because headingsMap is a true constant.
   }, [activeSection]);
 
   return (
@@ -107,7 +111,6 @@ export default function GuidePage() {
         onClose={() => setIsLeftSidebarOpen(false)}
       />
       
-      {/* Main content area now has padding that works for both mobile and desktop */}
       <main className="flex-1 md:ml-64 md:mr-64 p-6 md:p-10 pb-24 md:pb-10">
         {contentMap[activeSection]}
       </main>
@@ -120,7 +123,6 @@ export default function GuidePage() {
         onClose={() => setIsRightSidebarOpen(false)}
       />
 
-      {/* --- Mobile Bottom Navigation Bar --- */}
       <div className="md:hidden fixed bottom-0 left-0 w-full h-16 bg-white/95 backdrop-blur-sm border-t border-gray-200 flex justify-around items-center z-20">
         <button 
           onClick={() => setIsLeftSidebarOpen(true)}

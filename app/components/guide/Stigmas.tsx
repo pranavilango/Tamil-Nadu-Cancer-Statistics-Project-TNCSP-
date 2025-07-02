@@ -20,7 +20,7 @@ export default function Stigmas() {
             🧠 Cancer and Stigma: The Battle Beyond the Body
           </h2>
           <p className="mt-4 text-lg md:text-xl text-gray-600 italic">
-            Fighting cancer isn't just about medicine — it's about mindset, too.
+            Fighting cancer is not just about medicine — it is about mindset, too.
           </p>
         </div>
 
@@ -83,8 +83,8 @@ export default function Stigmas() {
         <div id="change-starts-with-us" className="text-center pt-8 scroll-mt-20">
           <h3 className="text-2xl font-semibold text-black">🌱 Change Starts with Us</h3>
           <p className="mt-2 text-black text-sm md:text-base max-w-3xl mx-auto">
-            Curing cancer requires medicine. But defeating stigma takes courage, conversation, and compassion. Let’s stop whispering and start listening. Let’s treat patients as people — with respect, with love, and with hope.
-            Because cancer doesn’t isolate people — stigma does. And we all have the power to end it.
+            Curing cancer requires medicine. But defeating stigma takes courage, conversation, and compassion. Let us stop whispering and start listening. Let us treat patients as people — with respect, with love, and with hope.
+            Because cancer does not isolate people — stigma does. And we all have the power to end it.
           </p>
         </div>
       </div>
