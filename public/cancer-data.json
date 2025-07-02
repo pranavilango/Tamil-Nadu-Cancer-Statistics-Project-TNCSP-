@@ -975,7 +975,7 @@
     "Others and Unspecified": { "Male": 2, "Female": 1 },
     "Primary Uncertain": { "Male": 17, "Female": 10 }
   },
-  "Pudukottai": {
+  "Pudukkottai": {
     "Lip": { "Male": 2, "Female": 0 },
     "Tongue": { "Male": 11, "Female": 10 },
     "Mouth": { "Male": 44, "Female": 29 },
