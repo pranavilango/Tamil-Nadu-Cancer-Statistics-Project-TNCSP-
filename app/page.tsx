@@ -2,7 +2,6 @@
 
 import Hero from "./components/Hero";
 import ProblemBadge from "./components/ProblemBadge";
-import { motion } from 'framer-motion';
 import { useState, useEffect, useCallback } from "react";
 
 export default function Home() {
