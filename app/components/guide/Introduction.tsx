@@ -3,7 +3,7 @@
 import { useEffect, useState, useMemo } from "react";
 import * as d3 from "d3";
 import StaticMap from './StaticMap'; 
-import { Feature, FeatureCollection, Geometry } from "geojson";
+import { FeatureCollection } from "geojson";
 
 // --- Types needed for the data fetching ---
 interface CancerCounts {

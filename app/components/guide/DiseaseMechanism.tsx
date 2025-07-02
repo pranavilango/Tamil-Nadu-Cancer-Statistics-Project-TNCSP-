@@ -52,7 +52,7 @@ export default function DiseaseMechanism() {
         <div className="space-y-4 pt-4">
           <h2 className="text-2xl font-semibold text-black">🧬 The Root Cause: Genetic Mutations</h2>
           <p className="text-black text-sm md:text-base">
-            At its core, cancer is a genetic disease. It's caused by <strong>mutations</strong> in a cell’s DNA that hijack its instruction manual. Some of these mutations are <strong>inherited</strong>, but most are <strong>acquired</strong> over a lifetime due to environmental factors or random errors during cell division. These mutations effectively tell the cell to "grow, grow, grow" when it shouldn't.
+            At its core, cancer is a genetic disease. It's caused by <strong>mutations</strong> in a cell's DNA that hijack its instruction manual. Some of these mutations are <strong>inherited</strong>, but most are <strong>acquired</strong> over a lifetime due to environmental factors or random errors during cell division. These mutations effectively tell the cell to "grow, grow, grow" when it shouldn't.
           </p>
         </div>
 
@@ -60,7 +60,7 @@ export default function DiseaseMechanism() {
         <div className="space-y-4 pt-4">
           <h2 className="text-2xl font-semibold text-black">🧩 One Name, Many Diseases</h2>
           <p className="text-black text-sm md:text-base">
-            It's crucial to remember that "cancer" isn’t one disease — it’s a group of <strong>over 100 distinct types</strong>. Some grow fast, others slow. Some are best treated with surgery, while others require <strong>chemotherapy</strong> or <strong>radiation</strong>. Understanding the specific type of cancer is the most important step in choosing the right treatment plan.
+            It's crucial to remember that "cancer" isn't one disease — it's a group of <strong>over 100 distinct types</strong>. Some grow fast, others slow. Some are best treated with surgery, while others require <strong>chemotherapy</strong> or <strong>radiation</strong>. Understanding the specific type of cancer is the most important step in choosing the right treatment plan.
           </p>
         </div>
 

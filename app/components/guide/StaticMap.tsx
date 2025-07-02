@@ -2,11 +2,17 @@
 
 import { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
-import { FeatureCollection, Geometry } from 'geojson';
+import { Feature, FeatureCollection, Geometry } from 'geojson';
+
+// Define a more specific type for our GeoJSON features
+interface DistrictProperties {
+  Dist_Name: string;
+}
+type DistrictFeature = Feature<Geometry, DistrictProperties>;
 
 // Define the types for the data this component receives
 interface DistrictTotals {
-  [key: string]: number;
+  [key:string]: number;
 }
 interface StaticMapProps {
   geoData: FeatureCollection<Geometry>;
@@ -58,14 +64,14 @@ export default function StaticMap({ geoData, districtTotals }: StaticMapProps) {
 
     svg
       .selectAll('path')
-      .data(geoData.features)
+      .data(geoData.features as DistrictFeature[])
       .enter()
       .append('path')
       .attr('d', pathGenerator)
       // --- MODIFICATION 2: Apply the new styles to each district path ---
       .attr('stroke', '#000') // Set border color to black
       .attr('stroke-width', 0.5) // Slightly thicker border for better visibility
-      .attr('fill', (d: any) => {
+      .attr('fill', (d: DistrictFeature) => {
         const districtName = d.properties.Dist_Name;
         const totalCases = districtTotals[districtName] || 0;
         return colorScale(totalCases);

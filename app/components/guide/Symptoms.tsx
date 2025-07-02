@@ -83,7 +83,7 @@ export default function Symptoms() {
             <div className="space-y-4 pt-4 text-center">
                 <h3 className="text-2xl font-semibold text-black">Don't Ignore the Signs</h3>
                 <p className="text-black text-sm md:text-base max-w-3xl mx-auto">
-                    If you notice any of these signs, <strong>don’t wait.</strong> Seeing a doctor for a checkup can lead to a faster diagnosis and a much better outcome. It’s not overreacting—it’s being proactive about your health.
+                    If you notice any of these signs, <strong>don’t wait.</strong> Seeing a doctor for a checkup can lead to a faster diagnosis and a much better outcome. It's not overreacting—it's being proactive about your health.
                 </p>
             </div>
         </div>

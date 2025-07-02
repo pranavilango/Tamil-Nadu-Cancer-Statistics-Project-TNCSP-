@@ -113,7 +113,7 @@ export default function MapPage() {
         const totalCases = districtTotals[districtName] || 0;
         return colorScale(totalCases);
       })
-      .on("mouseover", function (event, d) {
+      .on("mouseover", function (_event, _d) {
         // --- MODIFICATION: Set hover color to the intense orange ---
         // This will have no visual effect if the district is already selected.
         d3.select(this).attr("fill", "#ff6347"); 
