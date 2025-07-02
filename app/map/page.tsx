@@ -1,3 +1,5 @@
+// --- START OF FILE page.tsx ---
+
 "use client";
 
 import { useEffect, useRef, useState, useMemo } from "react";
@@ -60,9 +62,7 @@ export default function MapPage() {
   }, [cancerData]);
 
 
-  // --- D3 RENDERING LOGIC ---
-
-  // HOOK 1: Draws the initial map structure. (Unchanged)
+  // --- D3 RENDERING LOGIC (Unchanged) ---
   useEffect(() => {
     if (!geoData || !svgRef.current) return;
 
@@ -93,7 +93,6 @@ export default function MapPage() {
 
   }, [geoData]);
 
-  // HOOK 2: Updates colors and interactions based on state.
   useEffect(() => {
     if (!geoData || !svgRef.current || !districtTotals) return;
 
@@ -113,7 +112,6 @@ export default function MapPage() {
         const totalCases = districtTotals[districtName] || 0;
         return colorScale(totalCases);
       })
-      // FIX 1: Removed unused '_event' and '_d' parameters from the function
       .on("mouseover", function () {
         d3.select(this).attr("fill", "#ff6347"); 
       })
@@ -148,7 +146,7 @@ export default function MapPage() {
                           </option>
                       ))}
                   </select>
-                  {/* FIX 2: Replaced the apostrophe in "TNCRP's" with its HTML entity */}
+                  {/* FIX: Replaced ' with ' */}
                   <p className="text-xs text-gray-600 text-center mb-8">
                       This data is taken from TNCRP's 2020 Report. It presents the cancer statistics from 2016.
                   </p>
