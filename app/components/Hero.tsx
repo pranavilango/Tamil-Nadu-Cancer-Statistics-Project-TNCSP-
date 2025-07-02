@@ -4,11 +4,15 @@ import { Typewriter } from 'react-simple-typewriter';
 
 export default function Hero() {  
   return (
-    <main className="relative h-screen overflow-hidden">
+    // --- FIX: Changed `h-screen overflow-hidden` to `min-h-screen` ---
+    // This allows the container to grow on small screens to fit all content,
+    // while still filling the screen on larger devices.
+    <main className="relative min-h-screen">
 
-      <section className="relative z-10 flex flex-col items-center text-white mt-[176px]">
+      <section className="relative z-10 flex flex-col items-center text-white pt-28 md:pt-[176px] px-4">
         <h1
-          className="text-[4rem] font-bold tracking-[-0.04em] text-center
+          // Responsive font size and top margin for better mobile layout
+          className="text-[2.75rem] md:text-[4rem] font-bold tracking-[-0.04em] text-center
                     leading-tight bg-gradient-to-r from-[#5557fc] via-[#f44e8b] to-[#5557fc]
                     bg-clip-text text-transparent"
         >
@@ -27,7 +31,7 @@ export default function Hero() {
         </h1>
 
 
-        <p className="mt-2 text-center text-black text-lg sm:text-xl font-medium leading-relaxed max-w-3xl mx-auto">
+        <p className="mt-4 text-center text-black text-lg sm:text-xl font-medium leading-relaxed max-w-3xl mx-auto">
           An applied public health project<br />
           leveraging open data for community-driven awareness.
         </p>
