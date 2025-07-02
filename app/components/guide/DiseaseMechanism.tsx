@@ -8,7 +8,7 @@ export default function DiseaseMechanism() {
           <h1 className="text-4xl md:text-5xl font-bold text-black">
             🔬 What Actually Happens in the Body?
           </h1>
-          <p className="mt-4 text-lg md:text-xl text-gray-60-italic">
+          <p className="mt-4 text-lg md:text-xl text-gray-600 italic">
             The biology behind cancer — explained simply.
           </p>
         </div>
