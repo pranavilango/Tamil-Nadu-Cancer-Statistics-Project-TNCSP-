@@ -1,12 +1,12 @@
-'use client';
+'use client'; // Keep this here for the new component structure
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, Suspense } from "react"; // Add Suspense
 import { useRouter, useSearchParams } from 'next/navigation';
 
 import Sidebar from "../components/guide/SideBar";
 import OnPageSidebar, { Heading } from "../components/guide/OnPageSidebar";
 
-// Import all components AND their heading data
+// Import all components AND their heading data (imports remain the same)
 import Introduction, { introductionHeadings } from "../components/guide/Introduction";
 import DiseaseMechanism, { diseaseMechanismHeadings } from "../components/guide/DiseaseMechanism";
 import CausativeAgents, { causativeAgentsHeadings } from "../components/guide/CausativeAgents";
@@ -17,9 +17,6 @@ import Stigmas, { stigmasHeadings } from "../components/guide/Stigmas";
 import Lifestyle, { lifestyleHeadings } from "../components/guide/Lifestyle";
 import Conclusion, { conclusionHeadings } from "../components/guide/Conclusion";
 
-// --- FIX: Moved headingsMap and contentMap outside the component ---
-// Since this data is static, it doesn't need to be recreated on every render.
-// This resolves the exhaustive-deps warning.
 const contentMap: { [key: string]: React.ReactNode } = {
   "Introduction": <Introduction />, "Disease Mechanism": <DiseaseMechanism />,
   "Causative Agents": <CausativeAgents />, "Stages of Cancer": <StagesOfCancer />,
@@ -34,8 +31,8 @@ const headingsMap: { [key:string]: Heading[] } = {
   "Lifestyle Changes": lifestyleHeadings, "Conclusion": conclusionHeadings,
 };
 
-
-export default function GuidePage() {
+// --- STEP 1: Create a new component for all the client-side logic ---
+function GuideView() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -96,7 +93,6 @@ export default function GuidePage() {
       });
       if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
     };
-  // The dependency array is now correct because headingsMap is a true constant.
   }, [activeSection]);
 
   return (
@@ -144,5 +140,14 @@ export default function GuidePage() {
         </button>
       </div>
     </div>
+  );
+}
+
+// --- STEP 2: The main page export now wraps the client component in Suspense ---
+export default function GuidePage() {
+  return (
+    <Suspense fallback={<div className="w-full h-screen flex items-center justify-center">Loading Guide...</div>}>
+      <GuideView />
+    </Suspense>
   );
 }
