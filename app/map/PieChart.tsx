@@ -64,7 +64,7 @@ export default function PieChart({ data }: Props) {
       .data(pie(chartData))
       .enter()
       .append("path")
-      .attr("d", arc as any)
+      .attr("d", arc)
       .attr("fill", (d) => color(d.data.type))
       .attr("stroke", "#fff")
       .attr("stroke-width", 0.5)
@@ -103,7 +103,7 @@ export default function PieChart({ data }: Props) {
     return () => {
       tooltip.style("opacity", 0);
     };
-  }, [data]);
+  }, [data, chartData, color]);
 
   return (
     <div className="flex gap-4 items-center">

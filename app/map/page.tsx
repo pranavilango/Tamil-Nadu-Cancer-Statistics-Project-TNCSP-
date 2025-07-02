@@ -1,66 +1,61 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import * as d3 from "d3";
-import { Range } from "react-range";
 import PieChart from "./PieChart";
+import { Feature, FeatureCollection, Geometry } from "geojson";
+
+// Define types for our data
+interface DistrictProperties {
+  Dist_Name: string;
+}
+
+type DistrictFeature = Feature<Geometry, DistrictProperties>;
+type DistrictFeatureCollection = FeatureCollection<Geometry, DistrictProperties>;
+
+interface CancerCounts {
+  Male?: number;
+  Female?: number;
+}
+
+interface CancerData {
+  [district: string]: {
+    [cancerType: string]: CancerCounts;
+  };
+}
 
 export default function MapPage() {
-  const STEP = 10;
-  const MIN = 0;
-  const MAX = 100;
-
   const svgRef = useRef<SVGSVGElement | null>(null);
-  const [data, setData] = useState<any>(null);
+  const [data, setData] = useState<DistrictFeatureCollection | null>(null);
   const [selectedDistrict, setSelectedDistrict] = useState("");
-  const [selectedGenders, setSelectedGenders] = useState<string[]>([]);
-  const [values, setValues] = useState<[number, number]>([20, 60]);
-  const [cancerData, setCancerData] = useState<any>(null);
+  const [cancerData, setCancerData] = useState<CancerData | null>(null);
 
   useEffect(() => {
     fetch("/cancer-data.json")
       .then((res) => res.json())
-      .then((json) => {
+      .then((json: CancerData) => {
         console.log("Loaded cancer data:", json);
         setCancerData(json);
       })
       .catch((err) => console.error("Error loading cancer data:", err));
   }, []);
 
-  const handleChange = (vals: number[]) => {
-    if (vals.length !== 2 || vals[0] === vals[1]) return;
-    setValues([vals[0], vals[1]]);
-  };
-
-  const toggleGender = (gender: string) => {
-    setSelectedGenders((prev) =>
-      prev.includes(gender)
-        ? prev.filter((g) => g !== gender)
-        : [...prev, gender]
-    );
-  };
-
   useEffect(() => {
-    d3.json("/tn_districts.geojson").then((geojson: any) => {
-      setData(geojson);
+    d3.json<DistrictFeatureCollection>("/tn_districts.geojson").then((geojson) => {
+      if (geojson) {
+        setData(geojson);
+      }
     });
   }, []);
 
-  function formatForChart(rawData: any) {
-    return Object.entries(rawData).map(([type, counts]: [string, any]) => ({
-      type,
-      Male: counts.Male ?? 0,
-      Female: counts.Female ?? 0,
-      Total: (counts.Male ?? 0) + (counts.Female ?? 0),
-    }));
-  }
-
-  const handleDistrictClick = (feature: any) => {
+  const handleDistrictClick = useCallback((feature: DistrictFeature) => {
     const svg = d3.select(svgRef.current);
-    const allPaths = svg.selectAll("path");
+    if (!svg.node()) return;
+
+    const allPaths = svg.selectAll<SVGPathElement, DistrictFeature>("path");
 
     const clickedPath = allPaths.filter(
-      (d: any) => d.properties.Dist_Name === feature.properties.Dist_Name
+      (d) => d.properties.Dist_Name === feature.properties.Dist_Name
     );
 
     const isAlreadyClicked = clickedPath.attr("data-clicked") === "true";
@@ -79,7 +74,7 @@ export default function MapPage() {
       clickedPath.attr("fill", "#ff6347").attr("data-clicked", "true");
       setSelectedDistrict(feature.properties.Dist_Name);
     }
-  };
+  }, []);
 
   useEffect(() => {
     if (!data || !svgRef.current) return;
@@ -109,7 +104,7 @@ export default function MapPage() {
       .data(data.features)
       .enter()
       .append("path")
-      .attr("d", path as any)
+      .attr("d", path)
       .attr("fill", (_, i) => colorScale(i))
       .attr("stroke", "#000")
       .attr("stroke-width", 0.35)
@@ -127,14 +122,14 @@ export default function MapPage() {
         const isClicked = d3.select(this).attr("data-clicked") === "true";
         if (!isClicked) {
           const originalColor = d3.select(this).attr("data-original-fill");
-          d3.select(this).attr("fill", originalColor);
+          d3.select(this).attr("fill", originalColor as string);
         }
       })
       .style("cursor", "pointer")
-      .on("click", function (event, d) {
+      .on("click", function (event, d: DistrictFeature) {
         handleDistrictClick(d);
       });
-  }, [data]);
+  }, [data, handleDistrictClick]);
 
   return (
     <div className="w-full h-full flex justify-start items-center z-2">
@@ -164,7 +159,7 @@ export default function MapPage() {
                     return;
                   }
                   const selectedFeature = data?.features.find(
-                    (feature: any) => feature.properties.Dist_Name === districtName
+                    (feature: DistrictFeature) => feature.properties.Dist_Name === districtName
                   );
                   if (selectedFeature) {
                     handleDistrictClick(selectedFeature);
@@ -172,74 +167,13 @@ export default function MapPage() {
                 }}
               >
                 <option value="">choose</option>
-                {data?.features.map((feature: any) => (
+                {data?.features.map((feature: DistrictFeature) => (
                   <option key={feature.properties.Dist_Name} value={feature.properties.Dist_Name}>
                     {feature.properties.Dist_Name}
                   </option>
                 ))}
               </select>
             </div>
-
-            {/* <div className="pt-5 pl-4 pr-4">
-              <label htmlFor="year-select" className="block text-sm mb-1">
-                Year
-              </label>
-              <select
-                id="year"
-                name="year"
-                className="border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:ring-1 focus:ring-black"
-                defaultValue="2023"
-              >
-                <option value="2023">2023</option>
-                <option value="2022">2022</option>
-                <option value="2021">2021</option>
-              </select>
-            </div> */}
-
-            {/* <div className="pt-5 pl-4 pr-4">
-              <label htmlFor="type-select" className="block text-sm mb-1">
-                Cancer Type
-              </label>
-              <select
-                id="cancer-type"
-                name="cancer-type"
-                className="border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:ring-1 focus:ring-black"
-                defaultValue="all"
-              >
-                <option value="all">All Types</option>
-                <option value="ureter">Ureter</option>
-                <option value="urethra">Urethra</option>
-                <option value="uterus">Uterus</option>
-                <option value="vagina">Vagina</option>
-              </select>
-            </div> */}
-
-            {/* <div className="pt-5 pl-4 pr-4">
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Gender
-              </label>
-              <div className="flex space-x-2">
-                {["Male", "Female"].map((gender) => {
-                  const isSelected = selectedGenders.includes(gender.toLowerCase());
-                  return (
-                    <button
-                      key={gender}
-                      type="button"
-                      onClick={() => toggleGender(gender.toLowerCase())}
-                      className={`px-3 py-1.5 rounded-full text-sm border 
-                        ${
-                          isSelected
-                            ? "bg-gray-200 border-gray-300"
-                            : "border-gray-300 text-gray-800 hover:bg-gray-200"
-                        } 
-                        transition-colors duration-200`}
-                    >
-                      {gender}
-                    </button>
-                  );
-                })}
-              </div>
-            </div> */}
           </div>
 
           <div className="w-3/5">
