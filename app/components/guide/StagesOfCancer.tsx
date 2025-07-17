@@ -29,7 +29,7 @@ export default function StagesOfCancer() {
           </p>
         </div>
 
-        <div id="tnm-system" className="scroll-mt-20">
+        <div id="tnm-system" className="scroll-mt-24">
           <div className="bg-gray-50 shadow-lg rounded-2xl border border-gray-200 p-6 md:p-8 space-y-4">
             <h2 className="text-2xl font-semibold text-black">📊 The TNM System</h2>
             <p className="text-black text-sm md:text-base">
@@ -49,7 +49,7 @@ export default function StagesOfCancer() {
           </div>
         </div>
 
-        <div id="stages-at-a-glance" className="space-y-4 pt-4 scroll-mt-20">
+        <div id="stages-at-a-glance" className="space-y-4 pt-4 scroll-mt-24">
           <h2 className="text-2xl font-semibold text-black">📶 Stages 0 to IV — At a Glance</h2>
           <div className="overflow-x-auto rounded-xl shadow-lg border border-gray-200">
             <table className="w-full table-auto text-left text-sm md:text-base text-black">
@@ -81,7 +81,7 @@ export default function StagesOfCancer() {
           </div>
         </div>
 
-        <div id="why-staging-is-key" className="space-y-4 pt-4 text-center scroll-mt-20">
+        <div id="why-staging-is-key" className="space-y-4 pt-4 text-center scroll-mt-24">
            <h3 className="text-2xl font-semibold text-black">Why Staging Is Key</h3>
           <p className="text-black text-sm md:text-base max-w-3xl mx-auto">
             Ultimately, <strong>early-stage cancers (0 & I)</strong> have the highest chance of successful treatment, while <strong>late-stage cancers (III & IV)</strong> are more complex and require more aggressive therapies. This is why early detection is so vital.

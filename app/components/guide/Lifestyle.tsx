@@ -27,7 +27,7 @@ export default function Lifestyle() {
           </p>
         </div>
 
-        <div id="key-pillars" className="scroll-mt-20 pt-4">
+        <div id="key-pillars" className="scroll-mt-24 pt-4">
            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="bg-gray-50 shadow-lg rounded-2xl border border-gray-200 p-6 flex flex-col space-y-3">
               <h3 className="text-xl font-semibold text-black">🚬 Tobacco & Alcohol</h3>
@@ -50,7 +50,7 @@ export default function Lifestyle() {
           </div>
         </div>
 
-        <div id="other-critical-factors" className="space-y-4 pt-4 scroll-mt-20">
+        <div id="other-critical-factors" className="space-y-4 pt-4 scroll-mt-24">
           <h2 className="text-2xl font-semibold text-black text-center">Other Critical Factors</h2>
           <div className="bg-gray-50 shadow-lg rounded-2xl border border-gray-200 p-6 md:p-8 mt-6 space-y-6">
             <p className="text-black text-sm md:text-base leading-relaxed">
@@ -70,7 +70,7 @@ export default function Lifestyle() {
           </div>
         </div>
 
-        <div id="prevention-starts-with-you" className="text-center pt-8 scroll-mt-20">
+        <div id="prevention-starts-with-you" className="text-center pt-8 scroll-mt-24">
           <h3 className="text-2xl font-semibold text-black">💡 Prevention Starts With You</h3>
           <p className="mt-2 text-black text-sm md:text-base max-w-3xl mx-auto leading-relaxed">
             Cancer prevention isn’t about fear—it’s about informed choices. What you eat, how you move, and how you manage stress all play a role. Start small. Stay consistent. You deserve a healthy future.

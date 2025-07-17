@@ -34,7 +34,7 @@ export default function Stigmas() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4">
-          <div id="isolation-at-home" className="bg-gray-50 shadow-lg rounded-2xl border border-gray-200 p-6 space-y-4 flex flex-col scroll-mt-20">
+          <div id="isolation-at-home" className="bg-gray-50 shadow-lg rounded-2xl border border-gray-200 p-6 space-y-4 flex flex-col scroll-mt-mt-24">
             <h3 className="text-2xl font-semibold text-black">🧱 Isolation Begins at Home</h3>
             <div className="text-black text-sm md:text-base space-y-3 leading-relaxed">
               <p>
@@ -45,7 +45,7 @@ export default function Stigmas() {
               </p>
             </div>
           </div>
-          <div id="women-double-burden" className="bg-gray-50 shadow-lg rounded-2xl border border-gray-200 p-6 space-y-4 flex flex-col scroll-mt-20">
+          <div id="women-double-burden" className="bg-gray-50 shadow-lg rounded-2xl border border-gray-200 p-6 space-y-4 flex flex-col scroll-mt-mt-24">
             <h3 className="text-2xl font-semibold text-black">👩‍⚕️ Women Face Double the Burden</h3>
             <div className="text-black text-sm md:text-base space-y-3 leading-relaxed">
               <p>
@@ -56,7 +56,7 @@ export default function Stigmas() {
               </p>
             </div>
           </div>
-          <div id="more-than-hair-loss" className="bg-gray-50 shadow-lg rounded-2xl border border-gray-200 p-6 space-y-4 flex flex-col scroll-mt-20">
+          <div id="more-than-hair-loss" className="bg-gray-50 shadow-lg rounded-2xl border border-gray-200 p-6 space-y-4 flex flex-col scroll-mt-mt-24">
             <h3 className="text-2xl font-semibold text-black">💇‍♀️ More Than Just Hair Loss</h3>
             <div className="text-black text-sm md:text-base space-y-3 leading-relaxed">
               <p>
@@ -67,7 +67,7 @@ export default function Stigmas() {
               </p>
             </div>
           </div>
-          <div id="price-of-survival" className="bg-gray-50 shadow-lg rounded-2xl border border-gray-200 p-6 space-y-4 flex flex-col scroll-mt-20">
+          <div id="price-of-survival" className="bg-gray-50 shadow-lg rounded-2xl border border-gray-200 p-6 space-y-4 flex flex-col scroll-mt-mt-24">
             <h3 className="text-2xl font-semibold text-black">💸 The Price of Survival</h3>
             <div className="text-black text-sm md:text-base space-y-3 leading-relaxed">
               <p>
@@ -80,7 +80,7 @@ export default function Stigmas() {
           </div>
         </div>
 
-        <div id="change-starts-with-us" className="text-center pt-8 scroll-mt-20">
+        <div id="change-starts-with-us" className="text-center pt-8 scroll-mt-mt-24">
           <h3 className="text-2xl font-semibold text-black">🌱 Change Starts with Us</h3>
           <p className="mt-2 text-black text-sm md:text-base max-w-3xl mx-auto">
             Curing cancer requires medicine. But defeating stigma takes courage, conversation, and compassion. Let us stop whispering and start listening. Let us treat patients as people — with respect, with love, and with hope.

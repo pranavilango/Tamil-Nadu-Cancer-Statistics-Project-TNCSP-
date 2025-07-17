@@ -1,12 +1,13 @@
-'use client'; // Keep this here for the new component structure
+// --- File: page.tsx ---
+'use client'; 
 
-import { useState, useEffect, useRef, Suspense } from "react"; // Add Suspense
+import { useState, useEffect, useRef, Suspense } from "react";
 import { useRouter, useSearchParams } from 'next/navigation';
 
 import Sidebar from "../components/guide/SideBar";
 import OnPageSidebar, { Heading } from "../components/guide/OnPageSidebar";
 
-// Import all components AND their heading data (imports remain the same)
+// (Imports for content components remain the same)
 import Introduction, { introductionHeadings } from "../components/guide/Introduction";
 import DiseaseMechanism, { diseaseMechanismHeadings } from "../components/guide/DiseaseMechanism";
 import CausativeAgents, { causativeAgentsHeadings } from "../components/guide/CausativeAgents";
@@ -31,7 +32,6 @@ const headingsMap: { [key:string]: Heading[] } = {
   "Lifestyle Changes": lifestyleHeadings, "Conclusion": conclusionHeadings,
 };
 
-// --- STEP 1: Create a new component for all the client-side logic ---
 function GuideView() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -77,7 +77,8 @@ function GuideView() {
           }
         });
       },
-      { rootMargin: "-20% 0px -70% 0px" } 
+      // Adjusted rootMargin to better suit the new layout
+      { rootMargin: "-25% 0px -70% 0px" } 
     );
 
     const currentHeadings = headingsMap[activeSection] || [];
@@ -96,7 +97,8 @@ function GuideView() {
   }, [activeSection]);
 
   return (
-    <div className="min-h-screen pt-14 flex relative">
+    // FIX: Changed pt-14 to pt-24 to add more space below the floating navbar
+    <div className="min-h-screen pt-24 flex relative">
       <Sidebar
         title="Guide Sections"
         sections={sections}
@@ -143,7 +145,6 @@ function GuideView() {
   );
 }
 
-// --- STEP 2: The main page export now wraps the client component in Suspense ---
 export default function GuidePage() {
   return (
     <Suspense fallback={<div className="w-full h-screen flex items-center justify-center">Loading Guide...</div>}>

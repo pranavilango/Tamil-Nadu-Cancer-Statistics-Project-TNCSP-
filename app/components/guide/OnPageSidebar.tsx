@@ -1,3 +1,4 @@
+// --- File: OnPageSidebar.tsx ---
 export interface Heading {
   id: string;
   title: string;
@@ -25,18 +26,17 @@ export default function OnPageSidebar({ headings, activeHeading, onHeadingClick,
 
   return (
     <>
-      {/* Backdrop for mobile view */}
       <div 
         className={`md:hidden fixed inset-0 bg-black/40 z-30 transition-opacity ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
         onClick={onClose}
       />
 
-      {/* FIX: Removed 'border-l border-gray-200' from the desktop classes */}
       <aside className={`
-        fixed top-0 right-0 h-full w-72 p-6 bg-white shadow-xl z-40 flex-col
+        fixed top-0 right-0 h-full w-72 bg-white shadow-xl z-40 flex flex-col
         transition-transform duration-300 ease-in-out
-        md:flex md:top-14 md:h-[calc(100vh-3.5rem)] md:w-64 md:shadow-sm md:bg-[#f7f7f7]/80 md:backdrop-blur-lg md:z-10
-        md:translate-x-0
+        /* FIX: Re-styled for a fixed, full-height, three-column layout */
+        md:w-64 md:h-screen md:bg-gray-50 md:shadow-none md:border-l md:border-gray-200
+        md:translate-x-0 md:p-6 md:pt-28 /* Added top padding for navbar */
         ${isOpen ? 'translate-x-0' : 'translate-x-full'}
       `}>
         <h2 className="text-lg font-semibold mb-6 text-gray-800">On this page</h2>
@@ -54,8 +54,8 @@ export default function OnPageSidebar({ headings, activeHeading, onHeadingClick,
                   text-left text-sm py-2 rounded-xl transition-all duration-150
                   ${indentClass}
                   ${isActive
-                    ? "bg-white border border-gray-300 shadow-xs text-gray-900"
-                    : "text-gray-600 border border-transparent hover:bg-gray-200 hover:text-gray-900"}
+                    ? "bg-white border border-gray-300 shadow-sm text-gray-900"
+                    : "text-gray-600 border border-transparent hover:bg-white hover:border-gray-200"}
                 `}
               >
                 {formatTitle(heading.title)}

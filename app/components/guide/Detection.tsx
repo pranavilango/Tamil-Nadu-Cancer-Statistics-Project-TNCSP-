@@ -30,7 +30,7 @@ export default function Detection() {
           </p>
         </div>
 
-        <div id="pillars-of-detection" className="scroll-mt-20">
+        <div id="pillars-of-detection" className="scroll-mt-24">
           <div className="bg-gray-50 shadow-lg rounded-2xl border border-gray-200 p-6 md:p-8 space-y-6">
             <h2 className="text-2xl font-semibold text-black">🔍 The Pillars of Detection</h2>
 
@@ -64,7 +64,7 @@ export default function Detection() {
           </div>
         </div>
 
-        <div id="routine-screenings" className="space-y-4 pt-4 scroll-mt-20">
+        <div id="routine-screenings" className="space-y-4 pt-4 scroll-mt-24">
           <h2 className="text-2xl font-semibold text-black">🗓️ Routine Screenings Save Lives</h2>
           <p className="text-black text-sm md:text-base leading-relaxed">
             Screenings find cancer before symptoms appear. These should be a regular part of life for at-risk groups:
@@ -81,7 +81,7 @@ export default function Detection() {
           [ Infographic: Screening Timeline by Age and Risk ]
         </div>
 
-        <div id="dont-wait" className="text-center pt-8 scroll-mt-20">
+        <div id="dont-wait" className="text-center pt-8 scroll-mt-24">
           <h3 className="text-2xl font-semibold text-black">📣 Don’t Wait for a Warning</h3>
           <p className="mt-2 text-black text-sm md:text-base max-w-3xl mx-auto">
             In Tamil Nadu, screening services are available in government hospitals and rural clinics, but awareness is still low. Let’s normalize yearly checkups. If you have a high-risk lifestyle, screening isn’t optional—it’s urgent.

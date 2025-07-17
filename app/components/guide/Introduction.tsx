@@ -67,7 +67,7 @@ export default function CancerIntro() {
           </p>
         </div>
 
-        <div id="cancer-isnt-rare" className="scroll-mt-20">
+        <div id="cancer-isnt-rare" className="scroll-mt-24">
           <div className="bg-gray-50 shadow-lg rounded-2xl border border-gray-200 p-6 md:p-8 space-y-4">
             <h2 className="text-2xl font-semibold text-black">
               🧠 A Simple Truth: Cancer Isn’t Rare Anymore
@@ -87,7 +87,7 @@ export default function CancerIntro() {
           </div>
         </div>
 
-        <div id="knowledge-gap" className="space-y-4 pt-4 scroll-mt-20">
+        <div id="knowledge-gap" className="space-y-4 pt-4 scroll-mt-24">
           <h2 className="text-2xl font-semibold text-black">🧪 The Knowledge Gap</h2>
           <p className="text-black text-sm md:text-base">
             We talk about cancer a lot. But <strong>how many of us truly understand what it is?</strong> 
@@ -96,7 +96,7 @@ export default function CancerIntro() {
           </p>
         </div>
 
-        <div id="why-this-guide-exists" className="space-y-4 pt-4 scroll-mt-20">
+        <div id="why-this-guide-exists" className="space-y-4 pt-4 scroll-mt-24">
           <h2 className="text-2xl font-semibold text-black">🎯 Why This Guide Exists</h2>
           <p className="text-black text-sm md:text-base">
             This guide was created with a simple mission: to <strong>break down the science of cancer</strong> — clearly, visually, and accessibly — for <strong>everyone</strong>. No jargon. No fear. Just facts.
@@ -106,7 +106,7 @@ export default function CancerIntro() {
           </div>
         </div>
 
-        <div id="knowledge-is-power" className="text-center pt-8 scroll-mt-20">
+        <div id="knowledge-is-power" className="text-center pt-8 scroll-mt-24">
           <h3 className="text-2xl font-semibold text-black">🛡️ Knowledge Is Power</h3>
           <p className="mt-2 text-black text-sm md:text-base max-w-3xl mx-auto">
             Whether you’re a student, a parent, a healthcare worker, or just someone curious — <strong>understanding cancer is the first step in fighting it.</strong>

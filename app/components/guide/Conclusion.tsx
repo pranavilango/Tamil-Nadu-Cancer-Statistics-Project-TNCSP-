@@ -28,7 +28,7 @@ export default function Conclusion() {
           </p>
         </div>
 
-        <div id="key-takeaways" className="scroll-mt-20">
+        <div id="key-takeaways" className="scroll-mt-24">
           <div className="bg-gray-50 shadow-lg rounded-2xl border border-gray-200 p-6 md:p-8 space-y-4">
             <h3 className="text-2xl font-semibold text-black">Our Path Forward: Key Takeaways</h3>
             <ul className="list-none space-y-3 text-black text-sm md:text-base">
@@ -52,7 +52,7 @@ export default function Conclusion() {
             Let’s strive to make <strong>treatment accessible to all</strong> and <strong>survivors symbols of strength</strong>. A cancer-aware Tamil Nadu is not a dream—it is a vision we must realize together.
           </p>
 
-        <div id="be-the-change" className="text-center pt-6 scroll-mt-20">
+        <div id="be-the-change" className="text-center pt-6 scroll-mt-24">
             <div className="border-t-2 border-b-2 border-gray-200 py-6">
                 <h3 className="text-2xl font-semibold text-black">🫱🏽‍🫲🏽 Be the Change</h3>
                 <p className="mt-2 text-black text-sm md:text-base max-w-3xl mx-auto leading-relaxed">

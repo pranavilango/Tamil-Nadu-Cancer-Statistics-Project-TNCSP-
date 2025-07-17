@@ -124,11 +124,11 @@ export default function MapPage() {
 
   // --- JSX Layout (RESPONSIVE) ---
   return (
-    // FIX 1: Added `overflow-x-hidden` to prevent horizontal scrollbar on mobile.
-    <div className="w-full min-h-screen flex flex-col lg:flex-row lg:justify-start lg:items-center p-4 pt-20 lg:p-0 z-2 overflow-x-hidden">
+    <div className="w-full min-h-screen flex flex-col lg:flex-row lg:justify-start lg:items-center p-4 pt-24 lg:p-0 z-2 overflow-x-hidden">
       
       {/* Map & Selector Container */}
-      <div className="w-full lg:fixed lg:top-0 lg:h-[100vh] lg:w-[50vw] flex lg:items-center lg:justify-start z-50 lg:ml-6">
+      {/* FIX: On lg screens, pushed down from top and height adjusted to prevent overlap with fixed navbar */}
+      <div className="w-full lg:fixed lg:top-[12vh] lg:h-[88vh] lg:w-[50vw] flex lg:items-center lg:justify-start z-50 lg:ml-6">
         <div className="w-full rounded-4xl bg-gray-100 flex flex-col lg:flex-row z-3" style={{ boxShadow: "0 0 25px rgba(0,0,0,0.2)" }}>
           
           {/* Selector Panel */}
@@ -165,7 +165,6 @@ export default function MapPage() {
           </div>
           
           {/* Map SVG Container */}
-          {/* FIX 2: Centered map on mobile with max-width to prevent it from looking too wide. */}
           <div className="w-full lg:w-3/5 p-4 flex justify-center">
             <div className="w-full max-w-md lg:max-w-full">
               <svg ref={svgRef} className="w-full h-auto" />

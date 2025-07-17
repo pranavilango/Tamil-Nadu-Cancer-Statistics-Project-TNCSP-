@@ -88,8 +88,6 @@ export default function Home() {
           {problems[index].title}
         </h2>
 
-        {/* --- START OF CORRECTED SECTION --- */}
-
         {/* Desktop Layout: Hidden on mobile, flex on medium screens and up */}
         <div className="hidden md:flex items-center space-x-[12vw] z-5">
           <button
@@ -150,8 +148,6 @@ export default function Home() {
           </div>
         </div>
 
-        {/* --- END OF CORRECTED SECTION --- */}
-
         <div className="flex justify-center items-center pt-2 md:pt-4 space-x-2">
           {problems.map((_, i) => (
             <button
@@ -171,9 +167,11 @@ export default function Home() {
       <section
         className="w-full min-h-screen md:h-[100vh] bg-transparent flex flex-col md:flex-row p-4 gap-4 z-2"
       >
-        <Link href="/map">
+        {/* FIX: `flex-1` is now on the <Link> component */}
+        <Link href="/map" className="flex-1">
+          {/* FIX: `md:flex-1` is removed from the div */}
           <div
-            className="w-full h-72 md:h-full md:flex-1 bg-[url('/map-bg.jpg')] bg-cover border border-white rounded-2xl overflow-hidden 
+            className="w-full h-72 md:h-full bg-[url('/map-bg.jpg')] bg-cover border border-white rounded-2xl overflow-hidden 
                       grayscale hover:grayscale-0 cursor-pointer transition-all duration-300 ease-in-out
                       relative flex flex-col justify-end items-center"
           >
@@ -185,9 +183,9 @@ export default function Home() {
             </h2>
           </div>
         </Link>
-        <Link href="/guide">
+        <Link href="/guide" className="flex-1">
           <div
-            className="w-full h-72 md:h-full md:flex-1 bg-[url('/book-bg.jpeg')] bg-cover bg-center border-white rounded-2xl overflow-hidden
+            className="w-full h-72 md:h-full bg-[url('/book-bg.jpeg')] bg-cover bg-center border-white rounded-2xl overflow-hidden
                       grayscale hover:grayscale-0 cursor-pointer transition-all duration-300 ease-in-out
                       relative flex flex-col justify-end items-center"
           >
@@ -199,42 +197,48 @@ export default function Home() {
             </h2>
           </div>
         </Link>
-        <div
-          className="w-full h-72 md:h-full md:flex-1 bg-[url('/report-bg.jpg')] bg-cover bg-center border-white rounded-2xl overflow-hidden
-                    grayscale hover:grayscale-0 cursor-pointer transition-all duration-300 ease-in-out
-                    relative flex flex-col justify-end items-center"
-        >
-          <div className="absolute top-[18%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-white rounded-full border-2 border-black flex items-center justify-center">
-            <Image src="/report-icon.png" alt="Report Icon" width={32} height={32} className="object-contain" />
+        <Link href="/guide" className="flex-1">
+          <div
+            className="w-full h-72 md:h-full bg-[url('/report-bg.jpg')] bg-cover bg-center border-white rounded-2xl overflow-hidden
+                      grayscale hover:grayscale-0 cursor-pointer transition-all duration-300 ease-in-out
+                      relative flex flex-col justify-end items-center"
+          >
+            <div className="absolute top-[18%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-white rounded-full border-2 border-black flex items-center justify-center">
+              <Image src="/report-icon.png" alt="Report Icon" width={32} height={32} className="object-contain" />
+            </div>
+            <h2 className="bg-white text-black text-xl font-medium px-6 py-2 rounded-full mb-8 border border-black">
+              report
+            </h2>
           </div>
-          <h2 className="bg-white text-black text-xl font-medium px-6 py-2 rounded-full mb-8 border border-black">
-            report
-          </h2>
-        </div>
-        <div
-          className="w-full h-72 md:h-full md:flex-1 bg-[url('/money-bg.jpg')] bg-cover bg-center border-white rounded-2xl overflow-hidden
-                    grayscale hover:grayscale-0 cursor-pointer transition-all duration-300 ease-in-out
-                    relative flex flex-col justify-end items-center"
-        >
-          <div className="absolute top-[18%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-white rounded-full border-2 border-black flex items-center justify-center">
-            <Image src="/fund-icon.png" alt="Fund Icon" width={32} height={32} className="object-contain" />
+        </Link>
+        <Link href="/guide" className="flex-1">
+          <div
+            className="w-full h-72 md:h-full bg-[url('/money-bg.jpg')] bg-cover bg-center border-white rounded-2xl overflow-hidden
+                      grayscale hover:grayscale-0 cursor-pointer transition-all duration-300 ease-in-out
+                      relative flex flex-col justify-end items-center"
+          >
+            <div className="absolute top-[18%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-white rounded-full border-2 border-black flex items-center justify-center">
+              <Image src="/fund-icon.png" alt="Fund Icon" width={32} height={32} className="object-contain" />
+            </div>
+            <h2 className="bg-white text-black text-xl font-medium px-6 py-2 rounded-full mb-8 border border-black">
+              fund
+            </h2>
           </div>
-          <h2 className="bg-white text-black text-xl font-medium px-6 py-2 rounded-full mb-8 border border-black">
-            fund
-          </h2>
-        </div>
-        <div
-          className="w-full h-72 md:h-full md:flex-1 bg-[url('/mic-bg.jpg')] bg-cover bg-center border-white rounded-2xl overflow-hidden
-                    grayscale hover:grayscale-0 cursor-pointer transition-all duration-300 ease-in-out
-                    relative flex flex-col justify-end items-center"
-        >
-          <div className="absolute top-[18%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-white rounded-full border-2 border-black flex items-center justify-center">
-            <Image src="/interviews-icon.png" alt="Interviews Icon" width={32} height={32} className="object-contain" />
+        </Link>
+        <Link href="/guide" className="flex-1">
+          <div
+            className="w-full h-72 md:h-full bg-[url('/mic-bg.jpg')] bg-cover bg-center border-white rounded-2xl overflow-hidden
+                      grayscale hover:grayscale-0 cursor-pointer transition-all duration-300 ease-in-out
+                      relative flex flex-col justify-end items-center"
+          >
+            <div className="absolute top-[18%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-white rounded-full border-2 border-black flex items-center justify-center">
+              <Image src="/interviews-icon.png" alt="Interviews Icon" width={32} height={32} className="object-contain" />
+            </div>
+            <h2 className="bg-white text-black text-xl font-medium px-6 py-2 rounded-full mb-8 border border-black">
+              interviews
+            </h2>
           </div>
-          <h2 className="bg-white text-black text-xl font-medium px-6 py-2 rounded-full mb-8 border border-black">
-            interviews
-          </h2>
-        </div>
+        </Link>
       </section>
     </>
   );

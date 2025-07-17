@@ -23,7 +23,7 @@ export default function Symptoms() {
                 Cancer symptoms can vary widely depending on the type and location of the disease. Some early-stage cancers show <strong>no symptoms at all</strong>, while others share signs with common, less serious illnesses. That is why it is crucial to be vigilant and <strong>consult a doctor</strong> if you notice any persistent or unusual changes in your body.
             </p>
             </div>
-            <div id="general-symptoms" className="scroll-mt-20">
+            <div id="general-symptoms" className="scroll-mt-24">
               <div className="bg-gray-50 shadow-lg rounded-2xl border border-gray-200 p-6 md:p-8 space-y-4">
                   <h2 className="text-2xl font-semibold text-black">📋 General Symptoms to Watch For</h2>
                   <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2 list-disc list-inside text-black text-sm md:text-base">
@@ -41,7 +41,7 @@ export default function Symptoms() {
             <div className="w-full h-72 bg-gray-200 rounded-xl flex items-center justify-center text-gray-700 text-lg font-medium italic">
                 [ Infographic: Common Symptoms by Cancer Type ]
             </div>
-            <div id="type-specific-signs" className="scroll-mt-20">
+            <div id="type-specific-signs" className="scroll-mt-24">
               <div className="bg-gray-50 shadow-lg rounded-2xl border border-gray-200 p-6 md:p-8 space-y-6">
                   <h2 className="text-2xl font-semibold text-black">🔍 Some Type-Specific Warning Signs</h2>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
@@ -80,7 +80,7 @@ export default function Symptoms() {
                   </div>
               </div>
             </div>
-            <div id="dont-ignore-signs" className="space-y-4 pt-4 text-center scroll-mt-20">
+            <div id="dont-ignore-signs" className="space-y-4 pt-4 text-center scroll-mt-24">
                 <h3 className="text-2xl font-semibold text-black">Do not Ignore the Signs</h3>
                 <p className="text-black text-sm md:text-base max-w-3xl mx-auto">
                     If you notice any of these signs, <strong>do not wait.</strong> Seeing a doctor for a checkup can lead to a faster diagnosis and a much better outcome. It is not overreacting—it is being proactive about your health.

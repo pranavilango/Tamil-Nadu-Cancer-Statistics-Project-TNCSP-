@@ -19,7 +19,7 @@ export default function DiseaseMechanism() {
             The biology behind cancer — explained simply.
           </p>
         </div>
-        <div id="from-healthy-to-tumor" className="scroll-mt-20">
+        <div id="from-healthy-to-tumor" className="scroll-mt-24">
           <div className="bg-gray-50 shadow-lg rounded-2xl border border-gray-200 p-6 md:p-8 space-y-4">
             <h2 className="text-2xl font-semibold text-black">From Healthy Cells to a Tumor</h2>
             <div className="space-y-4 text-black text-sm md:text-base">
@@ -38,7 +38,7 @@ export default function DiseaseMechanism() {
         <div className="w-full h-72 bg-gray-200 rounded-xl flex items-center justify-center text-gray-700 text-lg font-medium italic">
           [ Infographic: Benign vs Malignant Tumors ]
         </div>
-        <div id="how-cancer-disrupts" className="space-y-4 pt-4 scroll-mt-20">
+        <div id="how-cancer-disrupts" className="space-y-4 pt-4 scroll-mt-24">
           <h2 className="text-2xl font-semibold text-black">⚙️ How Cancer Disrupts the Body</h2>
           <p className="text-black text-sm md:text-base">
             Cancer cells are disruptive. They grow quickly, crowding out healthy cells and stealing the nutrients, oxygen, and space needed for normal body functions. Because they originate from your own body, the immune system often struggles to recognize and fight them effectively. They master two dangerous tricks:
@@ -48,13 +48,13 @@ export default function DiseaseMechanism() {
             <li><strong>Angiogenesis:</strong> They grow their own new blood vessels to supply themselves with food.</li>
           </ul>
         </div>
-        <div id="root-cause-mutations" className="space-y-4 pt-4 scroll-mt-20">
+        <div id="root-cause-mutations" className="space-y-4 pt-4 scroll-mt-24">
           <h2 className="text-2xl font-semibold text-black">🧬 The Root Cause: Genetic Mutations</h2>
           <p className="text-black text-sm md:text-base">
             At its core, cancer is a genetic disease. It is caused by <strong>mutations</strong> in the DNA of a cell that hijack its instruction manual. Some of these mutations are <strong>inherited</strong>, but most are <strong>acquired</strong> over a lifetime due to environmental factors or random errors during cell division. These mutations effectively tell the cell to grow when it should not.
           </p>
         </div>
-        <div id="one-name-many-diseases" className="space-y-4 pt-4 scroll-mt-20">
+        <div id="one-name-many-diseases" className="space-y-4 pt-4 scroll-mt-24">
           <h2 className="text-2xl font-semibold text-black">🧩 One Name, Many Diseases</h2>
           <p className="text-black text-sm md:text-base">
             It is crucial to remember that cancer is not one disease — it is a group of <strong>over 100 distinct types</strong>. Some grow fast, others slow. Some are best treated with surgery, while others require <strong>chemotherapy</strong> or <strong>radiation</strong>. Understanding the specific type of cancer is the most important step in choosing the right treatment plan.

@@ -33,7 +33,7 @@ export default function CancerCauses() {
           </p>
         </div>
 
-        <div id="genetics" className="space-y-4 pt-4 scroll-mt-20">
+        <div id="genetics" className="space-y-4 pt-4 scroll-mt-24">
           <h3 className="text-2xl font-semibold text-black">🧬 Genetics</h3>
           <p className="text-black text-sm md:text-base leading-relaxed">
             Some people are <strong>born with mutations</strong> in their DNA that raise their cancer risk. These are passed down through families and cannot be prevented.
@@ -46,7 +46,7 @@ export default function CancerCauses() {
           </p>
         </div>
 
-        <div id="environmental-factors" className="space-y-4 pt-4 scroll-mt-20">
+        <div id="environmental-factors" className="space-y-4 pt-4 scroll-mt-24">
           <h3 className="text-2xl font-semibold text-black">🌍 Environmental Factors</h3>
           <p className="text-black text-sm md:text-base leading-relaxed">
             Prolonged exposure to harmful substances in our surroundings is a leading cause of cancer.
@@ -62,7 +62,7 @@ export default function CancerCauses() {
           </p>
         </div>
 
-        <div id="lifestyle-choices" className="space-y-4 pt-4 scroll-mt-20">
+        <div id="lifestyle-choices" className="space-y-4 pt-4 scroll-mt-24">
           <h3 className="text-2xl font-semibold text-black">💡 Lifestyle Choices</h3>
           <p className="text-black text-sm md:text-base leading-relaxed">
             Everyday habits play a major role in cancer risk.
@@ -75,7 +75,7 @@ export default function CancerCauses() {
           </p>
         </div>
 
-        <div id="age-and-other-risks" className="space-y-4 pt-4 scroll-mt-20">
+        <div id="age-and-other-risks" className="space-y-4 pt-4 scroll-mt-24">
           <h3 className="text-2xl font-semibold text-black">⏳ Age & Other Risks</h3>
           <p className="text-black text-sm md:text-base leading-relaxed">
             As we age, our cells have more time to accumulate mutations — which is why cancer is more common in older adults.
