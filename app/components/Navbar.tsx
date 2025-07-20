@@ -23,7 +23,7 @@ export default function NavBar() {
             <div className="fixed top-4 md:top-6 left-1/2 transform -translate-x-1/2 w-[95%] max-w-4xl z-50">
                 {/* --- CHANGE 1: Switched to a translucent white fill --- */}
                 <div className="w-full h-[3.75rem] px-6 flex items-center justify-between
-                                bg-white/20 backdrop-blur-xl
+                                bg-white/60 backdrop-blur-xl
                                 border border-white/30
                                 shadow-lg rounded-full">
                     {/* Logo/Brand Name */}
