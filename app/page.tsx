@@ -3,8 +3,6 @@
 import Hero from "./components/Hero";
 import ProblemBadge from "./components/ProblemBadge";
 import { useState, useEffect, useCallback } from "react";
-import Image from "next/image";
-import Link from "next/link";
 
 export default function Home() {
 
