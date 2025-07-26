@@ -128,8 +128,8 @@ export default function MapPage() {
       
       {/* Map & Selector Container */}
       {/* FIX: On lg screens, pushed down from top and height adjusted to prevent overlap with fixed navbar */}
-      <div className="w-full lg:fixed lg:top-[12vh] lg:h-[88vh] lg:w-[50vw] flex lg:items-center lg:justify-start z-50 lg:ml-6">
-        <div className="w-full rounded-4xl bg-gray-100 flex flex-col lg:flex-row z-3" style={{ boxShadow: "0 0 25px rgba(0,0,0,0.2)" }}>
+      <div className="w-full lg:fixed lg:top-[12vh] lg:h-[88vh] lg:w-[50vw] flex lg:items-center lg:justify-start z-39 lg:ml-6">
+        <div className="w-full rounded-4xl bg-gray-100 flex flex-col lg:flex-row z-1" style={{ boxShadow: "0 0 25px rgba(0,0,0,0.2)" }}>
           
           {/* Selector Panel */}
           <div className="w-full lg:w-2/5 flex flex-col justify-start rounded-t-4xl lg:rounded-l-4xl lg:rounded-tr-none p-6" style={{ boxShadow: "0 5px 15px rgba(0,0,0,0.05)" }}>
