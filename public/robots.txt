@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://tncsp.org
+
+# Sitemaps
+Sitemap: https://tncsp.org/sitemap.xml
