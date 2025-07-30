@@ -3,6 +3,7 @@
 import Hero from "./components/Hero";
 import ProblemBadge from "./components/ProblemBadge";
 import { useState, useEffect, useCallback } from "react";
+import Script from 'next/script';
 
 export default function Home() {
 
@@ -67,6 +68,23 @@ export default function Home() {
 
   return (
     <>
+
+      <Script
+        strategy="afterInteractive"
+        src={`https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX`}
+      />
+      <Script
+        id="google-analytics"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-BCR80T5VYF');
+          `,
+        }}
+      />
 
       <div className="absolute inset-0 -z-1">
         <div className="absolute w-full h-[100%] bg-gradient-to-br from-[#f44e8b] via-[#5557fc] to-[#f44e8b] opacity-20 blur-[120px] rounded-full" />
