@@ -2,6 +2,7 @@
 
 import Hero from "./components/Hero";
 import ProblemBadge from "./components/ProblemBadge";
+import Footer from "./components/Footer";
 import { useState, useEffect, useCallback } from "react";
 import Script from 'next/script';
 
@@ -178,6 +179,7 @@ export default function Home() {
         </div>
 
       </section>
+      <Footer />
     </>
   );
 }
