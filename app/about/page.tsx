@@ -55,7 +55,7 @@ const teamMembers = [
     {
         name: "Krishnaraj M Saravanan",
         role: "Head, Erode Wing",
-        bio: "An expert in visual storytelling, Priya crafts intuitive charts and maps that bring our data to life, making complex findings understandable at a glance.",
+        bio: "Coming from a doctor's household, Krishnaraj is deeply moved by the cause behind this project and hopes to bring about the much-needed awareness and impact. Deeply interested in biology and gaining real-world experience, he looks forward to using his strengths and contributing to the project to the fullest.",
         imageUrl: "/krishnaraj.png",
         linkedIn: "https://www.linkedin.com/in/krishnaraj-m-951b94213/"
     },

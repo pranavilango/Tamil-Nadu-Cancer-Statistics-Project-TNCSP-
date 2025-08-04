@@ -140,12 +140,12 @@ export default function ImpactPage() {
   return (
     <div className="bg-transparent min-h-screen text-zinc-800">
       <div className="absolute inset-0 -z-1">
-        <div className="absolute w-full h-[100%] bg-gradient-to-br from-[#f44e8b] via-[#5557fc] to-[#f44e8b] opacity-20 blur-[120px] rounded-full" />
-      </div>  
+        <div className="absolute w-full h-full bg-gradient-to-br from-[#f44e8b] via-[#5557fc] to-[#f44e8b] opacity-20 blur-[120px]" />
+      </div>
 
       {/* --- HERO STATISTICS SECTION --- */}
-      <section className="py-24 sm:py-24">
-        <div className="container mx-auto px-6 lg:px-8 max-w-7xl">
+      <section className="py-20 sm:py-24">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
           <div className="text-center max-w-3xl mx-auto">
             <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-black">
               Progress Quantified
@@ -154,9 +154,9 @@ export default function ImpactPage() {
               We are dedicated to creating tangible change through direct community outreach, education, and support systems. Here’s a look at our progress.
             </p>
           </div>
-          <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="mt-12 lg:mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Main Stat */}
-            <div className="relative md:col-span-2 lg:col-span-1 bg-white border border-zinc-200/80 rounded-3xl shadow-xl p-8 flex flex-col justify-between overflow-hidden h-96">
+            <div className="relative md:col-span-2 lg:col-span-1 bg-white border border-zinc-200/80 rounded-3xl shadow-xl p-8 flex flex-col justify-between overflow-hidden min-h-[24rem] lg:h-96">
                 <div className="absolute w-[300%] h-[300%] -top-full -left-full bg-gradient-to-br from-pink-500/20 via-blue-500/20 to-transparent opacity-50 blur-3xl animate-pulse-slow"></div>
                 <div className="relative z-10">
                     <h2 className="text-6xl md:text-7xl font-extrabold bg-gradient-to-r from-[#5557fc] to-[#f44e8b] bg-clip-text text-transparent">
@@ -168,15 +168,15 @@ export default function ImpactPage() {
                 </div>
                 <button
                     onClick={() => document.getElementById('campaigns-section')?.scrollIntoView({ behavior: 'smooth' })}
-                    className="relative z-10 self-start mt-4 h-12 px-6 rounded-full bg-zinc-900 text-white font-semibold text-sm cursor-pointer hover:bg-zinc-800 transition-colors flex items-center group"
+                    className="relative z-10 self-start mt-6 h-12 px-6 rounded-full bg-zinc-900 text-white font-semibold text-sm cursor-pointer hover:bg-zinc-800 transition-colors flex items-center group"
                 >
                     Explore Campaigns
                     <ArrowRightIcon className="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" />
                 </button>
             </div>
-            
+
             {/* Secondary Stats */}
-            <div className="relative bg-white border border-zinc-200/80 rounded-3xl shadow-xl p-8 flex flex-col justify-between overflow-hidden h-96">
+            <div className="relative bg-white border border-zinc-200/80 rounded-3xl shadow-xl p-8 flex flex-col justify-between overflow-hidden min-h-[24rem] lg:h-96">
                 <div className="absolute w-[300%] h-[300%] -top-full -left-full bg-gradient-to-br from-pink-500/20 via-blue-500/20 to-transparent opacity-50 blur-3xl animate-pulse-slow"></div>
                 <div className="relative z-10">
                     <h2 className="text-6xl md:text-7xl font-extrabold bg-gradient-to-r from-[#5557fc] to-[#f44e8b] bg-clip-text text-transparent">
@@ -186,12 +186,12 @@ export default function ImpactPage() {
                         funds raised to support awareness campaigns, website development and early screening programs.
                     </p>
                 </div>
-                <div className="relative z-10 px-4 py-2 rounded-full bg-zinc-100 text-zinc-500 font-medium text-sm self-start">
+                <div className="relative z-10 mt-6 px-4 py-2 rounded-full bg-zinc-100 text-zinc-500 font-medium text-sm self-start">
                     Coming Soon
                 </div>
             </div>
-            
-            <div className="relative bg-white border border-zinc-200/80 rounded-3xl shadow-xl p-8 flex flex-col justify-between overflow-hidden h-96">
+
+            <div className="relative bg-white border border-zinc-200/80 rounded-3xl shadow-xl p-8 flex flex-col justify-between overflow-hidden min-h-[24rem] lg:h-96">
                 <div className="absolute w-[300%] h-[300%] -top-full -left-full bg-gradient-to-br from-pink-500/20 via-blue-500/20 to-transparent opacity-50 blur-3xl animate-pulse-slow"></div>
                 <div className='relative z-10 flex flex-col justify-between h-full'>
                     <div>
@@ -202,7 +202,7 @@ export default function ImpactPage() {
                             student volunteers working together to improve the cancer landscape in Tamil Nadu
                         </p>
                     </div>
-                    <a href="/about" className="self-start h-12 px-6 rounded-full bg-white border border-zinc-300 text-zinc-900 font-semibold text-sm cursor-pointer hover:bg-zinc-100 transition-colors flex items-center group">
+                    <a href="/about" className="self-start mt-6 h-12 px-6 rounded-full bg-white border border-zinc-300 text-zinc-900 font-semibold text-sm cursor-pointer hover:bg-zinc-100 transition-colors flex items-center group">
                         Meet the Team
                         <ArrowRightIcon className="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" />
                     </a>
@@ -213,10 +213,10 @@ export default function ImpactPage() {
       </section>
 
       {/* --- CAMPAIGN SHOWCASE SECTION --- */}
-      <section id="campaigns-section" className="w-full min-h-screen flex flex-col justify-center items-center py-12 px-4 sm:px-6 lg:px-8">
-        <div className="w-full max-w-7xl mx-auto">
+      <section id="campaigns-section" className="w-full flex flex-col justify-center items-center py-20 sm:py-24">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             {/* Section Header and Navigation */}
-            <div className="flex flex-col md:flex-row justify-between items-center mb-6 px-2">
+            <div className="flex flex-col md:flex-row justify-between items-center mb-8 md:mb-10">
                 <div className="text-center md:text-left">
                     <h2 className="text-3xl md:text-4xl font-bold text-zinc-900 tracking-tight">Campaign Showcase</h2>
                     <p className="mt-2 text-lg text-zinc-600">Navigating through our on-ground efforts and impact.</p>
@@ -235,12 +235,48 @@ export default function ImpactPage() {
             </div>
 
             {/* Campaign Card */}
-            <div className="relative w-full bg-white rounded-3xl shadow-2xl border border-zinc-200/80 overflow-hidden grid grid-cols-1 lg:grid-cols-2" style={{height: '70vh', maxHeight: '580px'}}>
+            <div className="relative w-full bg-white rounded-3xl shadow-2xl border border-zinc-200/80 overflow-hidden grid grid-cols-1 lg:grid-cols-2">
+                {/* Right Side: Image Carousel (Order changed for mobile-first rendering) */}
+                <div className="relative w-full h-80 lg:h-full bg-zinc-100 order-1 lg:order-2">
+                    <AnimatePresence>
+                        <motion.div
+                             key={currentImageIndex + activeCampaign.title}
+                             initial={{ opacity: 0, scale: 1.05 }}
+                             animate={{ opacity: 1, scale: 1 }}
+                             exit={{ opacity: 0 }}
+                             transition={{ duration: 0.4, ease: 'easeOut' }}
+                             className="absolute inset-0"
+                        >
+                            <Image
+                                src={activeCampaign.images[currentImageIndex]}
+                                alt={`Photo from ${activeCampaign.title}`}
+                                layout="fill"
+                                objectFit="cover"
+                            />
+                        </motion.div>
+                    </AnimatePresence>
+
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent"></div>
+
+                    <div className="absolute bottom-6 right-6 flex items-center space-x-3">
+                        <button onClick={handleImagePrev} aria-label="Previous Photo" className="p-2.5 rounded-full bg-white/80 backdrop-blur-sm hover:bg-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white">
+                            <ArrowLeftIcon className="h-5 w-5 text-zinc-800" />
+                        </button>
+                        <button onClick={handleImageNext} aria-label="Next Photo" className="p-2.5 rounded-full bg-white/80 backdrop-blur-sm hover:bg-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white">
+                            <ArrowRightIcon className="h-5 w-5 text-zinc-800" />
+                        </button>
+                    </div>
+
+                    <div className="absolute bottom-6 left-6 px-3 py-1 rounded-full bg-black/50 backdrop-blur-sm text-white text-sm font-mono tracking-widest">
+                        {String(currentImageIndex + 1).padStart(2, '0')} / {String(activeCampaign.images.length).padStart(2, '0')}
+                    </div>
+                </div>
+
                 {/* Left Side: Content */}
-                <div className="flex flex-col p-8 sm:p-10">
-                    <div className="flex-grow overflow-y-auto pr-4 -mr-4">
+                <div className="flex flex-col p-6 sm:p-8 lg:p-10 order-2 lg:order-1 min-h-[50vh] lg:min-h-0">
+                    <div className="flex-grow">
                         <AnimatePresence mode="wait">
-                            <motion.h3 
+                            <motion.h3
                                 key={activeCampaign.title}
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
@@ -252,7 +288,7 @@ export default function ImpactPage() {
                             </motion.h3>
                         </AnimatePresence>
                         <AnimatePresence mode="wait">
-                            <motion.p 
+                            <motion.p
                                 key={activeCampaign.description}
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
@@ -284,42 +320,6 @@ export default function ImpactPage() {
                                 <p className="text-base font-semibold text-zinc-800">{activeCampaign.peopleReached}</p>
                             </div>
                         </div>
-                    </div>
-                </div>
-
-                {/* Right Side: Image Carousel */}
-                <div className="relative w-full h-full bg-zinc-100">
-                    <AnimatePresence>
-                        <motion.div
-                             key={currentImageIndex + activeCampaign.title}
-                             initial={{ opacity: 0, scale: 1.05 }}
-                             animate={{ opacity: 1, scale: 1 }}
-                             exit={{ opacity: 0 }}
-                             transition={{ duration: 0.4, ease: 'easeOut' }}
-                             className="absolute inset-0"
-                        >
-                            <Image
-                                src={activeCampaign.images[currentImageIndex]}
-                                alt={`Photo from ${activeCampaign.title}`}
-                                layout="fill"
-                                objectFit="cover"
-                            />
-                        </motion.div>
-                    </AnimatePresence>
-                    
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent"></div>
-                    
-                    <div className="absolute bottom-6 right-6 flex items-center space-x-3">
-                        <button onClick={handleImagePrev} aria-label="Previous Photo" className="p-2.5 rounded-full bg-white/80 backdrop-blur-sm hover:bg-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white">
-                            <ArrowLeftIcon className="h-5 w-5 text-zinc-800" />
-                        </button>
-                        <button onClick={handleImageNext} aria-label="Next Photo" className="p-2.5 rounded-full bg-white/80 backdrop-blur-sm hover:bg-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white">
-                            <ArrowRightIcon className="h-5 w-5 text-zinc-800" />
-                        </button>
-                    </div>
-
-                    <div className="absolute bottom-6 left-6 px-3 py-1 rounded-full bg-black/50 backdrop-blur-sm text-white text-sm font-mono tracking-widest">
-                        {String(currentImageIndex + 1).padStart(2, '0')} / {String(activeCampaign.images.length).padStart(2, '0')}
                     </div>
                 </div>
             </div>
