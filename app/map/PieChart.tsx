@@ -16,6 +16,7 @@ type Props = {
 
 export default function PieChart({ data }: Props) {
   const ref = useRef<SVGSVGElement | null>(null);
+  const isDarkMode = typeof window !== 'undefined' && document.documentElement.classList.contains('dark');
 
   const color = d3
   .scaleOrdinal<string>()
@@ -51,8 +52,11 @@ export default function PieChart({ data }: Props) {
       .select("#d3-tooltip-container")
       .style("position", "absolute")
       .style("padding", "6px")
-      .style("background", "#fff")
-      .style("border", "1px solid #ccc")
+      .style("background", isDarkMode ? "#1f2937" : "#fff") 
+      .style("border-width", "1px")
+      .style("border-style", "solid")
+      .style("border-color", isDarkMode ? "#374151" : "#ccc")
+      .style("color", isDarkMode ? "#f3f4f6" : "#1f2937") 
       .style("border-radius", "4px")
       .style("pointer-events", "none")
       .style("font-size", "11px")
@@ -67,7 +71,9 @@ export default function PieChart({ data }: Props) {
       .append("path")
       .attr("d", arc)
       .attr("fill", (d) => color(d.data.type))
-      .attr("stroke", "#fff")
+      // --- THIS IS THE FIX ---
+      // The stroke is now permanently set to white for both themes.
+      .attr("stroke", "#fff") 
       .attr("stroke-width", 0.5)
       .style("cursor", "pointer")
       .attr("transform", "translate(0,0)")
@@ -104,21 +110,19 @@ export default function PieChart({ data }: Props) {
     return () => {
       tooltip.style("opacity", 0);
     };
-  }, [data, chartData, color]);
+  }, [data, chartData, color, isDarkMode]);
 
   return (
     <div className="flex flex-col sm:flex-row gap-4 items-center justify-center w-full">
-      {/* FIX 2: Constrained chart width on mobile */}
       <div className="w-full max-w-xs sm:max-w-none sm:w-auto">
         <svg ref={ref}></svg>
         <div id="d3-tooltip-container" />
       </div>
-      {/* FIX 3: Removed `scrollbar-hide` to make the legend visibly scrollable */}
       <div
-        className="w-full sm:w-[160px] max-h-[200px] sm:max-h-[280px] overflow-y-auto p-2 border border-gray-300 rounded-lg shadow-inner bg-white"
+        className="w-full sm:w-[160px] max-h-[200px] sm:max-h-[280px] overflow-y-auto p-2 border border-gray-300 dark:border-zinc-700 rounded-lg shadow-inner bg-white dark:bg-zinc-900/70"
       >
         {chartData.map((d, i) => (
-            <div key={i} className="flex items-center mb-2 text-xs">
+            <div key={i} className="flex items-center mb-2 text-xs text-zinc-800 dark:text-zinc-200">
               <div
                 style={{
                   backgroundColor: color(d.type),

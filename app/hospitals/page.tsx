@@ -16,9 +16,9 @@ function FilterCheckbox({ id, label, checked, onChange }: { id: string, label: s
         type="checkbox"
         checked={checked}
         onChange={(e) => onChange(e.target.checked)}
-        className="h-4 w-4 rounded border-slate-300 text-[#f44e8b] focus:ring-[#f44e8b]/50"
+        className="h-4 w-4 rounded border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-[#f44e8b] focus:ring-[#f44e8b]/50"
       />
-      <label htmlFor={id} className="ml-3 text-sm text-slate-700">
+      <label htmlFor={id} className="ml-3 text-sm text-slate-700 dark:text-slate-300">
         {label}
       </label>
     </div>
@@ -28,10 +28,10 @@ function FilterCheckbox({ id, label, checked, onChange }: { id: string, label: s
 function FilterSection({ title, children }: { title: string, children: React.ReactNode }) {
     const [isOpen, setIsOpen] = useState(true);
     return (
-        <div className="border-b border-slate-200 py-4">
+        <div className="border-b border-slate-200 dark:border-slate-800 py-4">
             <button onClick={() => setIsOpen(!isOpen)} className="w-full flex justify-between items-center text-left">
-                <h3 className="text-md font-semibold text-slate-900">{title}</h3>
-                <svg xmlns="http://www.w3.org/2000/svg" className={`h-5 w-5 text-slate-500 transition-transform ${isOpen ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <h3 className="text-md font-semibold text-slate-900 dark:text-slate-100">{title}</h3>
+                <svg xmlns="http://www.w3.org/2000/svg" className={`h-5 w-5 text-slate-500 dark:text-slate-400 transition-transform ${isOpen ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
             </button>
@@ -63,9 +63,9 @@ function FilterBox({ filters, onFilterChange, allDistricts, allTreatments, allTy
     };
 
     return (
-        <div className="h-full flex flex-col bg-white">
-            <div className="p-5 flex justify-between items-center border-b border-slate-200">
-                <h2 className="text-lg font-semibold text-slate-900">Filters</h2>
+        <div className="h-full flex flex-col bg-white dark:bg-slate-900">
+            <div className="p-5 flex justify-between items-center border-b border-slate-200 dark:border-slate-800">
+                <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100">Filters</h2>
                 <button
                     onClick={onClear}
                     className="text-sm font-medium text-[#f44e8b] hover:text-[#f44e8b]/80"
@@ -112,7 +112,7 @@ function FilterBox({ filters, onFilterChange, allDistricts, allTreatments, allTy
                 </FilterSection>
             </div>
             
-            <div className="p-5 border-t border-slate-200 md:hidden">
+            <div className="p-5 border-t border-slate-200 dark:border-slate-800 md:hidden">
                  <button onClick={onDone} className="w-full bg-[#f44e8b] text-white font-bold py-3 rounded-lg hover:bg-[#f44e8b]/90 transition-colors">
                     Apply Filters
                  </button>
@@ -141,18 +141,18 @@ function HospitalInfoBox({ hospital, onClose }: { hospital: Hospital | null; onC
   );
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-20 p-5 pt-7 bg-white/90 backdrop-blur-xl border-t border-slate-900/10 rounded-t-2xl shadow-2xl md:absolute md:top-20 md:right-5 md:bottom-auto md:left-auto md:w-[390px] md:rounded-2xl md:border md:shadow-2xl md:max-h-[calc(100vh-6.5rem)] animate-in slide-in-from-bottom-10 md:slide-in-from-right-10 duration-500">
+    <div className="fixed bottom-0 left-0 right-0 z-20 p-5 pt-7 bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border-t border-slate-900/10 dark:border-slate-100/10 rounded-t-2xl shadow-2xl dark:shadow-black/40 md:absolute md:top-20 md:right-5 md:bottom-auto md:left-auto md:w-[390px] md:rounded-2xl md:border animate-in slide-in-from-bottom-10 md:slide-in-from-right-10 duration-500">
       
-      <div className="absolute top-2.5 left-1/2 -translate-x-1/2 w-10 h-1 bg-slate-300 rounded-full md:hidden" />
+      <div className="absolute top-2.5 left-1/2 -translate-x-1/2 w-10 h-1 bg-slate-300 dark:bg-slate-700 rounded-full md:hidden" />
       
-      <button onClick={onClose} className="absolute top-4 right-4 p-1.5 bg-slate-500/10 rounded-full hover:bg-slate-500/20 transition" aria-label="Close hospital details">
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-slate-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <button onClick={onClose} className="absolute top-4 right-4 p-1.5 bg-slate-500/10 dark:bg-slate-100/10 rounded-full hover:bg-slate-500/20 dark:hover:bg-slate-100/20 transition" aria-label="Close hospital details">
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-slate-700 dark:text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
         </svg>
       </button>
 
       <div className="flex flex-col space-y-5 max-h-[55vh] md:max-h-full overflow-y-auto pr-2">
-        <h2 className="text-3xl font-bold text-slate-900 pr-8 tracking-tight">{hospital.name}</h2>
+        <h2 className="text-3xl font-bold text-slate-900 dark:text-slate-100 pr-8 tracking-tight">{hospital.name}</h2>
         
         <div className="grid grid-cols-2 gap-4 text-sm">
           <div className="flex items-start space-x-3">
@@ -160,8 +160,8 @@ function HospitalInfoBox({ hospital, onClose }: { hospital: Hospital | null; onC
               <TypeIcon />
             </div>
             <div>
-              <h3 className="font-semibold text-slate-500">Type</h3>
-              <p className="text-lg font-semibold text-slate-800">{hospital.type}</p>
+              <h3 className="font-semibold text-slate-500 dark:text-slate-400">Type</h3>
+              <p className="text-lg font-semibold text-slate-800 dark:text-slate-200">{hospital.type}</p>
             </div>
           </div>
           <div className="flex items-start space-x-3">
@@ -169,19 +169,19 @@ function HospitalInfoBox({ hospital, onClose }: { hospital: Hospital | null; onC
               <PhoneIcon />
             </div>
             <div>
-              <h3 className="font-semibold text-slate-500">Contact</h3>
-              <p className="text-lg font-semibold text-slate-800 font-mono">{hospital.phone}</p>
+              <h3 className="font-semibold text-slate-500 dark:text-slate-400">Contact</h3>
+              <p className="text-lg font-semibold text-slate-800 dark:text-slate-200 font-mono">{hospital.phone}</p>
             </div>
           </div>
         </div>
         
         <div>
-          <h3 className="text-md font-semibold text-slate-800 mb-3">Available Treatments & Costs</h3>
-          <div className="space-y-1 text-sm border-t border-slate-200">
+          <h3 className="text-md font-semibold text-slate-800 dark:text-slate-200 mb-3">Available Treatments & Costs</h3>
+          <div className="space-y-1 text-sm border-t border-slate-200 dark:border-slate-800">
             {hospital.treatments.map((treatment: Treatment, index) => (
-              <div key={index} className="flex justify-between items-center py-3 border-b border-slate-200/80">
-                <p className="text-slate-700">{treatment.name}</p>
-                <p className="font-bold text-slate-900 text-right shrink-0 ml-4">{treatment.cost}</p>
+              <div key={index} className="flex justify-between items-center py-3 border-b border-slate-200/80 dark:border-slate-800/80">
+                <p className="text-slate-700 dark:text-slate-300">{treatment.name}</p>
+                <p className="font-bold text-slate-900 dark:text-slate-100 text-right shrink-0 ml-4">{treatment.cost}</p>
               </div>
             ))}
           </div>
@@ -196,18 +196,40 @@ function HospitalInfoBox({ hospital, onClose }: { hospital: Hospital | null; onC
 
 function MapContainer({ setSelectedHospital, hospitalsToShow }: { setSelectedHospital: (hospital: Hospital) => void; hospitalsToShow: Hospital[]; }) {
   const isApiLoaded = useApiIsLoaded();
+  const isDarkMode = typeof window !== 'undefined' && document.documentElement.classList.contains('dark');
+  
+  const mapStyles = isDarkMode ? [
+      { elementType: "geometry", stylers: [{ color: "#242f3e" }] },
+      { elementType: "labels.text.stroke", stylers: [{ color: "#242f3e" }] },
+      { elementType: "labels.text.fill", stylers: [{ color: "#746855" }] },
+      { featureType: "administrative.locality", elementType: "labels.text.fill", stylers: [{ color: "#d59563" }] },
+      { featureType: "poi", elementType: "labels.text.fill", stylers: [{ color: "#d59563" }] },
+      { featureType: "poi.park", elementType: "geometry", stylers: [{ color: "#263c3f" }] },
+      { featureType: "poi.park", elementType: "labels.text.fill", stylers: [{ color: "#6b9a76" }] },
+      { featureType: "road", elementType: "geometry", stylers: [{ color: "#38414e" }] },
+      { featureType: "road", elementType: "geometry.stroke", stylers: [{ color: "#212a37" }] },
+      { featureType: "road", elementType: "labels.text.fill", stylers: [{ color: "#9ca5b3" }] },
+      { featureType: "road.highway", elementType: "geometry", stylers: [{ color: "#746855" }] },
+      { featureType: "road.highway", elementType: "geometry.stroke", stylers: [{ color: "#1f2835" }] },
+      { featureType: "road.highway", elementType: "labels.text.fill", stylers: [{ color: "#f3d19c" }] },
+      { featureType: "transit", elementType: "geometry", stylers: [{ color: "#2f3948" }] },
+      { featureType: "transit.station", elementType: "labels.text.fill", stylers: [{ color: "#d59563" }] },
+      { featureType: "water", elementType: "geometry", stylers: [{ color: "#17263c" }] },
+      { featureType: "water", elementType: "labels.text.fill", stylers: [{ color: "#515c6d" }] },
+      { featureType: "water", elementType: "labels.text.stroke", stylers: [{ color: "#17263c" }] }
+    ] : [];
 
   if (isApiLoaded) {
-    const pinkDotIcon = { path: google.maps.SymbolPath.CIRCLE, scale: 6, fillColor: "#f44e8b", fillOpacity: 1.0, strokeWeight: 1, strokeColor: "black" };
+    const pinkDotIcon = { path: google.maps.SymbolPath.CIRCLE, scale: 6, fillColor: "#f44e8b", fillOpacity: 1.0, strokeWeight: 1, strokeColor: isDarkMode ? "white" : "black" };
     return (
-      <Map defaultCenter={{ lat: 11.5, lng: 78.5 }} defaultZoom={7} mapId="TAMIL_NADU_HOSPITALS_MAP" gestureHandling={"cooperative"} mapTypeControl={false}>
+      <Map defaultCenter={{ lat: 11.5, lng: 78.5 }} defaultZoom={7} mapId="TAMIL_NADU_HOSPITALS_MAP" gestureHandling={"cooperative"} mapTypeControl={false} styles={mapStyles}>
         {hospitalsToShow.map((hospital) => (
           <Marker key={hospital.id} position={{ lat: hospital.lat, lng: hospital.lng }} title={hospital.name} onClick={() => setSelectedHospital(hospital)} icon={pinkDotIcon} />
         ))}
       </Map>
     );
   }
-  return <div className="w-full h-full bg-slate-200 animate-pulse" />;
+  return <div className="w-full h-full bg-slate-200 dark:bg-slate-800 animate-pulse" />;
 }
 
 // --- DEVELOPMENT NOTICE POPUP ---
@@ -218,7 +240,7 @@ function DevNoticePopup() {
     if (!isOpen) return null;
 
     return (
-        <div className="fixed bottom-5 right-5 z-50 bg-white border border-slate-200 rounded-lg shadow-lg p-4 max-w-sm animate-in slide-in-from-bottom-5 fade-in duration-300">
+        <div className="fixed bottom-5 right-5 z-50 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg shadow-lg p-4 max-w-sm animate-in slide-in-from-bottom-5 fade-in duration-300">
             <div className="flex items-start">
                 <div className="flex-shrink-0">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -226,12 +248,12 @@ function DevNoticePopup() {
                     </svg>
                 </div>
                 <div className="ml-3">
-                    <h3 className="text-sm font-semibold text-slate-800">Under Development</h3>
-                    <p className="text-sm text-slate-600 mt-1">This page is currently under active development. Some features may not be fully functional.</p>
+                    <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-200">Under Development</h3>
+                    <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">This page is currently under active development. Some features may not be fully functional.</p>
                 </div>
                 <div className="ml-4 flex-shrink-0">
-                    <button onClick={() => setIsOpen(false)} className="p-1.5 bg-slate-500/10 rounded-full hover:bg-slate-500/20 transition" aria-label="Dismiss">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <button onClick={() => setIsOpen(false)} className="p-1.5 bg-slate-500/10 dark:bg-slate-100/10 rounded-full hover:bg-slate-500/20 dark:hover:bg-slate-100/20 transition" aria-label="Dismiss">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-slate-600 dark:text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                         </svg>
                     </button>
@@ -277,22 +299,24 @@ export default function HospitalsPage() {
     const clearFilters = () => setFilters({ districts: [], treatments: [], types: [] });
 
     if (!apiKey) {
-        return ( <div className="p-5 pt-20 text-center"><h1 className="font-bold text-lg">Google Maps API Key is missing.</h1><p>Please add it to your .env.local file.</p></div> );
+        return ( <div className="p-5 pt-20 text-center dark:bg-slate-900 dark:text-white h-screen"><h1 className="font-bold text-lg">Google Maps API Key is missing.</h1><p>Please add it to your .env.local file.</p></div> );
     }
 
     return (
         <div className="h-screen w-full relative">
+             <div className="fixed inset-0 -z-10 top-0">
+                <div className="absolute w-full h-full bg-gradient-to-br from-[#f44e8b] via-[#5557fc] to-[#f44e8b] opacity-20 dark:opacity-25 blur-[120px]" />
+            </div>
             <APIProvider apiKey={apiKey}>
                 {/* Desktop Filter Panel */}
-                <div className="hidden md:block absolute top-16 left-0 h-[calc(100vh-4rem)] w-72 z-10 bg-white border-r border-slate-200">
+                <div className="hidden md:block absolute top-16 left-0 h-[calc(100vh-4rem)] w-72 z-10 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800">
                     <FilterBox filters={filters} onFilterChange={handleFilterChange} allDistricts={allDistricts} allTreatments={allTreatments} allTypes={allTypes} onClear={clearFilters} onDone={() => {}} />
                 </div>
                 
                 {/* Mobile Filter Button */}
                 <div className="md:hidden absolute top-20 left-4 z-10">
-                    <button onClick={() => setIsFilterOpen(true)} className="flex items-center space-x-2 bg-white/90 backdrop-blur-sm border border-slate-200 shadow-lg rounded-lg px-4 py-2 text-sm font-semibold">
-                        {/* --- ICON REPLACED --- */}
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="h-5 w-5 text-slate-600">
+                    <button onClick={() => setIsFilterOpen(true)} className="flex items-center space-x-2 bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm border border-slate-200 dark:border-slate-700 shadow-lg rounded-lg px-4 py-2 text-sm font-semibold text-slate-800 dark:text-slate-200">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="h-5 w-5 text-slate-600 dark:text-slate-400">
                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 0 1-.659 1.591l-5.432 5.432a2.25 2.25 0 0 0-.659 1.591v2.927a2.25 2.25 0 0 1-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 0 0-.659-1.591L3.659 7.409A2.25 2.25 0 0 1 3 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0 1 12 3Z" />
                         </svg>
                         <span>Filters</span>

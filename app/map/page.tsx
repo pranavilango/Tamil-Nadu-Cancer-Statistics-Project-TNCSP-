@@ -27,7 +27,6 @@ export default function MapPage() {
   const [selectedDistrict, setSelectedDistrict] = useState("");
   const [cancerData, setCancerData] = useState<CancerData | null>(null);
 
-  // --- Data Loading (Unchanged) ---
   useEffect(() => {
     fetch("/cancer-data.json")
       .then((res) => res.json())
@@ -46,7 +45,6 @@ export default function MapPage() {
     });
   }, []);
 
-  // --- Data Aggregation (Unchanged) ---
   const districtTotals = useMemo(() => {
     if (!cancerData) return null;
     const totals: { [key: string]: number } = {};
@@ -60,7 +58,6 @@ export default function MapPage() {
   }, [cancerData]);
 
 
-  // --- D3 RENDERING LOGIC (Unchanged) ---
   useEffect(() => {
     if (!geoData || !svgRef.current) return;
 
@@ -81,7 +78,9 @@ export default function MapPage() {
       .append("path")
       .attr("d", pathGenerator)
       .attr("class", "district-path")
-      .attr("stroke", "#000")
+      // --- THIS IS THE FIX ---
+      // The stroke is now permanently set to black for both themes.
+      .attr("stroke", "#000") 
       .attr("stroke-width", 0.35)
       .attr("stroke-linejoin", "round")
       .style("cursor", "pointer")
@@ -89,13 +88,14 @@ export default function MapPage() {
         setSelectedDistrict(d.properties.Dist_Name);
       });
 
-  }, [geoData]);
+  }, [geoData]); // Removed isDarkMode as it's no longer needed here
 
   useEffect(() => {
     if (!geoData || !svgRef.current || !districtTotals) return;
 
     const maxCases = Math.max(...Object.values(districtTotals));
-    const colorScale = d3.scaleSequential(d3.interpolateBlues)
+    
+    const colorScale = d3.scaleSequential(d3.interpolatePuRd)
                          .domain([0, maxCases]);
 
     const svg = d3.select(svgRef.current);
@@ -122,23 +122,23 @@ export default function MapPage() {
       });
   }, [selectedDistrict, geoData, districtTotals]);
 
-  // --- JSX Layout (RESPONSIVE) ---
   return (
     <div className="w-full min-h-screen flex flex-col lg:flex-row lg:justify-start lg:items-center p-4 pt-24 lg:p-0 z-2 overflow-x-hidden">
       
-      {/* Map & Selector Container */}
-      {/* FIX: On lg screens, pushed down from top and height adjusted to prevent overlap with fixed navbar */}
+      <div className="fixed inset-0 -z-10 top-0">
+          <div className="absolute w-full h-full bg-gradient-to-br from-[#f44e8b] via-[#5557fc] to-[#f44e8b] opacity-20 dark:opacity-25 blur-[120px]" />
+      </div>
+      
       <div className="w-full lg:fixed lg:top-[12vh] lg:h-[88vh] lg:w-[50vw] flex lg:items-center lg:justify-start z-39 lg:ml-6">
-        <div className="w-full rounded-4xl bg-gray-100 flex flex-col lg:flex-row z-1" style={{ boxShadow: "0 0 25px rgba(0,0,0,0.2)" }}>
+        <div className="w-full rounded-3xl bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xl border border-zinc-200/50 dark:border-zinc-800 flex flex-col lg:flex-row z-1 shadow-2xl dark:shadow-black/30">
           
-          {/* Selector Panel */}
-          <div className="w-full lg:w-2/5 flex flex-col justify-start rounded-t-4xl lg:rounded-l-4xl lg:rounded-tr-none p-6" style={{ boxShadow: "0 5px 15px rgba(0,0,0,0.05)" }}>
-              <label htmlFor="district-select" className="block text-sm mb-2 font-semibold">
+          <div className="w-full lg:w-2/5 flex flex-col justify-start rounded-t-3xl lg:rounded-l-3xl lg:rounded-tr-none p-6">
+              <label htmlFor="district-select" className="block text-sm mb-2 font-semibold text-zinc-800 dark:text-zinc-200">
                   District
               </label>
               <select
                   id="district-select"
-                  className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-black"
+                  className="w-full border border-gray-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 rounded px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-black dark:focus:ring-white"
                   value={selectedDistrict}
                   onChange={(e) => setSelectedDistrict(e.target.value)}
               >
@@ -148,23 +148,21 @@ export default function MapPage() {
                       </option>
                   ))}
               </select>
-              {/* Text hidden on mobile for a cleaner look, visible on desktop */}
               <div className="hidden lg:block mt-8">
-                <p className="text-xs text-gray-600 text-center mb-4">
+                <p className="text-xs text-gray-600 dark:text-zinc-400 text-center mb-4">
                     This data is from the 2020 TNCRP Report, presenting statistics from 2016.
                 </p>
-                <p className="text-xs text-gray-600 text-center mb-4">
+                <p className="text-xs text-gray-600 dark:text-zinc-400 text-center mb-4">
                     The pie chart includes both male and female cases. Hover over slices for details.
                 </p>
-                <div className="mt-4 bg-gray-200 rounded-lg p-3 text-center">
-                    <p className="text-xs text-gray-600 font-medium">
+                <div className="mt-4 bg-gray-200 dark:bg-zinc-800 rounded-lg p-3 text-center">
+                    <p className="text-xs text-gray-600 dark:text-zinc-400 font-medium">
                         Other selectors coming soon.
                     </p>
                 </div>
               </div>
           </div>
           
-          {/* Map SVG Container */}
           <div className="w-full lg:w-3/5 p-4 flex justify-center">
             <div className="w-full max-w-md lg:max-w-full">
               <svg ref={svgRef} className="w-full h-auto" />
@@ -173,11 +171,10 @@ export default function MapPage() {
         </div>
       </div>
 
-      {/* Pie Chart Container */}
       <div className="w-full mt-8 lg:mt-0 lg:ml-[52vw] lg:w-[48vw] h-auto lg:h-screen flex flex-col items-center justify-center px-2 lg:px-6">
         {selectedDistrict && cancerData && cancerData[selectedDistrict] && (
           <>
-            <h2 className="text-2xl lg:text-3xl font-bold mb-4 lg:mb-8 text-center">
+            <h2 className="text-2xl lg:text-3xl font-bold mb-4 lg:mb-8 text-center text-zinc-900 dark:text-white">
               Cancer in {selectedDistrict}
             </h2>
             <PieChart

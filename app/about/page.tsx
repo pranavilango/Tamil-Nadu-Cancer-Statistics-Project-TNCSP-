@@ -67,6 +67,13 @@ const teamMembers = [
         linkedIn: ""
     },
     {
+        name: "Dhakshan Vasantharajan",
+        role: "Campaigner",
+        bio: "Eager to explore genetics and biochemistry, I aim to ensure complete transparency in cancer statistics and make this information easily available to all. Driven by familial struggles with cancer, I hope to highlight the importance of early screening to help and protect others. We may have cancer, but cancer does not have us.",
+        imageUrl: "/dhakshan.png",
+        linkedIn: ""
+    },    
+    {
         name: "Aadarsh V",
         role: "Campaigner + LinkedIn Manager",
         bio: "An expert in visual storytelling, Priya crafts intuitive charts and maps that bring our data to life, making complex findings understandable at a glance.",
@@ -76,27 +83,29 @@ const teamMembers = [
 ];
 
 const TeamMemberCard = ({ member }: { member: typeof teamMembers[0] }) => (
-    <div className="group flex h-full flex-col items-center text-center p-6 bg-white/60 backdrop-blur-xl border border-zinc-200/50 rounded-3xl shadow-lg shadow-zinc-200/40 transition-all duration-500 hover:shadow-pink-200/50 hover:border-zinc-300 hover:-translate-y-2">
-        <div className="relative w-32 h-32 md:w-36 md:h-36 rounded-full overflow-hidden ring-1 ring-zinc-200/80 shadow-xl shadow-zinc-300/30 transition-transform duration-500 ease-in-out group-hover:scale-110">
+    <div className="group flex h-full flex-col items-center text-center p-6 bg-white/60 dark:bg-black/40 backdrop-blur-xl border border-zinc-200/50 dark:border-zinc-800 rounded-3xl shadow-lg shadow-zinc-200/40 dark:shadow-black/30 transition-all duration-500 hover:shadow-pink-200/50 dark:hover:shadow-pink-500/20 hover:border-zinc-300 dark:hover:border-zinc-700 hover:-translate-y-2">
+        {/* --- THIS IS THE FIX --- */}
+        {/* Replaced 'shadow-xl shadow-zinc-300/30' with a softer, lighter 'shadow-lg shadow-zinc-200/70' */}
+        <div className="relative w-32 h-32 md:w-36 md:h-36 rounded-full overflow-hidden ring-1 ring-zinc-200/80 dark:ring-zinc-700 shadow-lg shadow-zinc-200/70 dark:shadow-black/40 transition-transform duration-500 ease-in-out group-hover:scale-110">
             <Image
                 src={member.imageUrl}
                 alt={`Photo of ${member.name}`}
-                layout="fill"
-                objectFit="cover"
+                fill
+                style={{objectFit:"cover"}}
                 className="bg-zinc-200"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent transition-all duration-500 group-hover:from-black/40"></div>
         </div>
         <div className="mt-5 flex-grow">
-            <h3 className="text-xl font-bold text-zinc-900">{member.name}</h3>
+            <h3 className="text-xl font-bold text-zinc-900 dark:text-zinc-100">{member.name}</h3>
             <p className="mt-1 text-sm font-semibold bg-gradient-to-r from-[#5557fc] to-[#f44e8b] bg-clip-text text-transparent">{member.role}</p>
-            <p className="mt-3 text-zinc-600 text-xs max-w-xs leading-relaxed">{member.bio}</p>
+            <p className="mt-3 text-zinc-600 dark:text-zinc-300 text-xs max-w-xs leading-relaxed">{member.bio}</p>
         </div>
         <div className="mt-4 flex h-6 items-center flex-shrink-0 space-x-4 justify-center opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-300">
             {member.linkedIn && (
                 <Link href={member.linkedIn} target="_blank" rel="noopener noreferrer">
                     <span className="sr-only">LinkedIn</span>
-                    <LinkedInIcon className="w-5 h-5 text-zinc-400 hover:text-[#0077B5] transition-colors" />
+                    <LinkedInIcon className="w-5 h-5 text-zinc-400 dark:text-zinc-500 hover:text-[#0077B5] transition-colors" />
                 </Link>
             )}
         </div>
@@ -121,9 +130,9 @@ export default function AboutPage() {
     };
 
     return (
-        <div className="bg-transparent text-zinc-800 overflow-x-hidden">
+        <div className="bg-transparent text-zinc-800 dark:text-zinc-200 overflow-x-hidden">
             <div className="absolute inset-0 -z-10">
-                <div className="absolute w-full h-full bg-gradient-to-br from-[#f44e8b] via-[#5557fc] to-[#f44e8b] opacity-20 blur-[120px] rounded-full" />
+                <div className="absolute w-full h-full bg-gradient-to-br from-[#f44e8b] via-[#5557fc] to-[#f44e8b] opacity-20 dark:opacity-25 blur-[120px] rounded-full" />
             </div>
 
             {/* --- EPIC HERO SECTION --- */}
@@ -131,22 +140,22 @@ export default function AboutPage() {
                 <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-16 items-center">
                     {/* --- Left Column: Text Content --- */}
                     <div className="text-center lg:text-left">
-                        <p className="inline-block px-4 py-1 text-sm font-semibold tracking-wider text-[#f44e8b] bg-[#f44e8b]/10 rounded-full mb-4 mt-8 lg:mt-0">
+                        <p className="inline-block px-4 py-1 text-sm font-semibold tracking-wider text-[#f44e8b] bg-[#f44e8b]/10 dark:bg-[#f44e8b]/20 rounded-full mb-4 mt-8 lg:mt-0">
                             A Public Health Initiative
                         </p>
-                        <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-zinc-900 leading-tight">
+                        <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-zinc-900 dark:text-white leading-tight">
                             Bridging the gap between <span className="bg-gradient-to-r from-[#5557fc] to-[#f44e8b] bg-clip-text text-transparent">cancer data</span> & <span className="bg-gradient-to-r from-[#5557fc] to-[#f44e8b] bg-clip-text text-transparent">public understanding</span>.
                         </h1>
-                        <p className="mt-6 text-lg text-zinc-600 max-w-xl mx-auto lg:mx-0">
+                        <p className="mt-6 text-lg text-zinc-600 dark:text-zinc-300 max-w-xl mx-auto lg:mx-0">
                             The Tamil Nadu Cancer Statistics Project (TNCSP) is a student-led initiative transforming complex statistics into clear, actionable knowledge to empower communities across the state.
                         </p>
                         <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                            <a href="#team-section" onClick={(e) => handleScroll(e, 'team-section')} className="group inline-flex items-center justify-center px-6 py-3.5 bg-zinc-900 text-white text-base font-semibold rounded-full shadow-lg hover:bg-zinc-800 transition-all transform hover:scale-105">
+                            <a href="#mission" onClick={(e) => handleScroll(e, 'mission')} className="group inline-flex items-center justify-center px-6 py-3.5 bg-zinc-900 dark:bg-white text-white dark:text-black text-base font-semibold rounded-full shadow-lg hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-all transform hover:scale-105">
+                                Our Mission
+                            </a>
+                            <a href="#team-section" onClick={(e) => handleScroll(e, 'team-section')} className="group inline-flex items-center justify-center px-6 py-3.5 bg-zinc-900 dark:bg-white text-white dark:text-black text-base font-semibold rounded-full shadow-lg hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-all transform hover:scale-105">
                                 Meet the Team
                                 <ArrowDownIcon className="w-5 h-5 ml-2 transition-transform group-hover:translate-y-1" />
-                            </a>
-                             <a href="#mission" onClick={(e) => handleScroll(e, 'mission')} className="group inline-flex items-center justify-center px-6 py-3.5 bg-zinc-100 text-zinc-700 text-base font-semibold rounded-full shadow-sm hover:bg-zinc-200/80 transition-all transform hover:scale-105">
-                                Our Mission
                             </a>
                         </div>
                     </div>
@@ -157,14 +166,14 @@ export default function AboutPage() {
                         <div className="absolute right-10 top-10 w-64 h-64 sm:w-80 sm:h-80 bg-[#5557fc]/50 rounded-full mix-blend-multiply filter blur-3xl opacity-90 animate-pulse animation-delay-2000"></div>
 
                         {/* Glassmorphism Card */}
-                        <div className="relative w-full max-w-sm h-60 bg-white/60 backdrop-blur-xl border border-white/30 rounded-3xl shadow-2xl shadow-zinc-300/20 p-8 flex flex-col justify-center items-center text-center">
+                        <div className="relative w-full max-w-sm h-60 bg-white/60 dark:bg-black/40 backdrop-blur-xl border border-white/30 dark:border-white/10 rounded-3xl shadow-2xl shadow-zinc-300/20 dark:shadow-black/30 p-8 flex flex-col justify-center items-center text-center">
                             <p className="text-5xl sm:text-6xl md:text-7xl font-bold bg-gradient-to-r from-[#5557fc] to-[#f44e8b] bg-clip-text text-transparent">
                                 1 in 68
                             </p>
-                            <p className="mt-2 text-md font-semibold text-zinc-800">
+                            <p className="mt-2 text-md font-semibold text-zinc-800 dark:text-zinc-100">
                                 Lifetime risk of developing breast cancer for women in Chennai
                             </p>
-                            <p className="mt-2 text-xs text-zinc-500 tracking-wide">
+                            <p className="mt-2 text-xs text-zinc-500 dark:text-zinc-400 tracking-wide">
                                 (Source: TNCRP Report, 2020)
                             </p>
                         </div>
@@ -173,37 +182,37 @@ export default function AboutPage() {
             </section>
             
             {/* --- Core Principles Section --- */}
-            <section id="mission" className="scroll-mt-20">
-                <div className="bg-zinc-50/70 py-16 md:py-24">
+            <section id="mission" className="scroll-mt-16">
+                <div className="bg-zinc-50/70 dark:bg-zinc-900/50 py-16 md:py-16">
                     <div className="max-w-7xl mx-auto text-center px-4">
-                        <h2 className="text-3xl sm:text-4xl font-bold text-zinc-900">Our Guiding Principles</h2>
-                        <p className="mt-4 text-lg text-zinc-600 max-w-2xl mx-auto">
+                        <h2 className="text-3xl sm:text-4xl font-bold text-zinc-900 dark:text-white">Our Guiding Principles</h2>
+                        <p className="mt-4 text-lg text-zinc-600 dark:text-zinc-300 max-w-2xl mx-auto">
                             Our work is built on a foundation of core values that ensure our impact is meaningful, ethical, and sustainable.
                         </p>
                         <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-10">
                             {/* Data-Driven Card */}
-                            <div className="flex flex-col items-center p-8 border border-zinc-200/80 rounded-2xl shadow-lg shadow-zinc-100 bg-white">
+                            <div className="flex flex-col items-center p-8 border border-zinc-200/80 dark:border-zinc-800 rounded-2xl shadow-lg shadow-zinc-100 dark:shadow-black/20 bg-white dark:bg-zinc-900">
                                 <div className="flex items-center justify-center h-16 w-16 rounded-full bg-gradient-to-br from-[#f44e8b]/20 to-[#f44e8b]/10 text-[#f44e8b]">
                                     <DataIcon className="h-8 w-8" />
                                 </div>
                                 <h3 className="mt-6 text-xl font-bold">Data-Driven</h3>
-                                <p className="mt-2 text-zinc-600">We ground our insights in verified, open-source data to provide information that is accurate, trustworthy, and impactful.</p>
+                                <p className="mt-2 text-zinc-600 dark:text-zinc-300">We ground our insights in verified, open-source data to provide information that is accurate, trustworthy, and impactful.</p>
                             </div>
                             {/* Community-Focused Card */}
-                            <div className="flex flex-col items-center p-8 border border-zinc-200/80 rounded-2xl shadow-lg shadow-zinc-100 bg-white">
+                            <div className="flex flex-col items-center p-8 border border-zinc-200/80 dark:border-zinc-800 rounded-2xl shadow-lg shadow-zinc-100 dark:shadow-black/20 bg-white dark:bg-zinc-900">
                                  <div className="flex items-center justify-center h-16 w-16 rounded-full bg-gradient-to-br from-[#5557fc]/20 to-[#5557fc]/10 text-[#5557fc]">
                                     <CommunityIcon className="h-8 w-8" />
                                 </div>
                                 <h3 className="mt-6 text-xl font-bold">Community-Focused</h3>
-                                <p className="mt-2 text-zinc-600">Our project is for the people. We prioritize community engagement and grassroots awareness to ensure our work reaches those who need it most.</p>
+                                <p className="mt-2 text-zinc-600 dark:text-zinc-300">Our project is for the people. We prioritize community engagement and grassroots awareness to ensure our work reaches those who need it most.</p>
                             </div>
                             {/* Open & Accessible Card */}
-                            <div className="flex flex-col items-center p-8 border border-zinc-200/80 rounded-2xl shadow-lg shadow-zinc-100 bg-white">
+                            <div className="flex flex-col items-center p-8 border border-zinc-200/80 dark:border-zinc-800 rounded-2xl shadow-lg shadow-zinc-100 dark:shadow-black/20 bg-white dark:bg-zinc-900">
                                  <div className="flex items-center justify-center h-16 w-16 rounded-full bg-gradient-to-br from-zinc-200 to-zinc-100 text-zinc-600">
                                     <OpenAccessIcon className="h-8 w-8" />
                                 </div>
                                 <h3 className="mt-6 text-xl font-bold">Open & Accessible</h3>
-                                <p className="mt-2 text-zinc-600">We believe knowledge should be free and easy to understand. We are committed to open-source principles and creating resources for everyone.</p>
+                                <p className="mt-2 text-zinc-600 dark:text-zinc-300">We believe knowledge should be free and easy to understand. We are committed to open-source principles and creating resources for everyone.</p>
                             </div>
                         </div>
                     </div>
@@ -213,12 +222,12 @@ export default function AboutPage() {
             {/* --- The Team Section --- */}
             <section id="team-section" className="relative scroll-mt-20">
                 <div className="absolute inset-0 -z-10 overflow-hidden">
-                    <div className="absolute top-0 -left-1/4 w-96 h-96 md:w-[32rem] md:h-[32rem] bg-gradient-to-br from-[#f44e8b]/20 to-white rounded-full blur-3xl opacity-50 md:opacity-60 transform -translate-x-1/4"></div>
-                    <div className="absolute bottom-0 -right-1/4 w-96 h-96 md:w-[32rem] md:h-[32rem] bg-gradient-to-tl from-[#5557fc]/20 to-white rounded-full blur-3xl opacity-50 md:opacity-60 transform translate-x-1/4"></div>
+                    <div className="absolute top-0 -left-1/4 w-96 h-96 md:w-[32rem] md:h-[32rem] bg-gradient-to-br from-[#f44e8b]/20 to-white dark:to-black rounded-full blur-3xl opacity-50 md:opacity-60 transform -translate-x-1/4"></div>
+                    <div className="absolute bottom-0 -right-1/4 w-96 h-96 md:w-[32rem] md:h-[32rem] bg-gradient-to-tl from-[#5557fc]/20 to-white dark:to-black rounded-full blur-3xl opacity-50 md:opacity-60 transform translate-x-1/4"></div>
                 </div>
                 <div className="max-w-7xl mx-auto text-center px-4 py-16 md:py-24">
-                    <h2 className="text-3xl sm:text-4xl font-bold text-zinc-900">Meet the Minds Behind the Mission</h2>
-                    <p className="mt-4 text-lg text-zinc-600 max-w-3xl mx-auto">
+                    <h2 className="text-3xl sm:text-4xl font-bold text-zinc-900 dark:text-white">Meet the Minds Behind the Mission</h2>
+                    <p className="mt-4 text-lg text-zinc-600 dark:text-zinc-300 max-w-3xl mx-auto">
                         We are a collective of students, researchers, and developers united by a single goal: to empower our communities with clear, data-driven health insights.
                     </p>
 
@@ -231,7 +240,7 @@ export default function AboutPage() {
                         ))}
                     </div>
 
-                    <div className="my-12 md:my-16 border-b border-zinc-200/80 w-3/4 sm:w-1/2 mx-auto"></div>
+                    <div className="my-12 md:my-16 border-b border-zinc-200/80 dark:border-zinc-800 w-3/4 sm:w-1/2 mx-auto"></div>
 
                     {/* --- Core Team Grid: 1 col on mobile, 2 on sm, 3 on lg --- */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-10 gap-x-6 md:gap-x-8">

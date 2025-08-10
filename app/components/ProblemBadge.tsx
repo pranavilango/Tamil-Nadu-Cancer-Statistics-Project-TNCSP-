@@ -16,7 +16,7 @@ export default function ProblemBadge({ index }: { index: number }) {
   return (
     <div className="relative z-5 mb-2 min-w-[120px] text-center">
       <div
-        className="text-black border border-black text-sm px-4 py-1 rounded-full font-medium bg-white/60 relative overflow-hidden"
+        className="text-black dark:text-white border border-black dark:border-white text-sm px-4 py-1 rounded-full font-medium bg-white/60 dark:bg-black/60 relative overflow-hidden"
         onMouseEnter={() => {
           if (timeoutRef.current) clearTimeout(timeoutRef.current);
           setIsHovering(true);
@@ -33,7 +33,7 @@ export default function ProblemBadge({ index }: { index: number }) {
         <AnimatePresence>
           {isHovering && (
             <motion.div
-              className="absolute w-20 h-20 bg-black/10 blur-xl rounded-full pointer-events-none"
+              className="absolute w-20 h-20 bg-black/10 dark:bg-white/10 blur-xl rounded-full pointer-events-none"
               style={{
                 x: springX,
                 y: springY,

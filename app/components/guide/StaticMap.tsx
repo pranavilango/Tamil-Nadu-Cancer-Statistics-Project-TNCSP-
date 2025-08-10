@@ -39,25 +39,23 @@ export default function StaticMap({ geoData, districtTotals }: StaticMapProps) {
     const colorScale = d3.scaleSequential(d3.interpolateReds)
                          .domain([0, maxCases]);
 
-    // --- MODIFICATION 1: Define the drop shadow filter ---
-    // We add the filter definition inside a <defs> block within the SVG.
     const defs = svg.append('defs');
     const filter = defs.append('filter')
       .attr('id', 'drop-shadow')
-      .attr('height', '130%'); // Give filter space to render shadow
+      .attr('height', '130%');
 
-    filter.append('feGaussianBlur') // Blur the shape
+    filter.append('feGaussianBlur')
       .attr('in', 'SourceAlpha')
       .attr('stdDeviation', 2)
       .attr('result', 'blur');
 
-    filter.append('feOffset') // Offset the blurred shape
+    filter.append('feOffset')
       .attr('in', 'blur')
       .attr('dx', 1)
       .attr('dy', 1)
       .attr('result', 'offsetBlur');
 
-    const feMerge = filter.append('feMerge'); // Merge original shape and shadow
+    const feMerge = filter.append('feMerge');
     feMerge.append('feMergeNode').attr('in', 'offsetBlur');
     feMerge.append('feMergeNode').attr('in', 'SourceGraphic');
 
@@ -68,9 +66,8 @@ export default function StaticMap({ geoData, districtTotals }: StaticMapProps) {
       .enter()
       .append('path')
       .attr('d', pathGenerator)
-      // --- MODIFICATION 2: Apply the new styles to each district path ---
-      .attr('stroke', '#000') // Set border color to black
-      .attr('stroke-width', 0.5) // Slightly thicker border for better visibility
+      .attr('stroke', '#000') 
+      .attr('stroke-width', 0.5)
       .attr('fill', (d: DistrictFeature) => {
         const districtName = d.properties.Dist_Name;
         const totalCases = districtTotals[districtName] || 0;
@@ -78,6 +75,5 @@ export default function StaticMap({ geoData, districtTotals }: StaticMapProps) {
       });
   }, [geoData, districtTotals]);
 
-  // --- MODIFICATION 3: Remove the border from the SVG container ---
   return <svg ref={ref} className="w-full h-full" />;
 }

@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { AnimatePresence, motion } from 'framer-motion';
 
-// Campaigns Data
+// Campaigns Data (no changes here)
 const campaigns = [
   {
     title: 'Awareness Campaign #1',
@@ -72,11 +72,20 @@ const campaigns = [
       '/awareness-eswaran-1.jpg',
       '/awareness-eswaran-2.jpg'
     ],
+  },
+  {
+    title: 'Awareness Campaign #7',
+    description: 'For the seventh campaign, two student volunteers went to the busiest temple in Erode to create early screening awareness.',
+    location: 'Thindal Murugan Temple, Erode',
+    peopleReached: '300+ Individuals',
+    images: [
+      '/awareness-thindal-1.jpg',
+      '/awareness-thindal-2.jpg'
+    ],
   }
 ];
 
-
-// Icons
+// Icons (no changes here)
 const ArrowLeftIcon = (props: React.SVGProps<SVGSVGElement>) => (
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" {...props}>
       <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
@@ -134,41 +143,43 @@ export default function ImpactPage() {
         );
       };
 
-
   const activeCampaign = campaigns[currentCampaignIndex];
 
   return (
-    <div className="bg-transparent min-h-screen text-zinc-800">
-      <div className="absolute inset-0 -z-1">
-        <div className="absolute w-full h-full bg-gradient-to-br from-[#f44e8b] via-[#5557fc] to-[#f44e8b] opacity-20 blur-[120px]" />
+    // --- THIS IS THE FIX ---
+    // Removed the redundant `pt-16` from this container.
+    <div className="bg-transparent min-h-screen">
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute w-full h-full bg-gradient-to-br from-[#f44e8b] via-[#5557fc] to-[#f44e8b] opacity-20 dark:opacity-25 blur-[120px]" />
       </div>
 
       {/* --- HERO STATISTICS SECTION --- */}
-      <section className="py-20 sm:py-24">
+      {/* This section's padding correctly handles the space for the navbar */}
+      <section className="py-20 sm:py-24 pt-36"> {/* pt-36 = py-20 + 16 (for navbar) */}
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
           <div className="text-center max-w-3xl mx-auto">
-            <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-black">
+            <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-black dark:text-white">
               Progress Quantified
             </h1>
-            <p className="mt-6 text-lg md:text-xl leading-8 text-zinc-600">
+            <p className="mt-6 text-lg md:text-xl leading-8 text-zinc-600 dark:text-zinc-300">
               We are dedicated to creating tangible change through direct community outreach, education, and support systems. Here’s a look at our progress.
             </p>
           </div>
           <div className="mt-12 lg:mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Main Stat */}
-            <div className="relative md:col-span-2 lg:col-span-1 bg-white border border-zinc-200/80 rounded-3xl shadow-xl p-8 flex flex-col justify-between overflow-hidden min-h-[24rem] lg:h-96">
+            <div className="relative md:col-span-2 lg:col-span-1 bg-white dark:bg-zinc-900/70 border border-zinc-200/80 dark:border-zinc-800 rounded-3xl shadow-xl p-8 flex flex-col justify-between overflow-hidden min-h-[24rem] lg:h-96">
                 <div className="absolute w-[300%] h-[300%] -top-full -left-full bg-gradient-to-br from-pink-500/20 via-blue-500/20 to-transparent opacity-50 blur-3xl animate-pulse-slow"></div>
                 <div className="relative z-10">
                     <h2 className="text-6xl md:text-7xl font-extrabold bg-gradient-to-r from-[#5557fc] to-[#f44e8b] bg-clip-text text-transparent">
-                        4,300+
+                        4,600+
                     </h2>
-                    <p className="mt-4 text-xl text-zinc-700 font-medium">
+                    <p className="mt-4 text-xl text-zinc-700 dark:text-zinc-200 font-medium">
                         people impacted via student-led awareness campaigns
                     </p>
                 </div>
                 <button
                     onClick={() => document.getElementById('campaigns-section')?.scrollIntoView({ behavior: 'smooth' })}
-                    className="relative z-10 self-start mt-6 h-12 px-6 rounded-full bg-zinc-900 text-white font-semibold text-sm cursor-pointer hover:bg-zinc-800 transition-colors flex items-center group"
+                    className="relative z-10 self-start mt-6 h-12 px-6 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-black font-semibold text-sm cursor-pointer hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-colors flex items-center group"
                 >
                     Explore Campaigns
                     <ArrowRightIcon className="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" />
@@ -176,33 +187,40 @@ export default function ImpactPage() {
             </div>
 
             {/* Secondary Stats */}
-            <div className="relative bg-white border border-zinc-200/80 rounded-3xl shadow-xl p-8 flex flex-col justify-between overflow-hidden min-h-[24rem] lg:h-96">
+            <div className="relative bg-white dark:bg-zinc-900/70 border border-zinc-200/80 dark:border-zinc-800 rounded-3xl shadow-xl p-8 flex flex-col justify-between overflow-hidden min-h-[24rem] lg:h-96">
                 <div className="absolute w-[300%] h-[300%] -top-full -left-full bg-gradient-to-br from-pink-500/20 via-blue-500/20 to-transparent opacity-50 blur-3xl animate-pulse-slow"></div>
                 <div className="relative z-10">
                     <h2 className="text-6xl md:text-7xl font-extrabold bg-gradient-to-r from-[#5557fc] to-[#f44e8b] bg-clip-text text-transparent">
-                        ₹0
+                        7
                     </h2>
-                    <p className="mt-4 text-xl text-zinc-700">
-                        funds raised to support awareness campaigns, website development and early screening programs.
+                    <p className="mt-4 text-xl text-zinc-700 dark:text-zinc-200">
+                        awareness campaigns conducted in public gatherings by student volunteers.
                     </p>
                 </div>
-                <div className="relative z-10 mt-6 px-4 py-2 rounded-full bg-zinc-100 text-zinc-500 font-medium text-sm self-start">
+                {/* <div className="relative z-10 mt-6 px-4 py-2 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 font-medium text-sm self-start">
                     Coming Soon
-                </div>
+                </div> */}
+                <button
+                    onClick={() => document.getElementById('campaigns-section')?.scrollIntoView({ behavior: 'smooth' })}
+                    className="relative z-10 self-start mt-6 h-12 px-6 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-black font-semibold text-sm cursor-pointer hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-colors flex items-center group"
+                >
+                    Explore Campaigns
+                    <ArrowRightIcon className="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" />
+                </button>
             </div>
 
-            <div className="relative bg-white border border-zinc-200/80 rounded-3xl shadow-xl p-8 flex flex-col justify-between overflow-hidden min-h-[24rem] lg:h-96">
+            <div className="relative bg-white dark:bg-zinc-900/70 border border-zinc-200/80 dark:border-zinc-800 rounded-3xl shadow-xl p-8 flex flex-col justify-between overflow-hidden min-h-[24rem] lg:h-96">
                 <div className="absolute w-[300%] h-[300%] -top-full -left-full bg-gradient-to-br from-pink-500/20 via-blue-500/20 to-transparent opacity-50 blur-3xl animate-pulse-slow"></div>
                 <div className='relative z-10 flex flex-col justify-between h-full'>
                     <div>
                         <h2 className="text-6xl font-extrabold bg-gradient-to-r from-[#5557fc] to-[#f44e8b] bg-clip-text text-transparent">
-                            13
+                            14
                         </h2>
-                        <p className="mt-4 text-xl text-zinc-700">
+                        <p className="mt-4 text-xl text-zinc-700 dark:text-zinc-200">
                             student volunteers working together to improve the cancer landscape in Tamil Nadu
                         </p>
                     </div>
-                    <a href="/about" className="self-start mt-6 h-12 px-6 rounded-full bg-white border border-zinc-300 text-zinc-900 font-semibold text-sm cursor-pointer hover:bg-zinc-100 transition-colors flex items-center group">
+                    <a href="/about" className="self-start mt-6 h-12 px-6 rounded-full bg-white dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-zinc-100 font-semibold text-sm cursor-pointer hover:bg-zinc-100 dark:hover:bg-zinc-700 transition-colors flex items-center group">
                         Meet the Team
                         <ArrowRightIcon className="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" />
                     </a>
@@ -218,26 +236,26 @@ export default function ImpactPage() {
             {/* Section Header and Navigation */}
             <div className="flex flex-col md:flex-row justify-between items-center mb-8 md:mb-10">
                 <div className="text-center md:text-left">
-                    <h2 className="text-3xl md:text-4xl font-bold text-zinc-900 tracking-tight">Campaign Showcase</h2>
-                    <p className="mt-2 text-lg text-zinc-600">Navigating through our on-ground efforts and impact.</p>
+                    <h2 className="text-3xl md:text-4xl font-bold text-zinc-900 dark:text-white tracking-tight">Campaign Showcase</h2>
+                    <p className="mt-2 text-lg text-zinc-600 dark:text-zinc-300">Navigating through our on-ground efforts and impact.</p>
                 </div>
                 <div className="flex items-center space-x-4 mt-6 md:mt-0">
-                    <button onClick={handleCampaignPrev} aria-label="Previous Campaign" className="p-3 rounded-full bg-white border border-zinc-300 hover:bg-zinc-100 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500">
-                        <ArrowLeftIcon className="w-6 h-6 text-zinc-700" />
+                    <button onClick={handleCampaignPrev} aria-label="Previous Campaign" className="p-3 rounded-full bg-white dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-700 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500">
+                        <ArrowLeftIcon className="w-6 h-6 text-zinc-700 dark:text-zinc-300" />
                     </button>
-                    <span className="text-lg font-semibold text-zinc-700 tabular-nums">
+                    <span className="text-lg font-semibold text-zinc-700 dark:text-zinc-300 tabular-nums">
                         {String(currentCampaignIndex + 1).padStart(2, '0')} / {String(campaigns.length).padStart(2, '0')}
                     </span>
-                    <button onClick={handleCampaignNext} aria-label="Next Campaign" className="p-3 rounded-full bg-white border border-zinc-300 hover:bg-zinc-100 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500">
-                        <ArrowRightIcon className="w-6 h-6 text-zinc-700" />
+                    <button onClick={handleCampaignNext} aria-label="Next Campaign" className="p-3 rounded-full bg-white dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-700 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500">
+                        <ArrowRightIcon className="w-6 h-6 text-zinc-700 dark:text-zinc-300" />
                     </button>
                 </div>
             </div>
 
             {/* Campaign Card */}
-            <div className="relative w-full bg-white rounded-3xl shadow-2xl border border-zinc-200/80 overflow-hidden grid grid-cols-1 lg:grid-cols-2">
-                {/* Right Side: Image Carousel (Order changed for mobile-first rendering) */}
-                <div className="relative w-full h-80 lg:h-full bg-zinc-100 order-1 lg:order-2">
+            <div className="relative w-full bg-white dark:bg-zinc-900/70 rounded-3xl shadow-2xl border border-zinc-200/80 dark:border-zinc-800 overflow-hidden grid grid-cols-1 lg:grid-cols-2">
+                {/* Right Side: Image Carousel */}
+                <div className="relative w-full h-80 lg:h-full bg-zinc-100 dark:bg-zinc-800 order-1 lg:order-2">
                     <AnimatePresence>
                         <motion.div
                              key={currentImageIndex + activeCampaign.title}
@@ -250,8 +268,8 @@ export default function ImpactPage() {
                             <Image
                                 src={activeCampaign.images[currentImageIndex]}
                                 alt={`Photo from ${activeCampaign.title}`}
-                                layout="fill"
-                                objectFit="cover"
+                                fill={true}
+                                style={{objectFit: 'cover'}}
                             />
                         </motion.div>
                     </AnimatePresence>
@@ -259,11 +277,11 @@ export default function ImpactPage() {
                     <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent"></div>
 
                     <div className="absolute bottom-6 right-6 flex items-center space-x-3">
-                        <button onClick={handleImagePrev} aria-label="Previous Photo" className="p-2.5 rounded-full bg-white/80 backdrop-blur-sm hover:bg-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white">
-                            <ArrowLeftIcon className="h-5 w-5 text-zinc-800" />
+                        <button onClick={handleImagePrev} aria-label="Previous Photo" className="p-2.5 rounded-full bg-white/80 dark:bg-zinc-800/80 backdrop-blur-sm hover:bg-white dark:hover:bg-zinc-700 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white">
+                            <ArrowLeftIcon className="h-5 w-5 text-zinc-800 dark:text-zinc-200" />
                         </button>
-                        <button onClick={handleImageNext} aria-label="Next Photo" className="p-2.5 rounded-full bg-white/80 backdrop-blur-sm hover:bg-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white">
-                            <ArrowRightIcon className="h-5 w-5 text-zinc-800" />
+                        <button onClick={handleImageNext} aria-label="Next Photo" className="p-2.5 rounded-full bg-white/80 dark:bg-zinc-800/80 backdrop-blur-sm hover:bg-white dark:hover:bg-zinc-700 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white">
+                            <ArrowRightIcon className="h-5 w-5 text-zinc-800 dark:text-zinc-200" />
                         </button>
                     </div>
 
@@ -282,7 +300,7 @@ export default function ImpactPage() {
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, y: -20 }}
                                 transition={{ duration: 0.3, ease: 'easeInOut' }}
-                                className="text-3xl md:text-4xl font-bold text-zinc-900 leading-tight"
+                                className="text-3xl md:text-4xl font-bold text-zinc-900 dark:text-white leading-tight"
                             >
                                 {activeCampaign.title}
                             </motion.h3>
@@ -294,30 +312,30 @@ export default function ImpactPage() {
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, y: -20 }}
                                 transition={{ duration: 0.3, delay: 0.1, ease: 'easeInOut' }}
-                                className="mt-5 text-base md:text-lg text-zinc-600 leading-relaxed"
+                                className="mt-5 text-base md:text-lg text-zinc-600 dark:text-zinc-300 leading-relaxed"
                             >
                                 {activeCampaign.description}
                             </motion.p>
                         </AnimatePresence>
                     </div>
 
-                    <div className="flex-shrink-0 border-t border-zinc-200 mt-6 pt-6 space-y-5">
+                    <div className="flex-shrink-0 border-t border-zinc-200 dark:border-zinc-800 mt-6 pt-6 space-y-5">
                         <div className="flex items-start space-x-4">
-                            <div className="flex-shrink-0 bg-zinc-100 p-3 rounded-full border border-zinc-200">
+                            <div className="flex-shrink-0 bg-zinc-100 dark:bg-zinc-800 p-3 rounded-full border border-zinc-200 dark:border-zinc-700">
                                 <LocationIcon className="w-5 h-5 text-[#f44e8b]" />
                             </div>
                             <div>
-                                <p className="text-sm text-zinc-500">Location</p>
-                                <p className="text-base font-semibold text-zinc-800">{activeCampaign.location}</p>
+                                <p className="text-sm text-zinc-500 dark:text-zinc-400">Location</p>
+                                <p className="text-base font-semibold text-zinc-800 dark:text-zinc-200">{activeCampaign.location}</p>
                             </div>
                         </div>
                         <div className="flex items-start space-x-4">
-                            <div className="flex-shrink-0 bg-zinc-100 p-3 rounded-full border border-zinc-200">
+                            <div className="flex-shrink-0 bg-zinc-100 dark:bg-zinc-800 p-3 rounded-full border border-zinc-200 dark:border-zinc-700">
                                 <PeopleIcon className="w-5 h-5 text-[#5557fc]" />
                             </div>
                             <div>
-                                <p className="text-sm text-zinc-500">People Reached</p>
-                                <p className="text-base font-semibold text-zinc-800">{activeCampaign.peopleReached}</p>
+                                <p className="text-sm text-zinc-500 dark:text-zinc-400">People Reached</p>
+                                <p className="text-base font-semibold text-zinc-800 dark:text-zinc-200">{activeCampaign.peopleReached}</p>
                             </div>
                         </div>
                     </div>

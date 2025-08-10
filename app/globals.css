@@ -1,4 +1,6 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 ::selection {
   background: #f0b8d3;
@@ -21,20 +23,29 @@
   font-weight: 100;
   animation: blink-thin 1s steps(1) infinite;
   margin-left: 4px;
-  display: inline-block;
-  transform: scaleX(0.3); /* Makes it appear thinner */
+  transform: scaleX(0.3); 
+  transform-origin: left;
+}
+
+.dark .typewriter-wrapper::after {
+  content: '|';
+  color: white;
+  font-size: 1em;
+  font-weight: 100;
+  animation: blink-thin 1s steps(1) infinite;
+  margin-left: 4px;
+  transform: scaleX(0.3); 
   transform-origin: left;
 }
 
 .scrollbar-hide {
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE/Edge */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 .scrollbar-hide::-webkit-scrollbar {
-  display: none; /* Chrome, Safari */
+  display: none;
 }
 
-/* styles/globals.css or in <style jsx global> */
 .tooltip {
   position: absolute;
   padding: 6px;
@@ -49,3 +60,9 @@
   transition: opacity 0.2s ease;
 }
 
+/* --- THE NEW, DEFINITIVE FIX FOR SPACING --- */
+/* This custom class forces the correct line-height for the hero subtitle, */
+/* ensuring it's not affected by hydration or other style conflicts. */
+.hero-subtitle {
+  line-height: 1.625 !important; /* This matches `leading-relaxed` and `!important` ensures it is applied. */
+}

@@ -36,9 +36,9 @@ export const hospitals: Hospital[] = [
     // Erode 
     { id: 1, name: "Erode Cancer Centre", lat: 11.3137169, lng: 77.6691547, 
       treatments: [
-        { name: "Chemotherapy", cost: "" },
-        { name: "Surgery", cost: "" },
-        { name: "Radiotherapy", cost: "" }
+        { name: "Chemotherapy", cost: "20,000" },
+        { name: "Surgery", cost: "12,000" },
+        { name: "Radiotherapy", cost: "80,000" }
       ], 
       type: "Private", phone: "0424 233 9704", district: "Erode" 
     },

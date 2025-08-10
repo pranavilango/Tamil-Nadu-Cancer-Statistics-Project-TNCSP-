@@ -7,20 +7,13 @@ export default function Hero() {
   return (
     <main className="relative min-h-screen overflow-hidden">
       
-      {/* 
-        NEW DOT PATTERN BACKGROUND
-        - Scraps the old line grid.
-        - Uses a simple repeating radial gradient to create a clean dot pattern.
-      */}
       <div 
-        className="absolute inset-0 -z-10 h-full w-full"
-        style={{
-          backgroundImage: 'radial-gradient(circle, rgba(0,0,0,0.1) 1px, transparent 1px)',
-          backgroundSize: '1.25rem 1.25rem', // 20px grid
-        }}
+        className="absolute inset-0 -z-10 h-full w-full
+                   bg-[radial-gradient(circle,rgba(0,0,0,0.1)_1px,transparent_1px)]
+                   dark:bg-[radial-gradient(circle,rgba(255,255,255,0.08)_1px,transparent_1px)]"
+        style={{ backgroundSize: '1.25rem 1.25rem' }}
       />
 
-      {/* Hero Content */}
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4">
         <section className="text-center">
           <h1
@@ -42,7 +35,8 @@ export default function Hero() {
             </span>
           </h1>
 
-          <p className="mt-4 text-black text-lg sm:text-xl font-medium leading-relaxed max-w-3xl mx-auto">
+          {/* Replaced Tailwind utility with our new custom class for consistent spacing */}
+          <p className="mt-4 text-black dark:text-white text-lg sm:text-xl font-medium max-w-3xl mx-auto hero-subtitle">
             An applied public health project<br />
             leveraging open data for community-driven awareness.
           </p>
@@ -56,7 +50,7 @@ export default function Hero() {
                 ?.scrollIntoView({ behavior: 'smooth' });
             }}
             className="flex items-center gap-2 px-6 py-3 rounded-full
-                        bg-black shadow-lg text-white text-lg
+                        bg-black dark:bg-white shadow-lg text-white dark:text-black text-lg
                         hover:opacity-75 cursor-pointer z-10"
           >
             Learn More

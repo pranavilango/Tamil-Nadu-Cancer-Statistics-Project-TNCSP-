@@ -1,4 +1,4 @@
-// --- File: page.tsx ---
+// --- File: app/guide/page.tsx ---
 'use client'; 
 
 import { useState, useEffect, useRef, Suspense } from "react";
@@ -77,7 +77,6 @@ function GuideView() {
           }
         });
       },
-      // Adjusted rootMargin to better suit the new layout
       { rootMargin: "-25% 0px -70% 0px" } 
     );
 
@@ -97,8 +96,10 @@ function GuideView() {
   }, [activeSection]);
 
   return (
-    // FIX: Changed pt-14 to pt-24 to add more space below the floating navbar
-    <div className="min-h-screen pt-24 flex relative">
+    <div className="min-h-screen pt-24 flex relative bg-transparent">
+      <div className="fixed inset-0 -z-10 top-0">
+          <div className="absolute w-full h-full bg-gradient-to-br from-[#f44e8b] via-[#5557fc] to-[#f44e8b] opacity-20 dark:opacity-25 blur-[120px]" />
+      </div>
       <Sidebar
         title="Guide Sections"
         sections={sections}
@@ -109,7 +110,8 @@ function GuideView() {
         onClose={() => setIsLeftSidebarOpen(false)}
       />
       
-      <main className="flex-1 md:ml-64 md:mr-64 p-6 md:p-10 pb-24 md:pb-10">
+      {/* IMPROVEMENT: Adjusted padding for better mobile experience */}
+      <main className="flex-1 md:ml-64 md:mr-64 px-4 sm:px-6 md:p-10 pb-24 md:pb-10">
         {contentMap[activeSection]}
       </main>
 
@@ -121,10 +123,10 @@ function GuideView() {
         onClose={() => setIsRightSidebarOpen(false)}
       />
 
-      <div className="md:hidden fixed bottom-0 left-0 w-full h-16 bg-white/95 backdrop-blur-sm border-t border-gray-200 flex justify-around items-center z-20">
+      <div className="md:hidden fixed bottom-0 left-0 w-full h-16 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-sm border-t border-gray-200 dark:border-zinc-800 flex justify-around items-center z-20 shadow-[0_-2px_10px_rgba(0,0,0,0.05)] dark:shadow-[0_-2px_10px_rgba(0,0,0,0.2)]">
         <button 
           onClick={() => setIsLeftSidebarOpen(true)}
-          className="flex flex-col items-center text-gray-700 hover:text-black transition p-2"
+          className="flex flex-col items-center text-gray-700 dark:text-zinc-300 hover:text-black dark:hover:text-white transition p-2"
         >
           <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
@@ -133,7 +135,7 @@ function GuideView() {
         </button>
         <button 
           onClick={() => setIsRightSidebarOpen(true)}
-          className="flex flex-col items-center text-gray-700 hover:text-black transition p-2"
+          className="flex flex-col items-center text-gray-700 dark:text-zinc-300 hover:text-black dark:hover:text-white transition p-2"
         >
           <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
@@ -147,7 +149,7 @@ function GuideView() {
 
 export default function GuidePage() {
   return (
-    <Suspense fallback={<div className="w-full h-screen flex items-center justify-center">Loading Guide...</div>}>
+    <Suspense fallback={<div className="w-full h-screen flex items-center justify-center dark:text-white">Loading Guide...</div>}>
       <GuideView />
     </Suspense>
   );
