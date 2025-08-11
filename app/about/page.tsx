@@ -72,7 +72,14 @@ const teamMembers = [
         bio: "Eager to explore genetics and biochemistry, I aim to ensure complete transparency in cancer statistics and make this information easily available to all. Driven by familial struggles with cancer, I hope to highlight the importance of early screening to help and protect others. We may have cancer, but cancer does not have us.",
         imageUrl: "/dhakshan.png",
         linkedIn: ""
-    },    
+    },
+    {
+        name: "Shambhavi Basu",
+        role: "Campaigner",
+        bio: "Drawing on both my academic perspective as an avid biology student and personal encounters with cancer, I hope to empower the public to take meaningful steps toward safeguarding the health of those they cherish. Unity is strength against cancer.",
+        imageUrl: "/placeholder .png",
+        linkedIn: ""
+    },         
     {
         name: "Aadarsh V",
         role: "Campaigner + LinkedIn Manager",
