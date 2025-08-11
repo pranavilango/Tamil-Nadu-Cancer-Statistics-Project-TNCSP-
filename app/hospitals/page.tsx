@@ -197,32 +197,18 @@ function HospitalInfoBox({ hospital, onClose }: { hospital: Hospital | null; onC
 function MapContainer({ setSelectedHospital, hospitalsToShow }: { setSelectedHospital: (hospital: Hospital) => void; hospitalsToShow: Hospital[]; }) {
   const isApiLoaded = useApiIsLoaded();
   const isDarkMode = typeof window !== 'undefined' && document.documentElement.classList.contains('dark');
-  
-  const mapStyles = isDarkMode ? [
-      { elementType: "geometry", stylers: [{ color: "#242f3e" }] },
-      { elementType: "labels.text.stroke", stylers: [{ color: "#242f3e" }] },
-      { elementType: "labels.text.fill", stylers: [{ color: "#746855" }] },
-      { featureType: "administrative.locality", elementType: "labels.text.fill", stylers: [{ color: "#d59563" }] },
-      { featureType: "poi", elementType: "labels.text.fill", stylers: [{ color: "#d59563" }] },
-      { featureType: "poi.park", elementType: "geometry", stylers: [{ color: "#263c3f" }] },
-      { featureType: "poi.park", elementType: "labels.text.fill", stylers: [{ color: "#6b9a76" }] },
-      { featureType: "road", elementType: "geometry", stylers: [{ color: "#38414e" }] },
-      { featureType: "road", elementType: "geometry.stroke", stylers: [{ color: "#212a37" }] },
-      { featureType: "road", elementType: "labels.text.fill", stylers: [{ color: "#9ca5b3" }] },
-      { featureType: "road.highway", elementType: "geometry", stylers: [{ color: "#746855" }] },
-      { featureType: "road.highway", elementType: "geometry.stroke", stylers: [{ color: "#1f2835" }] },
-      { featureType: "road.highway", elementType: "labels.text.fill", stylers: [{ color: "#f3d19c" }] },
-      { featureType: "transit", elementType: "geometry", stylers: [{ color: "#2f3948" }] },
-      { featureType: "transit.station", elementType: "labels.text.fill", stylers: [{ color: "#d59563" }] },
-      { featureType: "water", elementType: "geometry", stylers: [{ color: "#17263c" }] },
-      { featureType: "water", elementType: "labels.text.fill", stylers: [{ color: "#515c6d" }] },
-      { featureType: "water", elementType: "labels.text.stroke", stylers: [{ color: "#17263c" }] }
-    ] : [];
 
   if (isApiLoaded) {
     const pinkDotIcon = { path: google.maps.SymbolPath.CIRCLE, scale: 6, fillColor: "#f44e8b", fillOpacity: 1.0, strokeWeight: 1, strokeColor: isDarkMode ? "white" : "black" };
     return (
-      <Map defaultCenter={{ lat: 11.5, lng: 78.5 }} defaultZoom={7} mapId="TAMIL_NADU_HOSPITALS_MAP" gestureHandling={"cooperative"} mapTypeControl={false} styles={mapStyles}>
+      <Map 
+        defaultCenter={{ lat: 11.5, lng: 78.5 }} 
+        defaultZoom={7} 
+        mapId="TAMIL_NADU_HOSPITALS_MAP" 
+        gestureHandling={"cooperative"} 
+        mapTypeControl={false}
+        // The 'styles' prop has been removed to allow mapId to control styling
+      >
         {hospitalsToShow.map((hospital) => (
           <Marker key={hospital.id} position={{ lat: hospital.lat, lng: hospital.lng }} title={hospital.name} onClick={() => setSelectedHospital(hospital)} icon={pinkDotIcon} />
         ))}
@@ -268,8 +254,6 @@ function DevNoticePopup() {
 
 export default function HospitalsPage() {
     const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
-
-    console.log("API Key seen by Vercel:", apiKey);
     
     const [selectedHospital, setSelectedHospital] = useState<Hospital | null>(null);
     const [isFilterOpen, setIsFilterOpen] = useState(false);
