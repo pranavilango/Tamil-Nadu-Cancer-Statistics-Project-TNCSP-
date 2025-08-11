@@ -268,6 +268,8 @@ function DevNoticePopup() {
 
 export default function HospitalsPage() {
     const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
+
+    console.log("API Key seen by Vercel:", apiKey);
     
     const [selectedHospital, setSelectedHospital] = useState<Hospital | null>(null);
     const [isFilterOpen, setIsFilterOpen] = useState(false);
