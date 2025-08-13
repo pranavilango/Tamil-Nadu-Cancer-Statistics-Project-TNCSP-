@@ -46,22 +46,16 @@ export default function JoinUsPage() {
     };
 
     return (
-        // --- THIS IS THE FIX ---
-        // Added `pt-16` to the main container to offset the entire page content by the height of the fixed navbar (h-16 = 4rem).
         <div className="bg-transparent text-zinc-800 dark:text-zinc-200 overflow-x-hidden pt-16">
-            {/* Background Gradient */}
             <div className="fixed inset-0 -z-10 top-0">
                 <div className="absolute w-full h-full bg-gradient-to-br from-[#f44e8b] via-[#5557fc] to-[#f44e8b] opacity-20 dark:opacity-25 blur-[120px]" />
             </div>
 
             {/* --- HERO SECTION --- */}
-            {/* --- THIS IS THE FIX --- */}
-            {/* Set height to `calc(100vh - 4rem)` to perfectly fill the viewport below the navbar. */}
-            {/* `flex`, `items-center`, and `justify-center` handle the content alignment automatically. */}
-            <section className="relative flex h-[calc(100vh-4rem)] items-center justify-center text-center px-4">
-                <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-y-12 lg:gap-x-12 items-center">
+            {/* --- THIS IS THE FIX: Flexible height and responsive padding --- */}
+            <section className="relative flex min-h-[calc(100vh-4rem)] items-center justify-center text-center px-4 py-16 lg:py-0">
+                <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-y-16 lg:gap-x-12 items-center">
                     
-                    {/* --- First Half: Campus Ambassador --- */}
                     <div className="flex flex-col items-center">
                         <p className="inline-block px-4 py-1 text-sm font-semibold tracking-wider text-[#5557fc] bg-[#5557fc]/10 dark:bg-[#5557fc]/20 rounded-full mb-4">
                             Shape the Future of Public Health
@@ -83,8 +77,7 @@ export default function JoinUsPage() {
                         </div>
                     </div>
                     
-                    {/* --- Second Half: Awareness Campaign --- */}
-                    <div className="flex flex-col items-center border-t border-zinc-400/50 dark:border-zinc-700/50 pt-12 lg:border-t-0 lg:border-l lg:border-zinc-400 dark:lg:border-zinc-700 lg:pt-0 lg:pl-12">
+                    <div className="flex flex-col items-center border-t border-zinc-400/50 dark:border-zinc-700/50 pt-16 lg:border-t-0 lg:border-l lg:pt-0 lg:pl-12">
                          <p className="inline-block px-4 py-1 text-sm font-semibold tracking-wider text-[#f44e8b] bg-[#f44e8b]/10 dark:bg-[#f44e8b]/20 rounded-full mb-4">
                             Make a Direct Impact
                         </p>
@@ -105,40 +98,37 @@ export default function JoinUsPage() {
                 </div>
             </section>
             
-            <div id="benefits" className="relative bg-white dark:bg-black scroll-mt-16">
-                {/* --- BENEFITS SECTION --- */}
-                <section className="py-16 md:py-24">
-                    <div className="max-w-7xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-                        <h2 className="text-3xl sm:text-4xl font-bold text-zinc-900 dark:text-white">Why Become a Campus Ambassador?</h2>
-                        <p className="mt-4 text-lg text-zinc-600 dark:text-zinc-300 max-w-2xl mx-auto">
-                            Gain invaluable experience, develop key skills, and make a tangible difference in public health.
-                        </p>
-                        <div className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                            <div className="flex flex-col items-center p-8 border border-zinc-200 dark:border-zinc-800 rounded-3xl shadow-lg shadow-zinc-100 dark:shadow-black/20 bg-zinc-50 dark:bg-zinc-900/50">
-                                <div className="flex items-center justify-center h-16 w-16 rounded-full bg-gradient-to-br from-[#f44e8b]/20 to-[#f44e8b]/10 text-[#f44e8b]">
-                                    <StarIcon className="h-8 w-8" />
-                                </div>
-                                <h3 className="mt-6 text-xl font-bold">Real-World Impact</h3>
-                                <p className="mt-2 text-zinc-600 dark:text-zinc-300">Directly contribute to a public health initiative that saves lives. Your work will have a measurable effect on communities across Tamil Nadu.</p>
+            <section id="benefits" className="bg-white dark:bg-black scroll-mt-16 py-16 md:py-24">
+                <div className="max-w-7xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+                    <h2 className="text-3xl sm:text-4xl font-bold text-zinc-900 dark:text-white">Why Become a Campus Ambassador?</h2>
+                    <p className="mt-4 text-lg text-zinc-600 dark:text-zinc-300 max-w-2xl mx-auto">
+                        Gain invaluable experience, develop key skills, and make a tangible difference in public health.
+                    </p>
+                    <div className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div className="flex flex-col items-center p-8 border border-zinc-200 dark:border-zinc-800 rounded-3xl shadow-lg shadow-zinc-100 dark:shadow-black/20 bg-zinc-50 dark:bg-zinc-900/50">
+                            <div className="flex items-center justify-center h-16 w-16 rounded-full bg-gradient-to-br from-[#f44e8b]/20 to-[#f44e8b]/10 text-[#f44e8b]">
+                                <StarIcon className="h-8 w-8" />
                             </div>
-                            <div className="flex flex-col items-center p-8 border border-zinc-200 dark:border-zinc-800 rounded-3xl shadow-lg shadow-zinc-100 dark:shadow-black/20 bg-zinc-50 dark:bg-zinc-900/50">
-                                <div className="flex items-center justify-center h-16 w-16 rounded-full bg-gradient-to-br from-[#5557fc]/20 to-[#5557fc]/10 text-[#5557fc]">
-                                    <MegaphoneIcon className="h-8 w-8" />
-                                </div>
-                                <h3 className="mt-6 text-xl font-bold">Develop Key Skills</h3>
-                                <p className="mt-2 text-zinc-600 dark:text-zinc-300">Hone your leadership, communication, and project management skills. Gain hands-on experience that sets you apart.</p>
+                            <h3 className="mt-6 text-xl font-bold">Real-World Impact</h3>
+                            <p className="mt-2 text-zinc-600 dark:text-zinc-300">Directly contribute to a public health initiative that saves lives. Your work will have a measurable effect on communities across Tamil Nadu.</p>
+                        </div>
+                        <div className="flex flex-col items-center p-8 border border-zinc-200 dark:border-zinc-800 rounded-3xl shadow-lg shadow-zinc-100 dark:shadow-black/20 bg-zinc-50 dark:bg-zinc-900/50">
+                            <div className="flex items-center justify-center h-16 w-16 rounded-full bg-gradient-to-br from-[#5557fc]/20 to-[#5557fc]/10 text-[#5557fc]">
+                                <MegaphoneIcon className="h-8 w-8" />
                             </div>
-                            <div className="flex flex-col items-center p-8 border border-zinc-200 dark:border-zinc-800 rounded-3xl shadow-lg shadow-zinc-100 dark:shadow-black/20 bg-zinc-50 dark:bg-zinc-900/50">
-                                <div className="flex items-center justify-center h-16 w-16 rounded-full bg-gradient-to-br from-zinc-200/50 to-zinc-100/50 text-zinc-600 dark:bg-zinc-800 dark:text-zinc-300">
-                                    <UserPlusIcon className="h-8 w-8" />
-                                </div>
-                                <h3 className="mt-6 text-xl font-bold">Certification & LOR</h3>
-                                <p className="mt-2 text-zinc-600 dark:text-zinc-300">Receive an official Certificate of Recognition and a strong Letter of Recommendation (LOR) to bolster your academic and professional profile.</p>
+                            <h3 className="mt-6 text-xl font-bold">Develop Key Skills</h3>
+                            <p className="mt-2 text-zinc-600 dark:text-zinc-300">Hone your leadership, communication, and project management skills. Gain hands-on experience that sets you apart.</p>
+                        </div>
+                        <div className="flex flex-col items-center p-8 border border-zinc-200 dark:border-zinc-800 rounded-3xl shadow-lg shadow-zinc-100 dark:shadow-black/20 bg-zinc-50 dark:bg-zinc-900/50">
+                            <div className="flex items-center justify-center h-16 w-16 rounded-full bg-gradient-to-br from-zinc-200/50 to-zinc-100/50 text-zinc-600 dark:bg-zinc-800 dark:text-zinc-300">
+                                <UserPlusIcon className="h-8 w-8" />
                             </div>
+                            <h3 className="mt-6 text-xl font-bold">Certification & LOR</h3>
+                            <p className="mt-2 text-zinc-600 dark:text-zinc-300">Receive an official Certificate of Recognition and a strong Letter of Recommendation (LOR) to bolster your academic and professional profile.</p>
                         </div>
                     </div>
-                </section>
-            </div>
+                </div>
+            </section>
         </div>
     );
 }

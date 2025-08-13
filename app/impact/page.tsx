@@ -96,19 +96,13 @@ function CampaignCard({ campaign, isPriority }: { campaign: typeof campaigns[0];
     const activeImage = campaign.images[currentImageIndex];
 
     return (
-        <div className="relative w-full h-[540px] max-w-md rounded-3xl bg-gradient-to-br from-[#5557fc] to-[#f44e8b] p-0.5 shadow-2xl shadow-pink-500/20 dark:shadow-pink-500/10">
-            <div className="h-full w-full bg-white dark:bg-zinc-900 rounded-[22px] p-6 flex flex-col">
-                <div className="relative w-full aspect-video rounded-2xl overflow-hidden">
+        <div className="relative w-full h-full rounded-3xl bg-gradient-to-br from-[#5557fc] to-[#f44e8b] p-0.5 shadow-2xl shadow-pink-500/20 dark:shadow-pink-500/10">
+            {/* --- THIS IS THE FIX: Added padding-bottom for more space --- */}
+            <div className="h-full w-full bg-white dark:bg-zinc-900 rounded-[22px] p-4 pb-6 sm:p-6 sm:pb-8 flex flex-col">
+                <div className="relative w-full aspect-video rounded-xl sm:rounded-2xl overflow-hidden">
                     <AnimatePresence>
                         <motion.div key={currentImageIndex} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }} className="absolute inset-0">
-                            <Image 
-                                src={activeImage} 
-                                alt={`Photo from ${campaign.title}`} 
-                                fill 
-                                sizes="(max-width: 640px) 90vw, 450px" 
-                                style={{ objectFit: 'cover' }} 
-                                priority={isPriority} 
-                            />
+                            <Image src={activeImage} alt={`Photo from ${campaign.title}`} fill sizes="(max-width: 640px) 90vw, 450px" style={{ objectFit: 'cover' }} priority={isPriority} />
                         </motion.div>
                     </AnimatePresence>
                     <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex space-x-2 bg-black/40 backdrop-blur-sm rounded-full p-1.5">
@@ -118,8 +112,8 @@ function CampaignCard({ campaign, isPriority }: { campaign: typeof campaigns[0];
                     </div>
                 </div>
                 
-                <div className="flex-grow flex flex-col pt-6">
-                    <h3 className="text-2xl font-bold bg-gradient-to-r from-[#5557fc] to-[#f44e8b] bg-clip-text text-transparent">{campaign.title}</h3>
+                <div className="flex-grow flex flex-col pt-4 sm:pt-6">
+                    <h3 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-[#5557fc] to-[#f44e8b] bg-clip-text text-transparent">{campaign.title}</h3>
                     <p className="mt-3 text-zinc-600 dark:text-zinc-300 text-sm leading-relaxed flex-grow">{campaign.description}</p>
                 </div>
                 
@@ -219,35 +213,56 @@ export default function ImpactPage() {
                 </div>
             </section>
             
-            <section id="campaigns-section" className="relative w-full h-screen flex flex-col justify-center items-center pt-16 scroll-mt-16 overflow-hidden">
-                <div className="w-full max-w-md h-[540px] relative">
-                    <AnimatePresence initial={false} custom={direction}>
-                        <motion.div
-                            key={activeIndex}
-                            custom={direction}
-                            variants={variants}
-                            initial="enter"
-                            animate="center"
-                            exit="exit"
-                            transition={{ x: { type: "spring", stiffness: 300, damping: 30 }, opacity: { duration: 0.2 } }}
-                            className="absolute w-full h-full"
-                        >
-                            {/* --- THIS IS THE FIX: Passing priority based on active index --- */}
-                            <CampaignCard 
-                                campaign={campaigns[activeIndex]} 
-                                isPriority={activeIndex === 0} // Only prioritize the very first campaign on initial load
-                            />
-                        </motion.div>
-                    </AnimatePresence>
+            {/* --- THIS IS THE FIX: A UNIFIED, RESPONSIVE NAVIGATION SYSTEM --- */}
+            <section id="campaigns-section" className="relative w-full h-screen flex flex-col justify-center items-center pt-16 scroll-mt-16 overflow-hidden px-4">
+                {/* This wrapper handles the responsive layout shift */}
+                <div className="flex flex-col sm:flex-row items-center justify-center sm:gap-x-4 w-full max-w-5xl">
+                    {/* Desktop-only Previous Arrow */}
+                    <div className="hidden sm:flex">
+                        <button onClick={handlePrev} aria-label="Previous Campaign" className="p-3 rounded-full bg-white/70 dark:bg-zinc-800/70 backdrop-blur-sm shadow-md hover:bg-white dark:hover:bg-zinc-700 transition">
+                            <ArrowLeftIcon className="w-6 h-6 text-zinc-800 dark:text-zinc-200" />
+                        </button>
+                    </div>
+
+                    {/* Carousel Container */}
+                    <div className="w-[90vw] sm:w-full max-w-md h-[520px] sm:h-[540px] relative">
+                        <AnimatePresence initial={false} custom={direction}>
+                            <motion.div
+                                key={activeIndex}
+                                custom={direction}
+                                variants={variants}
+                                initial="enter"
+                                animate="center"
+                                exit="exit"
+                                transition={{ x: { type: "spring", stiffness: 300, damping: 30 }, opacity: { duration: 0.2 } }}
+                                className="absolute w-full h-full"
+                            >
+                                <CampaignCard 
+                                    campaign={campaigns[activeIndex]} 
+                                    isPriority={activeIndex === 0}
+                                />
+                            </motion.div>
+                        </AnimatePresence>
+                    </div>
+
+                    {/* Desktop-only Next Arrow */}
+                    <div className="hidden sm:flex">
+                        <button onClick={handleNext} aria-label="Next Campaign" className="p-3 rounded-full bg-white/70 dark:bg-zinc-800/70 backdrop-blur-sm shadow-md hover:bg-white dark:hover:bg-zinc-700 transition">
+                            <ArrowRightIcon className="w-6 h-6 text-zinc-800 dark:text-zinc-200" />
+                        </button>
+                    </div>
                 </div>
 
-                <div className="absolute top-1/2 left-0 right-0 flex justify-between px-4 sm:px-12 md:px-24 z-20">
-                    <button onClick={handlePrev} aria-label="Previous Campaign" className="p-3 rounded-full bg-white/70 dark:bg-zinc-800/70 backdrop-blur-sm shadow-md hover:bg-white dark:hover:bg-zinc-700 transition">
-                        <ArrowLeftIcon className="w-6 h-6 text-zinc-800 dark:text-zinc-200" />
-                    </button>
-                    <button onClick={handleNext} aria-label="Next Campaign" className="p-3 rounded-full bg-white/70 dark:bg-zinc-800/70 backdrop-blur-sm shadow-md hover:bg-white dark:hover:bg-zinc-700 transition">
-                        <ArrowRightIcon className="w-6 h-6 text-zinc-800 dark:text-zinc-200" />
-                    </button>
+                {/* Mobile-only Arrow Container */}
+                <div className="sm:hidden w-full flex-grow flex items-center justify-center">
+                    <div className="flex items-center justify-center gap-x-4">
+                        <button onClick={handlePrev} aria-label="Previous Campaign" className="p-3 rounded-full bg-white/70 dark:bg-zinc-800/70 backdrop-blur-sm shadow-md hover:bg-white dark:hover:bg-zinc-700 transition">
+                            <ArrowLeftIcon className="w-6 h-6 text-zinc-800 dark:text-zinc-200" />
+                        </button>
+                        <button onClick={handleNext} aria-label="Next Campaign" className="p-3 rounded-full bg-white/70 dark:bg-zinc-800/70 backdrop-blur-sm shadow-md hover:bg-white dark:hover:bg-zinc-700 transition">
+                            <ArrowRightIcon className="w-6 h-6 text-zinc-800 dark:text-zinc-200" />
+                        </button>
+                    </div>
                 </div>
             </section>
         </div>
