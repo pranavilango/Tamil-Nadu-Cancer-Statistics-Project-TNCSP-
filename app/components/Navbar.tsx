@@ -21,7 +21,8 @@ export default function NavBar() {
     const resourceLinks = [
         { href: "/map", label: "Map" },
         { href: "/guide", label: "Guide" },
-        { href: "/hospitals", label: "Hospitals" }
+        { href: "/hospitals", label: "Hospitals" },
+        { href: "/schemes", label: "Schemes" }
     ];
 
     const isResourcesPathActive = resourceLinks.some(link => link.href === pathname);
