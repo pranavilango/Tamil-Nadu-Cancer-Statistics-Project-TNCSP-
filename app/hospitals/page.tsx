@@ -234,38 +234,6 @@ function MapContainer({ setSelectedHospital, hospitalsToShow }: { setSelectedHos
 }
 
 
-// --- DEVELOPMENT NOTICE POPUP ---
-
-function DevNoticePopup() {
-    const [isOpen, setIsOpen] = useState(true);
-
-    if (!isOpen) return null;
-
-    return (
-        <div className="fixed bottom-5 right-5 z-50 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg shadow-lg p-4 max-w-sm animate-in slide-in-from-bottom-5 fade-in duration-300">
-            <div className="flex items-start">
-                <div className="flex-shrink-0">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                    </svg>
-                </div>
-                <div className="ml-3">
-                    <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-200">Under Development</h3>
-                    <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">This page is currently under active development. Some features may not be fully functional.</p>
-                </div>
-                <div className="ml-4 flex-shrink-0">
-                    <button onClick={() => setIsOpen(false)} className="p-1.5 bg-slate-500/10 dark:bg-slate-100/10 rounded-full hover:bg-slate-500/20 dark:hover:bg-slate-100/20 transition" aria-label="Dismiss">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-slate-600 dark:text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                    </button>
-                </div>
-            </div>
-        </div>
-    );
-}
-
-
 // --- MAIN PAGE COMPONENT (Layout adjusted) ---
 
 export default function HospitalsPage() {
@@ -372,8 +340,6 @@ export default function HospitalsPage() {
                     </div>
                 </Dialog>
             </Transition.Root>
-
-            <DevNoticePopup />
         </div>
     );
 }

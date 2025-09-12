@@ -74,6 +74,13 @@ const teamMembers = [
         linkedIn: ""
     },
     {
+        name: "Adharsh",
+        role: "Fundraising Lead",
+        bio: "Cancer has touched lives close to me, and I’ve seen how silence can be more dangerous than the disease itself. In Tamil Nadu, awareness is rare—I want to break that silence and turn fear into early action.",
+        imageUrl: "/adharsh.jpg",
+        linkedIn: ""
+    },
+    {
         name: "Shambhavi Basu",
         role: "Campaigner",
         bio: "Drawing on both my academic perspective as an avid biology student and personal encounters with cancer, I hope to empower the public to take meaningful steps toward safeguarding the health of those they cherish. Unity is strength against cancer.",

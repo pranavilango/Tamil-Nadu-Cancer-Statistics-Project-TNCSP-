@@ -3,7 +3,6 @@
 import Hero from "./components/Hero";
 import ProblemBadge from "./components/ProblemBadge";
 import Footer from "./components/Footer";
-import ThemeToggle from "./components/ThemeToggle";
 import { useState, useEffect, useCallback } from "react";
 import Script from 'next/script';
 
@@ -70,7 +69,6 @@ export default function Home() {
 
   return (
     <>
-      <ThemeToggle />
 
       <Script
         strategy="afterInteractive"
