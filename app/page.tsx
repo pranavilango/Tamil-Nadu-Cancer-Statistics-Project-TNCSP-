@@ -24,7 +24,7 @@ import AnimatedCounter from './components/impact/AnimatedCounter';
 import Footer from "./components/Footer";
 import Script from 'next/script';
 
-// A local, custom Card component with spacious padding, used by all sections.
+// A local, custom Card component with perfected responsive padding.
 const CustomCard = ({
   children,
   footer,
@@ -35,11 +35,11 @@ const CustomCard = ({
   className?: string;
 }) => (
   <div className={`flex flex-col rounded-2xl bg-slate-100/50 dark:bg-slate-800/30 border border-slate-200/80 dark:border-slate-800 backdrop-blur-lg ${className}`}>
-    <div className="p-8 flex-grow relative">
+    <div className="p-6 sm:p-8 flex-grow relative">
       {children}
     </div>
     {footer && (
-      <div className="border-t border-slate-200/80 dark:border-slate-700 px-8 py-4">
+      <div className="border-t border-slate-200/80 dark:border-slate-700 px-6 sm:px-8 py-4">
         {footer}
       </div>
     )}
@@ -155,7 +155,7 @@ export default function Home() {
                       </Link>
                     }
                   >
-                    <div className="mb-4 text-6xl sm:text-7xl font-semibold text-brand-lavender leading-none">
+                    <div className="mb-4 text-5xl sm:text-7xl font-semibold text-brand-lavender leading-none">
                       <AnimatedCounter value={insight.value} />%
                     </div>
                     <h3 className="text-2xl font-semibold text-slate-900 dark:text-slate-100">{insight.label}</h3>
@@ -185,14 +185,11 @@ export default function Home() {
                   <CustomCard
                     className="w-full transition-all duration-300 hover:border-slate-300 dark:hover:border-slate-700 hover:shadow-lg"
                     footer={
-                      // DEFINITIVE FIX: Check if the card title is "Public Murals"
                       res.title === "Public Murals" ? (
-                        // If it is, render a styled "Coming Soon" label
                         <div className="text-slate-400 dark:text-slate-500 text-sm font-semibold">
                           Coming Soon
                         </div>
                       ) : (
-                        // Otherwise, render the original link
                         <Link href={res.linkHref} className="text-blue-600 dark:text-blue-500 hover:text-blue-700 dark:hover:text-blue-400 flex items-center text-sm font-semibold">
                           {res.linkLabel}
                           <ArrowRight className="w-4 h-4 ml-1" />
@@ -200,9 +197,7 @@ export default function Home() {
                       )
                     }
                   >
-                    <div className="absolute -top-10 -right-10 w-32 h-32 text-slate-900/[0.03] dark:text-white/[0.03]" aria-hidden="true">
-                        {res.icon}
-                    </div>
+                    {/* DEFINITIVE FIX: The decorative background icon has been removed. */}
                     <div className="mb-4 text-brand-lavender">{res.icon}</div>
                     <h3 className="text-2xl font-semibold text-slate-900 dark:text-slate-100">{res.title}</h3>
                     <p className="mt-2 text-slate-600 dark:text-slate-400 min-h-[6rem]">{res.description}</p>
