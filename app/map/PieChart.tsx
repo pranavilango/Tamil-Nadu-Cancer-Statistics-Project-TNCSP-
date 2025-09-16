@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useMemo } from "react";
 import * as d3 from "d3";
 
 type CancerDataItem = {
@@ -18,51 +18,58 @@ export default function PieChart({ data }: Props) {
   const ref = useRef<SVGSVGElement | null>(null);
   const isDarkMode = typeof window !== 'undefined' && document.documentElement.classList.contains('dark');
 
-  const color = d3
-  .scaleOrdinal<string>()
-  .range(d3.schemeCategory10.concat(d3.schemeSet3));
+  const color = d3.scaleOrdinal(d3.schemeTableau10);
 
-  const chartData = data.filter((d) => d.Total > 0).sort((a, b) => b.Total - a.Total);
+  const chartData = useMemo(() => 
+    data.filter((d) => d.Total > 0).sort((a, b) => b.Total - a.Total), 
+    [data]
+  );
   
   useEffect(() => {
-    if (!ref.current || !data) return;
+    if (!ref.current || chartData.length === 0) return;
 
     const svg = d3.select(ref.current);
     svg.selectAll("*").remove();
+    
+    // Accessibility for screen readers
+    svg.append("title").text("Donut chart of cancer types");
+    svg.append("desc").text("Shows the proportion of different types of cancer. Hover over a slice for details.");
 
     const width = 400;
     const height = 300;
-    const radius = Math.min(width, height) / 2 - 10;
+    const radius = Math.min(width, height) / 2.5;
 
     const chart = svg
       .attr("viewBox", `0 0 ${width} ${height}`)
       .attr("width", "100%")
       .attr("height", "100%")
       .append("g")
-      .attr("transform", `translate(${width / 2}, ${height / 2})`);
+      .attr("transform", `translate(${width / 2.2}, ${height / 2})`);
 
     const totalCases = d3.sum(chartData, (d) => d.Total);
 
-    const pie = d3.pie<CancerDataItem>().value((d) => d.Total).sort(null);
-    const arc = d3.arc<d3.PieArcDatum<CancerDataItem>>().innerRadius(0).outerRadius(radius);
+    const pie = d3.pie<CancerDataItem>().value((d) => d.Total).sort(null).padAngle(0.01);
+    const arc = d3.arc<d3.PieArcDatum<CancerDataItem>>().innerRadius(radius * 0.5).outerRadius(radius);
 
     color.domain(chartData.map((d) => d.type));
-
+    
     const tooltip = d3
-      .select("#d3-tooltip-container")
+      .select("body")
+      .append("div")
+      .attr("id", "d3-tooltip")
       .style("position", "absolute")
-      .style("padding", "6px")
-      .style("background", isDarkMode ? "#1f2937" : "#fff") 
-      .style("border-width", "1px")
-      .style("border-style", "solid")
-      .style("border-color", isDarkMode ? "#374151" : "#ccc")
-      .style("color", isDarkMode ? "#f3f4f6" : "#1f2937") 
-      .style("border-radius", "4px")
+      .style("padding", "8px 12px")
+      .style("background", isDarkMode ? "rgba(30, 41, 59, 0.8)" : "rgba(255, 255, 255, 0.8)")
+      .style("backdrop-filter", "blur(10px)")
+      .style("border", `1px solid ${isDarkMode ? "rgba(51, 65, 85, 0.5)" : "rgba(226, 232, 240, 0.8)"}`)
+      .style("color", isDarkMode ? "#f1f5f9" : "#1e293b") 
+      .style("border-radius", "8px")
       .style("pointer-events", "none")
-      .style("font-size", "11px")
-      .style("box-shadow", "0 2px 10px rgba(0,0,0,0.1)")
+      .style("font-size", "13px")
+      .style("box-shadow", "0 6px 20px rgba(0,0,0,0.15)")
       .style("opacity", 0)
-      .style("z-index", "9999");
+      .style("z-index", "9999")
+      .style("transition", "opacity 0.2s ease-in-out");
 
     chart
       .selectAll("path")
@@ -71,68 +78,67 @@ export default function PieChart({ data }: Props) {
       .append("path")
       .attr("d", arc)
       .attr("fill", (d) => color(d.data.type))
-      // --- THIS IS THE FIX ---
-      // The stroke is now permanently set to white for both themes.
-      .attr("stroke", "#fff") 
-      .attr("stroke-width", 0.5)
+      .attr("stroke", isDarkMode ? "#0f172a" : "#f8fafc") 
+      .attr("stroke-width", 2)
       .style("cursor", "pointer")
-      .attr("transform", "translate(0,0)")
       .on("mouseover", function (event, d) {
         const [cx, cy] = arc.centroid(d);
         d3.select(this)
           .transition()
           .duration(200)
-          .attr("transform", `translate(${cx * 0.10}, ${cy * 0.10})`);
+          .attr("transform", `translate(${cx * 0.08}, ${cy * 0.08}) scale(1.03)`);
 
         tooltip
           .style("opacity", 1)
           .html(`
-            <strong>${d.data.type}</strong><br/>
-            Male: ${d.data.Male}<br/>
-            Female: ${d.data.Female}<br/>
-            Share: ${(d.data.Total / totalCases * 100).toFixed(1)}%
+            <div style="font-weight: 600; margin-bottom: 5px; border-bottom: 1px solid ${isDarkMode ? '#334155' : '#e2e8f0'}; padding-bottom: 5px;">${d.data.type}</div>
+            <div style="display: grid; grid-template-columns: auto 1fr; gap: 4px 8px; margin-top: 5px;">
+                <span>Male:</span><span style="font-weight: 500;">${d.data.Male.toLocaleString()}</span>
+                <span>Female:</span><span style="font-weight: 500;">${d.data.Female.toLocaleString()}</span>
+            </div>
+            <div style="margin-top: 6px; padding-top: 6px; border-top: 1px solid ${isDarkMode ? '#334155' : '#e2e8f0'}; font-weight: 500;">Share: ${(d.data.Total / totalCases * 100).toFixed(1)}%</div>
           `);
       })
       .on("mousemove", function (event) {
         tooltip
-          .style("left", event.pageX + 10 + "px")
-          .style("top", event.pageY - 28 + "px");
+          .style("left", event.pageX + 20 + "px")
+          .style("top", event.pageY + "px");
       })
       .on("mouseout", function () {
         d3.select(this)
           .transition()
           .duration(200)
-          .attr("transform", "translate(0,0)");
+          .attr("transform", "translate(0,0) scale(1)");
 
         tooltip.style("opacity", 0);
       });
-
+    
     return () => {
-      tooltip.style("opacity", 0);
+      tooltip.remove();
     };
-  }, [data, chartData, color, isDarkMode]);
+  }, [chartData, color, isDarkMode]);
 
   return (
-    <div className="flex flex-col sm:flex-row gap-4 items-center justify-center w-full">
-      <div className="w-full max-w-xs sm:max-w-none sm:w-auto">
+    <div className="flex flex-col sm:flex-row gap-6 items-center justify-center w-full max-w-lg">
+      <div className="w-full max-w-xs sm:max-w-none sm:w-auto relative">
         <svg ref={ref}></svg>
-        <div id="d3-tooltip-container" />
       </div>
       <div
-        className="w-full sm:w-[160px] max-h-[200px] sm:max-h-[280px] overflow-y-auto p-2 border border-gray-300 dark:border-zinc-700 rounded-lg shadow-inner bg-white dark:bg-zinc-900/70"
+        className="w-full sm:w-[200px] max-h-[220px] sm:max-h-[300px] overflow-y-auto p-3 border border-slate-200/80 dark:border-slate-800 rounded-lg shadow-inner bg-slate-100/50 dark:bg-slate-800/30 scrollbar-hide"
       >
         {chartData.map((d, i) => (
-            <div key={i} className="flex items-center mb-2 text-xs text-zinc-800 dark:text-zinc-200">
+            <div key={i} className="flex items-center mb-2 text-xs text-slate-700 dark:text-slate-300">
               <div
                 style={{
                   backgroundColor: color(d.type),
                   width: "10px",
                   height: "10px",
                   marginRight: "8px",
+                  borderRadius: "2px",
                   flexShrink: 0,
                 }}
               />
-              <span>{d.type}</span>
+              <span className="font-medium">{d.type}</span>
             </div>
           ))}
       </div>

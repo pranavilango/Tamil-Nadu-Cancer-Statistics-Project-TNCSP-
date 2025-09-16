@@ -1,34 +1,25 @@
 // app/layout.tsx
 
 import type { Metadata } from "next";
-import { Poppins } from "next/font/google";
+import { GeistSans } from "geist/font/sans";
 import "./globals.css";
-import NavBar from "./components/Navbar"; // Assuming your Navbar is also global
-
-const poppins = Poppins({ subsets: ['latin'], weight: ['400'] })
+import NavBar from "./components/Navbar";
+import { Providers } from './providers'; // Import the new provider
 
 export const metadata: Metadata = {
   title: "TNCSP",
   description: "An applied public health project leveraging open data for community-driven awareness.",
-  icons: {
-    icon: '/tncsp-circle-logo.png',
-  },
+  icons: { icon: '/tncsp-circle-logo.png' },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode; }) {
   return (
-    <html lang="en" className="!scroll-smooth">
-      <body className={poppins.className}>
-        {/* The solid base color for the entire site */}
-        <div className="fixed inset-0 -z-20 bg-white dark:bg-black" />
-        
-        <NavBar />
-        
-        {children}
+    <html lang="en" className={`${GeistSans.variable} !scroll-smooth`}>
+      <body>
+        <Providers> {/* Wrap your content with the Geist provider */}
+          <NavBar />
+          {children}
+        </Providers>
       </body>
     </html>
   );

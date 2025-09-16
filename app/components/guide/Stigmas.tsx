@@ -1,101 +1,80 @@
+// --- START OF FILE Stigmas.tsx ---
 "use client";
 import { Heading } from "./OnPageSidebar";
 import FadeIn from "./FadeIn";
 import { StaggeredList, StaggeredListItem } from "./StaggeredList";
+import { MessageSquareOff, Users, HeartHandshake } from 'lucide-react';
+
+const InfoBlock = ({ icon, title, children }: { icon: React.ReactNode, title: string, children?: React.ReactNode }) => (
+    <div className="flex items-start gap-3 md:gap-4">
+        <div className="flex-shrink-0 w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-lg md:rounded-xl bg-brand-lavender/10 text-brand-lavender">
+            {icon}
+        </div>
+        <div>
+            <h2 className="!text-xl md:!text-2xl !font-semibold !text-slate-900 dark:!text-slate-100 !mt-0 !mb-2">
+                {title}
+            </h2>
+            {children && (
+                <div className="text-slate-600 dark:text-slate-400 text-base md:text-lg leading-relaxed">
+                    {children}
+                </div>
+            )}
+        </div>
+    </div>
+);
 
 export const stigmasHeadings: Heading[] = [
-  { id: "isolation-at-home", title: "Isolation Begins at Home", level: 2 },
-  { id: "women-double-burden", title: "Women Face Double the Burden", level: 2 },
-  { id: "more-than-hair-loss", title: "More Than Just Hair Loss", level: 2 },
-  { id: "price-of-survival", title: "The Price of Survival", level: 2 },
-  { id: "change-starts-with-us", title: "Change Starts with Us", level: 2 },
+  { id: "the-silent-burden", title: "The Silent Burden", level: 2 },
+  { id: "breaking-the-walls", title: "Breaking the Walls of Stigma", level: 2 },
+  { id: "change-starts-with-us", title: "Change Starts With Us", level: 2 },
 ];
 
 export default function Stigmas() {
   return (
     <FadeIn>
-      <article className="prose dark:prose-invert max-w-none prose-headings:font-bold prose-p:leading-relaxed sm:prose-lg lg:prose-xl">
-        <div className="text-center">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl">🧠 Cancer and Stigma: The Battle Beyond the Body</h1>
-          <p className="lead italic">
-            Fighting cancer is not just about medicine — it is about mindset, too.
-          </p>
-        </div>
+      <div className="max-w-3xl mx-auto space-y-12 md:space-y-16">
+        <section id="the-silent-burden" className="scroll-mt-24">
+            <InfoBlock icon={<MessageSquareOff size={24} />} title="The Silent Burden">
+                <p>
+                  In many communities, cancer is still surrounded by fear, silence, and shame. Some see it as a punishment, a result of karma, or even a curse. These are myths. Stigma doesn’t just hurt feelings—it makes people hide their diagnosis, delay treatment, and reject help. It can cost lives.
+                </p>
+            </InfoBlock>
+        </section>
 
-        <div>
-          <p>
-            In many communities, cancer is still surrounded by fear, silence, and shame. Some see it as a punishment — a result of karma or bad luck. Others believe it’s contagious, or worse, a curse. These are myths.
-          </p>
-          <p>
-            Stigma doesn’t just hurt feelings — it hurts outcomes. It makes people hide their diagnosis, delay treatment, or reject help. It builds walls between the patient and the world. And in some cases, it costs lives.
-          </p>
-        </div>
+        <section id="breaking-the-walls" className="scroll-mt-24">
+            <InfoBlock icon={<Users size={24} />} title="Breaking the Walls of Stigma" />
+            <div className="mt-8 not-prose">
+              <StaggeredList>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <StaggeredListItem>
+                    <div className="bg-slate-100/50 dark:bg-slate-800/30 h-full rounded-lg border border-slate-200/80 dark:border-slate-800 p-4 space-y-2"><h3 className="font-semibold text-slate-800 dark:text-slate-200">Isolation at Home</h3><p className="text-sm text-slate-500 dark:text-slate-400">Families may hide a diagnosis, fearing judgment. This secrecy isolates the patient when they need support the most.</p></div>
+                  </StaggeredListItem>
+                  <StaggeredListItem>
+                    <div className="bg-slate-100/50 dark:bg-slate-800/30 h-full rounded-lg border border-slate-200/80 dark:border-slate-800 p-4 space-y-2"><h3 className="font-semibold text-slate-800 dark:text-slate-200">A Double Burden for Women</h3><p className="text-sm text-slate-500 dark:text-slate-400">Stigma hits women especially hard. Reproductive cancers are seen as a source of dishonor, and women may be blamed or shunned.</p></div>
+                  </StaggeredListItem>
+                  <StaggeredListItem>
+                    <div className="bg-slate-100/50 dark:bg-slate-800/30 h-full rounded-lg border border-slate-200/80 dark:border-slate-800 p-4 space-y-2"><h3 className="font-semibold text-slate-800 dark:text-slate-200">More Than Hair Loss</h3><p className="text-sm text-slate-500 dark:text-slate-400">Visible changes are deeply emotional. The myth that cancer always means death prevents people from getting tested early.</p></div>
+                  </StaggeredListItem>
+                   <StaggeredListItem>
+                    <div className="bg-slate-100/50 dark:bg-slate-800/30 h-full rounded-lg border border-slate-200/80 dark:border-slate-800 p-4 space-y-2"><h3 className="font-semibold text-slate-800 dark:text-slate-200">The Price of Survival</h3><p className="text-sm text-slate-500 dark:text-slate-400">The high cost of treatment leads to another stigma. Families may sell assets, and patients can feel like a burden.</p></div>
+                  </StaggeredListItem>
+                </div>
+              </StaggeredList>
+            </div>
+        </section>
 
-        <StaggeredList>
-          <div className="not-prose grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 pt-4">
-            <StaggeredListItem>
-              <div id="isolation-at-home" className="bg-white/60 dark:bg-zinc-900/60 backdrop-blur-lg h-full rounded-2xl border border-zinc-200 dark:border-zinc-800 p-6 space-y-4 flex flex-col scroll-mt-24 shadow-lg shadow-zinc-200/50 dark:shadow-black/20">
-                <h3 className="text-xl sm:text-2xl font-semibold text-black dark:text-white mt-0">🧱 Isolation Begins at Home</h3>
-                <div className="text-black dark:text-zinc-200 text-base space-y-3 leading-relaxed">
-                  <p>
-                    Families often avoid disclosing a diagnosis, fearing judgment. This secrecy can isolate the patient, even from those closest to them. Shame replaces support, and fear takes the place of empathy.
-                  </p>
-                  <p>
-                    Some patients even refuse life-saving treatment because they worry what others might think. For them, the stigma is stronger than the disease.
-                  </p>
+        <section id="change-starts-with-us" className="text-center pt-8 scroll-mt-24">
+            <div className="bg-slate-100/50 dark:bg-slate-800/30 backdrop-blur-lg rounded-2xl border border-slate-200/80 dark:border-slate-800 py-8 px-4 sm:py-10 sm:px-6">
+                <div className="inline-flex items-center justify-center w-14 h-14 mb-4 text-brand-lavender bg-brand-lavender/10 rounded-full">
+                    <HeartHandshake size={32} />
                 </div>
-              </div>
-            </StaggeredListItem>
-            <StaggeredListItem>
-              <div id="women-double-burden" className="bg-white/60 dark:bg-zinc-900/60 backdrop-blur-lg h-full rounded-2xl border border-zinc-200 dark:border-zinc-800 p-6 space-y-4 flex flex-col scroll-mt-24 shadow-lg shadow-zinc-200/50 dark:shadow-black/20">
-                <h3 className="text-xl sm:text-2xl font-semibold text-black dark:text-white mt-0">👩‍⚕️ Women Face Double the Burden</h3>
-                <div className="text-black dark:text-zinc-200 text-base space-y-3 leading-relaxed">
-                  <p>
-                    Stigma hits women especially hard, particularly in rural areas. Reproductive cancers are seen as a source of dishonor, and women may be blamed, shunned, or even abandoned.
-                  </p>
-                  <p>
-                    Some face rejection in marriage proposals or are excluded from household decisions. Cancer doesn’t strip them of dignity — but society often does.
-                  </p>
-                </div>
-              </div>
-            </StaggeredListItem>
-            <StaggeredListItem>
-              <div id="more-than-hair-loss" className="bg-white/60 dark:bg-zinc-900/60 backdrop-blur-lg h-full rounded-2xl border border-zinc-200 dark:border-zinc-800 p-6 space-y-4 flex flex-col scroll-mt-24 shadow-lg shadow-zinc-200/50 dark:shadow-black/20">
-                <h3 className="text-xl sm:text-2xl font-semibold text-black dark:text-white mt-0">💇‍♀️ More Than Just Hair Loss</h3>
-                <div className="text-black dark:text-zinc-200 text-base space-y-3 leading-relaxed">
-                  <p>
-                    Visible changes like hair loss are deeply emotional. It becomes harder to feel “normal,” and some patients withdraw from social life entirely.
-                  </p>
-                  <p>
-                    The myth that cancer always means death prevents people from getting tested early — when they still have the best chance of survival.
-                  </p>
-                </div>
-              </div>
-            </StaggeredListItem>
-            <StaggeredListItem>
-              <div id="price-of-survival" className="bg-white/60 dark:bg-zinc-900/60 backdrop-blur-lg h-full rounded-2xl border border-zinc-200 dark:border-zinc-800 p-6 space-y-4 flex flex-col scroll-mt-24 shadow-lg shadow-zinc-200/50 dark:shadow-black/20">
-                <h3 className="text-xl sm:text-2xl font-semibold text-black dark:text-white mt-0">💸 The Price of Survival</h3>
-                <div className="text-black dark:text-zinc-200 text-base space-y-3 leading-relaxed">
-                  <p>
-                    The high cost of treatment leads to another layer of stigma. Families may sell assets to pay for care, and in the worst cases, patients are abandoned.
-                  </p>
-                  <p>
-                    Poverty should never be a death sentence. Yet, for too many, it is.
-                  </p>
-                </div>
-              </div>
-            </StaggeredListItem>
-          </div>
-        </StaggeredList>
-
-        <div id="change-starts-with-us" className="text-center pt-8 scroll-mt-24">
-          <h3>🌱 Change Starts with Us</h3>
-          <p className="max-w-3xl mx-auto">
-            Curing cancer requires medicine. But defeating stigma takes courage, conversation, and compassion. Let us stop whispering and start listening. Let us treat patients as people — with respect, with love, and with hope.
-            Because cancer does not isolate people — stigma does. And we all have the power to end it.
-          </p>
-        </div>
-      </article>
+                <h2 className="!text-2xl !font-semibold !text-slate-900 dark:!text-slate-100 !mt-0">Change Starts With Us</h2>
+                <p className="max-w-xl mx-auto mt-2 text-slate-600 dark:text-slate-400 text-base md:text-lg">
+                  Curing cancer requires medicine. Defeating stigma requires courage, conversation, and compassion. Let's stop whispering and start listening. Cancer doesn't isolate people—stigma does.
+                </p>
+            </div>
+        </section>
+      </div>
     </FadeIn>
   );
 }

@@ -1,195 +1,219 @@
+// --- START OF FILE app/page.tsx ---
+
 'use client';
 
-import Hero from "./components/Hero";
-import ProblemBadge from "./components/ProblemBadge";
+import Link from 'next/link';
+import { motion } from 'framer-motion';
+
+// Lucide icons for visual semantics
+import { 
+  BookOpenCheck, 
+  Hospital, 
+  HeartHandshake, 
+  ArrowRight,
+  Hourglass,
+  ShieldOff,
+  Map,
+  HelpingHand,
+  Megaphone,
+  Brush,
+} from 'lucide-react';
+
+// Reusable custom components
+import AnimatedCounter from './components/impact/AnimatedCounter';
 import Footer from "./components/Footer";
-import { useState, useEffect, useCallback } from "react";
 import Script from 'next/script';
 
-export default function Home() {
+// A local, custom Card component with spacious padding, used by all sections.
+const CustomCard = ({
+  children,
+  footer,
+  className = ''
+}: {
+  children: React.ReactNode;
+  footer?: React.ReactNode;
+  className?: string;
+}) => (
+  <div className={`flex flex-col rounded-2xl bg-slate-100/50 dark:bg-slate-800/30 border border-slate-200/80 dark:border-slate-800 backdrop-blur-lg ${className}`}>
+    <div className="p-8 flex-grow relative">
+      {children}
+    </div>
+    {footer && (
+      <div className="border-t border-slate-200/80 dark:border-slate-700 px-8 py-4">
+        {footer}
+      </div>
+    )}
+  </div>
+);
 
-  const problems = [
-    {
-      title: "The Late Screening Epidemic",
-      quote: "Over 60% of cancer patients in India are diagnosed in stages III or IV.",
-    },
-    {
-      title: "Clueless, Until It’s Too Late",
-      quote: "Nearly 70% of rural patients in Tamil Nadu are unaware of advanced cancer treatment options.",
-    },
-    {
-      title: "Silenced by Shame",
-      quote: "Fear of social judgment delays diagnosis in over 40% of female patients in South India.",
-    },
-    {
-      title: "When Pain Is Misread",
-      quote: "Up to 50% of early cancer symptoms are dismissed as minor ailments by local clinics.",
-    },
-    {
-      title: "Treatment That Breaks Families",
-      quote: "Over 75% of Indian families face catastrophic health costs during cancer treatment.",
-    },
+// Partner logos component
+const PartnerLogos = () => (
+  <>
+    <div className="flex items-center mx-8 text-slate-500 dark:text-slate-400 flex-shrink-0"><span className="text-xl mr-3">🤝</span><span className="text-sm font-medium">Rotaract Coimbatore</span></div>
+    <div className="flex items-center mx-8 text-slate-500 dark:text-slate-400 flex-shrink-0"><span className="text-xl mr-3">📊</span><span className="text-sm font-medium">Adyar Cancer Institute</span></div>
+    <div className="flex items-center mx-8 text-slate-500 dark:text-slate-400 flex-shrink-0"><span className="text-xl mr-3">❤️</span><span className="text-sm font-medium">Ohana Initiatives</span></div>
+    <div className="flex items-center mx-8 text-slate-500 dark:text-slate-400 flex-shrink-0"><span className="text-xl mr-3">💻</span><span className="text-sm font-medium">CS Cancer Club</span></div>
+  </>
+);
+
+export default function Home() {
+  const insights = [
+      { value: 60, label: "Diagnosed in Late Stages", description: "The majority of cancer patients in India are diagnosed in stages III or IV, drastically reducing survival rates.", linkHref: "/guide?section=Detection", linkLabel: "Learn about early detection" },
+      { value: 75, label: "Facing Financial Catastrophe", description: "Over 75% of Indian families face catastrophic health costs during treatment, often leading to debilitating debt.", linkHref: "/schemes", linkLabel: "Explore government schemes" },
+  ];
+  
+  const resources = [
+      { icon: <BookOpenCheck size={28} strokeWidth={1.5} />, title: "The Cancer Guide", description: "Demystifying the science of cancer, from causes to treatments, in simple, accessible language.", linkHref: "/guide", linkLabel: "Start learning" },
+      { icon: <Hospital size={28} strokeWidth={1.5} />, title: "Hospital Finder", description: "An interactive map to locate specialized government and private cancer care centers across Tamil Nadu.", linkHref: "/hospitals", linkLabel: "Find a center" },
+      { icon: <Map size={28} strokeWidth={1.5} />, title: "TN Data Atlas", description: "Explore district-wise cancer statistics through interactive maps and charts to understand regional trends.", linkHref: "/map", linkLabel: "Explore the data" },
+      { icon: <HelpingHand size={28} strokeWidth={1.5} />, title: "Support Schemes", description: "A comprehensive list of central and state government schemes providing financial aid for cancer patients.", linkHref: "/schemes", linkLabel: "Find aid" },
+      { icon: <Megaphone size={28} strokeWidth={1.5} />, title: "Awareness Campaigns", description: "See our on-the-ground impact and learn how you can join our mission to spread life-saving knowledge.", linkHref: "/impact", linkLabel: "See our impact" },
+      { icon: <Brush size={28} strokeWidth={1.5} />, title: "Public Murals", description: "Transforming public spaces into powerful statements of hope and awareness through community-driven art.", linkHref: "/impact#murals", linkLabel: "View the art" },
   ];
 
-
-  const [index, setIndex] = useState(0);
-  const [activeArrow, setActiveArrow] = useState<"left" | "right" | null>(null);
-
-  const handleNext = useCallback(() => {
-    setIndex((prev) => (prev + 1) % problems.length);
-  }, [problems.length]);
-
-  const handlePrev = useCallback(() => {
-    setIndex((prev) => (prev - 1 + problems.length) % problems.length);
-  }, [problems.length]);
-
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "ArrowLeft") {
-        setActiveArrow("left");
-        handlePrev();
-      }
-      if (e.key === "ArrowRight") {
-        setActiveArrow("right");
-        handleNext();
-      }
-    };
-
-    const handleKeyUp = () => {
-      setActiveArrow(null);
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-    window.addEventListener("keyup", handleKeyUp);
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-      window.removeEventListener("keyup", handleKeyUp);
-    };
-  }, [handleNext, handlePrev]);
+  const containerVariants = { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.1 } } };
+  const itemVariants = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } } };
 
   return (
     <>
+      <Script strategy="afterInteractive" src={`https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX`} />
+      <Script id="google-analytics" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: `window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-BCR80T5VYF');` }} />
 
-      <Script
-        strategy="afterInteractive"
-        src={`https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX`}
-      />
-      <Script
-        id="google-analytics"
-        strategy="afterInteractive"
-        dangerouslySetInnerHTML={{
-          __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-BCR80T5VYF');
-          `,
-        }}
-      />
-
-      {/* This provides the solid base color behind everything */}
-      <div className="fixed inset-0 -z-20 bg-white dark:bg-black" />
-
-      {/* This is the blurred gradient that now shows through everything */}
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute w-full h-[100%] bg-gradient-to-br from-[#f44e8b] via-[#5557fc] to-[#f44e8b] opacity-20 dark:opacity-25 blur-[120px] rounded-full" />
-      </div>
-
-      <Hero />
-
-      {/* --- THIS IS THE FIX --- */}
-      {/* The `rounded-tl-4xl` and `rounded-br-4xl` classes have been REMOVED */}
-      <section
-        id="scroll-target"
-        className="relative w-full h-[100vh] flex flex-col justify-center items-center space-y-6 md:space-y-[2vh] p-4"
-      >
-        <ProblemBadge index={index} />
-
-        <h2
-          className="bg-gradient-to-t from-[#000000] to-[#878a89] dark:from-white dark:to-slate-400 bg-clip-text text-transparent text-center font-bold text-[2.25rem] leading-tight md:text-[3rem] z-4"
-        >
-          {problems[index].title}
-        </h2>
-
-        {/* Desktop Layout */}
-        <div className="hidden md:flex items-center space-x-[12vw] z-5">
-          <button
-            onClick={handlePrev}
-            className={`-mt-22 w-10 h-10 rounded-full flex items-center justify-center cursor-pointer transition
-              bg-black dark:bg-white text-white dark:text-black
-              hover:opacity-80
-              ${activeArrow === "left" ? "opacity-80 scale-105" : ""}
-            `}
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-          </button>
-          <span className="text-black dark:text-white text-lg font-medium max-w-md text-center">
-            {problems[index].quote}
-          </span>
-          <button
-            onClick={handleNext}
-            className={`-mt-22 w-10 h-10 rounded-full flex items-center justify-center cursor-pointer transition
-                bg-black dark:bg-white text-white dark:text-black
-                hover:opacity-80
-                ${activeArrow === "right" ? "opacity-80 scale-105" : ""}
-              `}
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
+      <main className="relative isolate overflow-hidden">
+        <div className="absolute inset-0 -z-10">
+          <div className="absolute inset-0 [background-image:linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] [background-size:36px_36px]"></div>
+          <div className="absolute left-0 top-1/4 w-[800px] h-[800px] bg-brand-lavender/10 dark:bg-brand-lavender/20 rounded-full blur-3xl opacity-30"></div>
+          <div className="absolute right-0 bottom-1/4 w-[800px] h-[800px] bg-blue-300/10 dark:bg-blue-300/20 rounded-full blur-3xl opacity-30"></div>
         </div>
 
-        {/* Mobile Layout */}
-        <div className="flex flex-col items-center gap-y-6 md:hidden z-5">
-          <span className="text-black dark:text-white text-lg font-medium max-w-sm text-center">
-            {problems[index].quote}
-          </span>
-          <div className="flex items-center space-x-12">
-            <button
-              onClick={handlePrev}
-              className={`w-10 h-10 rounded-full flex items-center justify-center cursor-pointer transition
-                bg-black dark:bg-white text-white dark:text-black
-                hover:opacity-80
-                ${activeArrow === "left" ? "opacity-80 scale-105" : ""}
-              `}
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
-            </button>
-            <button
-              onClick={handleNext}
-              className={`w-10 h-10 rounded-full flex items-center justify-center cursor-pointer transition
-                  bg-black dark:bg-white text-white dark:text-black
-                  hover:opacity-80
-                  ${activeArrow === "right" ? "opacity-80 scale-105" : ""}
-                `}
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </button>
+        {/* --- SECTION 1: HERO --- */}
+        <section className="w-full flex flex-col items-center justify-center pt-32 pb-20 md:min-h-screen md:py-0">
+          <div className="flex-grow flex items-center justify-center">
+            <div className="relative z-10 mx-auto max-w-4xl text-center px-4">
+              <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, ease: "easeOut" }}>
+                <p className="inline-block rounded-full bg-brand-lavender/10 px-4 py-1.5 text-sm font-bold tracking-wide text-brand-lavender border border-brand-lavender/60 mb-6">
+                  Tamil Nadu Cancer Statistics Project
+                </p>
+              </motion.div>
+              <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: "easeOut" }}
+                className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tighter text-slate-900 dark:text-slate-100"
+              >
+                Understanding Cancer in Tamil Nadu.
+              </motion.h1>
+              <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
+                className="mt-6 text-lg leading-8 text-slate-600 dark:text-slate-400 max-w-2xl mx-auto"
+              >
+                A public health initiative leveraging open data for community-driven awareness, support, and hope.
+              </motion.p>
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+                className="mt-10"
+              >
+                <Link href="/guide" className="group inline-flex items-center justify-center rounded-full bg-slate-900 dark:bg-slate-50 text-white dark:text-black px-7 py-3.5 text-base font-semibold">
+                  Explore the Guide
+                  <ArrowRight className="w-5 h-5 ml-2 transition-transform duration-300 group-hover:translate-x-1" />
+                </Link>
+              </motion.div>
+            </div>
           </div>
-        </div>
+          <div className="w-full pt-16 md:pt-0 md:pb-16">
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.4 }}
+              className="w-full max-w-4xl mx-auto"
+            >
+              <p className="text-center text-xs font-semibold tracking-widest text-slate-500 dark:text-slate-400 uppercase mb-4">
+                Our Partners
+              </p>
+              <div className="relative w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,white_10%,white_90%,transparent)]">
+                <div className="flex w-max">
+                  <div className="flex items-center flex-shrink-0 animate-marquee-slow"><PartnerLogos /></div>
+                  <div className="flex items-center flex-shrink-0 animate-marquee-slow" aria-hidden="true"><PartnerLogos /></div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </section>
 
-        {/* Pagination dots */}
-        <div className="flex justify-center items-center pt-2 md:pt-4 space-x-2">
-          {problems.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => setIndex(i)}
-              aria-label={`Go to problem ${i + 1}`}
-              className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                i === index ? 'bg-black dark:bg-white scale-115' : 'bg-gray-400 dark:bg-gray-600 opacity-40'
-              }`}
-            />
-          ))}
-        </div>
+        {/* --- SECTION 2: KEY INSIGHTS --- */}
+        <section className="py-16 sm:py-24">
+          <div className="mx-auto max-w-7xl px-6 lg:px-8">
+            <div className="mx-auto max-w-2xl lg:text-center">
+              <h2 className="text-base font-semibold leading-7 text-brand-lavender">Why This Matters</h2>
+              <p className="mt-2 text-3xl sm:text-4xl font-semibold tracking-tight text-slate-900 dark:text-slate-100">
+                Bridging the gap between information and action.
+              </p>
+            </div>
+            
+            <motion.div variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}
+              className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-8 lg:mx-0 lg:max-w-none lg:grid-cols-2"
+            >
+              {insights.map(insight => (
+                <motion.div variants={itemVariants} key={insight.label} className="transition-transform duration-300 hover:scale-[1.02]">
+                  <CustomCard
+                    footer={
+                      <Link href={insight.linkHref} className="text-blue-600 dark:text-blue-500 hover:text-blue-700 dark:hover:text-blue-400 flex items-center text-sm font-semibold">
+                        {insight.linkLabel}
+                        <ArrowRight className="w-4 h-4 ml-1" />
+                      </Link>
+                    }
+                  >
+                    <div className="mb-4 text-6xl sm:text-7xl font-semibold text-brand-lavender leading-none">
+                      <AnimatedCounter value={insight.value} />%
+                    </div>
+                    <h3 className="text-2xl font-semibold text-slate-900 dark:text-slate-100">{insight.label}</h3>
+                    <p className="mt-2 text-slate-600 dark:text-slate-400 min-h-[4.5rem]">{insight.description}</p>
+                  </CustomCard>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </section>
 
-      </section>
+        {/* --- SECTION 3: RESOURCES --- */}
+        <section className="pb-24 sm:pb-32">
+          <div className="mx-auto max-w-7xl px-6 lg:px-8">
+            <div className="mx-auto max-w-2xl lg:text-center">
+              <h2 className="text-base font-semibold leading-7 text-brand-lavender">A Clear Path Forward</h2>
+              <p className="mt-2 text-3xl sm:text-4xl font-semibold tracking-tight text-slate-900 dark:text-slate-100">
+                Your Centralized Hub for Cancer Information
+              </p>
+            </div>
+
+            <motion.div variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}
+              className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-8 lg:mx-0 lg:max-w-none md:grid-cols-2 lg:grid-cols-3"
+            >
+              {resources.map(res => (
+                <motion.div variants={itemVariants} key={res.title} className="flex">
+                  <CustomCard
+                    className="w-full transition-all duration-300 hover:border-slate-300 dark:hover:border-slate-700 hover:shadow-lg"
+                    footer={
+                      // DEFINITIVE FIX: Check if the card title is "Public Murals"
+                      res.title === "Public Murals" ? (
+                        // If it is, render a styled "Coming Soon" label
+                        <div className="text-slate-400 dark:text-slate-500 text-sm font-semibold">
+                          Coming Soon
+                        </div>
+                      ) : (
+                        // Otherwise, render the original link
+                        <Link href={res.linkHref} className="text-blue-600 dark:text-blue-500 hover:text-blue-700 dark:hover:text-blue-400 flex items-center text-sm font-semibold">
+                          {res.linkLabel}
+                          <ArrowRight className="w-4 h-4 ml-1" />
+                        </Link>
+                      )
+                    }
+                  >
+                    <div className="absolute -top-10 -right-10 w-32 h-32 text-slate-900/[0.03] dark:text-white/[0.03]" aria-hidden="true">
+                        {res.icon}
+                    </div>
+                    <div className="mb-4 text-brand-lavender">{res.icon}</div>
+                    <h3 className="text-2xl font-semibold text-slate-900 dark:text-slate-100">{res.title}</h3>
+                    <p className="mt-2 text-slate-600 dark:text-slate-400 min-h-[6rem]">{res.description}</p>
+                  </CustomCard>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </section>
+      </main>
+      
       <Footer />
     </>
   );

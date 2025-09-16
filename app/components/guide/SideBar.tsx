@@ -1,49 +1,35 @@
-// --- File: app/components/guide/Sidebar.tsx ---
+// --- File: app/components/guide/SideBar.tsx ---
 interface SidebarProps {
-  title: string;
   sections: string[];
   activeSection: string;
   onSectionClick: (section: string) => void;
-  position: 'left' | 'right';
   isOpen: boolean;
   onClose: () => void;
 }
 
-export default function Sidebar({ title, sections, activeSection, onSectionClick, position, isOpen, onClose }: SidebarProps) {
-  const positionClasses = position === 'left' 
-    ? 'left-0' 
-    : 'right-0';
-  
-  // Adjusted transform for left and right sidebars
-  const transformClasses = position === 'left'
-    ? (isOpen ? 'translate-x-0' : '-translate-x-full')
-    : (isOpen ? 'translate-x-0' : 'translate-x-full');
-
+export default function Sidebar({ sections, activeSection, onSectionClick, isOpen, onClose }: SidebarProps) {
   return (
     <>
       <div 
-        className={`md:hidden fixed inset-0 bg-black/40 transition-opacity ${isOpen ? 'opacity-100 z-50' : 'opacity-0 pointer-events-none'}`}
+        className={`md:hidden fixed inset-0 bg-black/40 backdrop-blur-sm transition-opacity ${isOpen ? 'opacity-100 z-50' : 'opacity-0 pointer-events-none'}`}
         onClick={onClose}
       />
 
       <aside className={`
-        fixed top-0 h-full w-72 bg-white dark:bg-zinc-900 shadow-xl flex flex-col
+        fixed top-0 left-0 h-full w-72 bg-white/90 dark:bg-slate-900/90 backdrop-blur-lg shadow-xl flex flex-col
         transition-transform duration-300 ease-in-out
-        md:w-64 md:h-screen md:bg-gray-50 dark:md:bg-zinc-900/80 md:shadow-none md:border-r md:border-gray-200 dark:md:border-zinc-800
+        md:w-64 md:h-screen md:bg-transparent md:dark:bg-transparent md:shadow-none md:border-r md:border-slate-900/10 dark:md:border-slate-50/[0.06]
         md:translate-x-0 md:p-6 md:pt-28
-        ${positionClasses}
-        ${transformClasses}
-        ${isOpen ? 'z-50' : ''} /* Ensure sidebar is on top when open */
+        ${isOpen ? 'translate-x-0 z-50' : '-translate-x-full'}
+        pt-16 md:pt-28 // DEFINITIVE FIX: Added pt-16 for mobile to clear the navbar
       `}>
-        {/* Mobile Header for Sidebar */}
-        <div className="md:hidden p-4 border-b border-gray-200 dark:border-zinc-800">
-            <h2 className="text-lg font-semibold text-gray-800 dark:text-zinc-200">{title}</h2>
+        <div className="md:hidden p-4 border-b border-slate-200 dark:border-slate-800">
+            <h2 className="text-lg font-semibold text-slate-800 dark:text-slate-200">Guide Sections</h2>
         </div>
 
-        {/* Desktop Header for Sidebar */}
-        <h2 className="hidden md:block text-lg font-semibold mb-6 text-gray-800 dark:text-zinc-200">{title}</h2>
+        <h2 className="hidden md:block text-sm font-semibold tracking-widest text-slate-500 dark:text-slate-400 uppercase mb-4">Guide Sections</h2>
         
-        <nav className="flex flex-col space-y-2 p-4 md:p-0">
+        <nav className="flex flex-col space-y-1 p-4 md:p-0">
           {sections.map((section) => {
             const isActive = activeSection === section;
             return (
@@ -55,10 +41,11 @@ export default function Sidebar({ title, sections, activeSection, onSectionClick
                   onSectionClick(section);
                 }}
                 className={`
-                  text-left text-sm font-lg px-4 py-2 rounded-xl transition
+                  text-left px-3 py-2 rounded-md transition-colors duration-200 text-sm
                   ${isActive
-                    ? "bg-white dark:bg-zinc-800 border border-gray-300 dark:border-zinc-700 shadow-sm text-gray-900 dark:text-white font-medium"
-                    : "text-gray-600 dark:text-zinc-400 border border-transparent hover:bg-white dark:hover:bg-zinc-800/50 hover:border-gray-200 dark:hover:border-zinc-700/50"}
+                    ? "font-semibold bg-brand-lavender/20 text-slate-900 dark:text-slate-100"
+                    // Corrected hover styles for consistency
+                    : "text-slate-600 hover:bg-slate-900/5 dark:text-slate-400 dark:hover:bg-slate-50/5 hover:text-slate-900 dark:hover:text-slate-100"}
                 `}
               >
                 {section}

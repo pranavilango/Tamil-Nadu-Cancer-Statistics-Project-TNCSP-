@@ -1,88 +1,94 @@
+// --- START OF FILE CausativeAgents.tsx ---
 import { Heading } from "./OnPageSidebar";
 import FadeIn from "./FadeIn";
 import { StaggeredList, StaggeredListItem } from "./StaggeredList";
+import { Dna, TestTube, Sun, Zap, Activity, ShieldQuestion } from 'lucide-react';
+
+const InfoBlock = ({ icon, title, children }: { icon: React.ReactNode, title: string, children: React.ReactNode }) => (
+    <div className="flex items-start gap-3 md:gap-4">
+        <div className="flex-shrink-0 w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-lg md:rounded-xl bg-brand-lavender/10 text-brand-lavender">
+            {icon}
+        </div>
+        <div>
+            <h2 className="!text-xl md:!text-2xl !font-semibold !text-slate-900 dark:!text-slate-100 !mt-0 !mb-2">
+                {title}
+            </h2>
+            <div className="text-slate-600 dark:text-slate-400 text-base md:text-lg leading-relaxed">
+                {children}
+            </div>
+        </div>
+    </div>
+);
 
 export const causativeAgentsHeadings: Heading[] = [
-  { id: "genetics", title: "Genetics", level: 2 },
+  { id: "core-issue", title: "The Core Issue: DNA Damage", level: 2 },
+  { id: "genetics", title: "Genetics & Heredity", level: 2 },
   { id: "environmental-factors", title: "Environmental Factors", level: 2 },
   { id: "lifestyle-choices", title: "Lifestyle Choices", level: 2 },
-  { id: "age-and-other-risks", title: "Age & Other Risks", level: 2 },
 ];
 
 export default function CancerCauses() {
   return (
     <FadeIn>
-      <article className="prose dark:prose-invert max-w-none prose-headings:font-bold prose-p:leading-relaxed sm:prose-lg lg:prose-xl">
-        <div className="text-center">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl">⚠️ What Causes Cancer?</h1>
-          <p className="lead italic">
-            A look at the factors that trigger this complex disease.
-          </p>
-        </div>
+      <div className="max-w-3xl mx-auto space-y-12 md:space-y-16">
 
-        <div>
-          <p>
-            At its core, cancer begins when a cell’s <strong>DNA is damaged or mutated</strong>.
-          </p>
-          <p>
-            DNA acts like a set of instructions for how our body works. When it mutates, the cell may start acting abnormally — dividing too much or not dying when it should.
-          </p>
-          <p>
-            Some of these changes are inherited. Others are caused by things we’re exposed to throughout life.
-          </p>
-        </div>
+        <section id="core-issue" className="scroll-mt-24">
+            <InfoBlock icon={<ShieldQuestion size={24} />} title="The Core Issue: DNA Damage">
+                 <p>
+                    Cancer begins when a cell’s <strong>DNA is damaged or mutated</strong>. DNA is the instruction manual for our body. When it mutates, a cell can start acting abnormally—dividing too much or refusing to die when it should. Some changes are inherited; most are caused by things we encounter in life.
+                </p>
+            </InfoBlock>
+        </section>
 
-        <div id="genetics" className="scroll-mt-24">
-          <h2>🧬 Genetics</h2>
-          <p>
-            Some people are <strong>born with mutations</strong> in their DNA that raise their cancer risk. These are passed down through families and cannot be prevented.
-          </p>
-          <p>
-            These mutations don’t guarantee cancer — but they do increase the chances.
-          </p>
-          <p>
-            Other mutations can arise <strong>spontaneously</strong>, either during normal cell division or due to damage from the environment.
-          </p>
-        </div>
+        <section id="genetics" className="scroll-mt-24">
+          <InfoBlock icon={<Dna size={24} />} title="Genetics & Heredity">
+            <p>
+              Some people are born with mutations that raise their cancer risk. These are passed down through families. These mutations don’t guarantee cancer, but they increase the chances. Other mutations can happen spontaneously during normal cell division.
+            </p>
+          </InfoBlock>
+        </section>
 
-        <div id="environmental-factors" className="scroll-mt-24">
-          <h2>🌍 Environmental Factors</h2>
-          <p>
-            Prolonged exposure to harmful substances in our surroundings is a leading cause of cancer.
-          </p>
-          <StaggeredList>
-              <ul className="!list-none !pl-0 space-y-4">
-                  <StaggeredListItem><li><strong>Chemicals:</strong> Tobacco smoke, asbestos, pesticides, and industrial pollutants.</li></StaggeredListItem>
-                  <StaggeredListItem><li><strong>Radiation:</strong> UV rays from the sun and ionizing radiation from medical imaging or environmental exposure.</li></StaggeredListItem>
-                  <StaggeredListItem><li><strong>Infections:</strong> Some viruses like HPV and hepatitis B/C, as well as certain bacteria, are also linked to cancer.</li></StaggeredListItem>
-              </ul>
-          </StaggeredList>
-        </div>
+        <section id="environmental-factors" className="scroll-mt-24">
+            <InfoBlock icon={<Sun size={24} />} title="Environmental Factors">
+                <p>
+                  Prolonged exposure to harmful substances is a leading cause of cancer. Our surroundings can directly damage our DNA over time.
+                </p>
+            </InfoBlock>
+            <div className="mt-8 not-prose bg-slate-100/50 dark:bg-slate-800/30 backdrop-blur-lg rounded-2xl border border-slate-200/80 dark:border-slate-800 p-4 sm:p-6">
+              <StaggeredList>
+                  {/* DEFINITIVE FIX: Added `list-none p-0 m-0` to remove default browser bullets and padding. */}
+                  <ul className="space-y-4 list-none p-0 m-0">
+                      <StaggeredListItem>
+                        <div className="flex items-start gap-3">
+                          <TestTube className="w-5 h-5 mt-1 text-brand-lavender flex-shrink-0" />
+                          <span><strong>Chemicals:</strong> Tobacco smoke, asbestos, pesticides, and industrial pollutants.</span>
+                        </div>
+                      </StaggeredListItem>
+                      <StaggeredListItem>
+                        <div className="flex items-start gap-3">
+                          <Zap className="w-5 h-5 mt-1 text-brand-lavender flex-shrink-0" />
+                          <span><strong>Radiation:</strong> UV rays from the sun and radiation from medical imaging or other sources.</span>
+                        </div>
+                      </StaggeredListItem>
+                      <StaggeredListItem>
+                        <div className="flex items-start gap-3">
+                          <Activity className="w-5 h-5 mt-1 text-brand-lavender flex-shrink-0" />
+                          <span><strong>Infections:</strong> Viruses like HPV and Hepatitis B/C, and certain bacteria, are linked to cancer.</span>
+                        </div>
+                      </StaggeredListItem>
+                  </ul>
+              </StaggeredList>
+            </div>
+        </section>
 
-        <div id="lifestyle-choices" className="scroll-mt-24">
-          <h2>💡 Lifestyle Choices</h2>
-          <p>
-            Everyday habits play a major role in cancer risk.
-          </p>
-          <p>
-            Smoking, drinking alcohol excessively, poor diet, obesity, and lack of physical activity all increase cancer risk over time.
-          </p>
-          <p>
-            Even long-term exposure to sunlight or polluted air can cause damage.
-          </p>
-        </div>
-
-        <div id="age-and-other-risks" className="scroll-mt-24">
-          <h2>⏳ Age & Other Risks</h2>
-          <p>
-            As we age, our cells have more time to accumulate mutations — which is why cancer is more common in older adults.
-          </p>
-          <p>
-            Other risk factors include <strong>chronic inflammation</strong>, <strong>hormonal imbalances</strong>, and <strong>weakened immunity</strong>.
-          </p>
-        </div>
-
-      </article>
+        <section id="lifestyle-choices" className="scroll-mt-24">
+          <InfoBlock icon={<Activity size={24} />} title="Lifestyle & Other Risks">
+            <p>
+              Everyday habits, along with natural processes, play a major role. Smoking, excessive alcohol, poor diet, obesity, and lack of exercise all increase risk. Furthermore, as we age, our cells naturally accumulate more mutations, which is why cancer is more common in older adults.
+            </p>
+          </InfoBlock>
+        </section>
+      </div>
     </FadeIn>
   );
 }

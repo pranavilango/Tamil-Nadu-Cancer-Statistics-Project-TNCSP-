@@ -1,68 +1,98 @@
+// --- START OF FILE DiseaseMechanism.tsx ---
 import { Heading } from "./OnPageSidebar";
 import FadeIn from "./FadeIn";
 import { StaggeredList, StaggeredListItem } from "./StaggeredList";
+import { Dna, Activity, Grid2x2, Unplug } from 'lucide-react';
+
+const InfoBlock = ({ icon, title, children }: { icon: React.ReactNode, title: string, children: React.ReactNode }) => (
+    <div className="flex items-start gap-3 md:gap-4">
+        <div className="flex-shrink-0 w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-lg md:rounded-xl bg-brand-lavender/10 text-brand-lavender">
+            {icon}
+        </div>
+        <div>
+            <h2 className="!text-xl md:!text-2xl !font-semibold !text-slate-900 dark:!text-slate-100 !mt-0 !mb-2">
+                {title}
+            </h2>
+            <div className="text-slate-600 dark:text-slate-400 text-base md:text-lg leading-relaxed">
+                {children}
+            </div>
+        </div>
+    </div>
+);
 
 export const diseaseMechanismHeadings: Heading[] = [
-    { id: "from-healthy-to-tumor", title: "From Healthy Cells to a Tumor", level: 2 },
+    { id: "from-healthy-to-tumor", title: "From Healthy Cell to Tumor", level: 2 },
     { id: "how-cancer-disrupts", title: "How Cancer Disrupts the Body", level: 2 },
-    { id: "root-cause-mutations", title: "The Root Cause: Genetic Mutations", level: 2 },
+    { id: "root-cause-mutations", title: "The Root Cause: Mutations", level: 2 },
     { id: "one-name-many-diseases", title: "One Name, Many Diseases", level: 2 },
 ];
 
 export default function DiseaseMechanism() {
   return (
     <FadeIn>
-      <article className="prose dark:prose-invert max-w-none prose-headings:font-bold prose-p:leading-relaxed sm:prose-lg lg:prose-xl">
-        <div className="text-center">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl">🔬 What Actually Happens in the Body?</h1>
-          <p className="lead italic">
-            The biology behind cancer — explained simply.
-          </p>
-        </div>
-        <div id="from-healthy-to-tumor" className="scroll-mt-24">
-          <div className="not-prose bg-white/60 dark:bg-zinc-900/60 backdrop-blur-lg rounded-2xl border border-zinc-200 dark:border-zinc-800 p-6 md:p-8 space-y-4 shadow-lg shadow-zinc-200/50 dark:shadow-black/20">
-            <h2 className="text-2xl font-semibold text-black dark:text-white mt-0">From Healthy Cells to a Tumor</h2>
-            <div className="space-y-4 text-black dark:text-zinc-200 text-base">
-              <p>
-                Every living organism is made up of <strong>cells</strong> — the tiny building blocks of life. These cells are programmed to grow, divide, and die in a <strong>controlled, orderly</strong> way.
-              </p>
-              <p>
-                Cancer begins when this control system breaks down. A cell starts to <strong>divide uncontrollably</strong>, ignoring the signals to stop. This relentless division creates a clump of abnormal cells called a <strong>tumor</strong>.
-              </p>
-              <p>
-                Not all tumors are dangerous. Some, called <strong>benign</strong>, stay in one place. But others, which are <strong>malignant</strong> (cancerous), can invade nearby tissues and spread to distant organs. This process of spreading is called <strong>metastasis</strong>.
-              </p>
+      <div className="max-w-3xl mx-auto space-y-12 md:space-y-16">
+        
+        <section id="from-healthy-to-tumor" className="scroll-mt-24">
+            <div className="not-prose bg-slate-100/50 dark:bg-slate-800/30 backdrop-blur-lg rounded-2xl border border-slate-200/80 dark:border-slate-800 p-4 sm:p-6 space-y-4">
+                <h2 className="!text-xl md:!text-2xl !font-semibold !text-slate-900 dark:!text-slate-100 !mt-0">From a Healthy Cell to a Tumor</h2>
+                <div className="space-y-4 text-slate-600 dark:text-slate-400 text-base md:text-lg leading-relaxed">
+                    <p>
+                        Your body is made of tiny building blocks called <strong>cells</strong>. They are programmed to grow, divide, and die in a controlled, orderly way.
+                    </p>
+                    <p>
+                        Cancer begins when this control system breaks. A cell starts to <strong>divide uncontrollably</strong>, ignoring signals to stop. This creates a clump of abnormal cells called a <strong>tumor</strong>.
+                    </p>
+                </div>
             </div>
-          </div>
-        </div>
-        <div className="not-prose w-full h-64 sm:h-72 bg-gray-200 dark:bg-zinc-800 rounded-xl flex items-center justify-center text-gray-700 dark:text-zinc-300 text-lg font-medium italic">
-          [ Infographic: Benign vs Malignant Tumors ]
-        </div>
-        <div id="how-cancer-disrupts" className="scroll-mt-24">
-          <h2>⚙️ How Cancer Disrupts the Body</h2>
-          <p>
-            Cancer cells are disruptive. They grow quickly, crowding out healthy cells and stealing the nutrients, oxygen, and space needed for normal body functions. Because they originate from your own body, the immune system often struggles to recognize and fight them effectively. They master two dangerous tricks:
-          </p>
-          <StaggeredList>
-            <ul className="!list-none !pl-0">
-              <StaggeredListItem><li><strong>Avoiding Apoptosis:</strong> They ignore the natural signals for self-destruction.</li></StaggeredListItem>
-              <StaggeredListItem><li><strong>Angiogenesis:</strong> They grow their own new blood vessels to supply themselves with food.</li></StaggeredListItem>
-            </ul>
-          </StaggeredList>
-        </div>
-        <div id="root-cause-mutations" className="scroll-mt-24">
-          <h2>🧬 The Root Cause: Genetic Mutations</h2>
-          <p>
-            At its core, cancer is a genetic disease. It is caused by <strong>mutations</strong> in the DNA of a cell that hijack its instruction manual. Some of these mutations are <strong>inherited</strong>, but most are <strong>acquired</strong> over a lifetime due to environmental factors or random errors during cell division. These mutations effectively tell the cell to grow when it should not.
-          </p>
-        </div>
-        <div id="one-name-many-diseases" className="scroll-mt-24">
-          <h2>🧩 One Name, Many Diseases</h2>
-          <p>
-            It is crucial to remember that cancer is not one disease — it is a group of <strong>over 100 distinct types</strong>. Some grow fast, others slow. Some are best treated with surgery, while others require <strong>chemotherapy</strong> or <strong>radiation</strong>. Understanding the specific type of cancer is the most important step in choosing the right treatment plan.
-          </p>
-        </div>
-      </article>
+             <div className="mt-8 not-prose w-full h-auto bg-slate-100/50 dark:bg-slate-800/30 rounded-2xl border border-slate-200/80 dark:border-slate-800 p-4 sm:p-6 flex items-center justify-center text-slate-700 dark:text-slate-300 text-base sm:text-lg font-medium italic">
+                [ Infographic: Benign (Non-Cancerous) vs. Malignant (Cancerous) Tumors ]
+            </div>
+        </section>
+        
+        <section id="how-cancer-disrupts" className="scroll-mt-24">
+            <InfoBlock icon={<Unplug size={24} />} title="How Cancer Disrupts the Body">
+                <p>
+                  Cancer cells are disruptive. They crowd out healthy cells and steal nutrients and oxygen. Because they come from your own body, the immune system often struggles to fight them effectively. They master two dangerous tricks:
+                </p>
+            </InfoBlock>
+            <div className="mt-8 not-prose">
+              <StaggeredList>
+                {/* DEFINITIVE FIX: Added `list-none p-0 m-0` to remove default browser bullets and padding. */}
+                <ul className="space-y-4 list-none p-0 m-0">
+                  <StaggeredListItem>
+                    <div className="p-4 bg-slate-100/50 dark:bg-slate-800/30 rounded-lg border border-slate-200/80 dark:border-slate-800">
+                      <h3 className="font-semibold text-slate-800 dark:text-slate-200">Avoiding Self-Destruction</h3>
+                      <p className="text-sm text-slate-500 dark:text-slate-400">They ignore the natural signals that tell old or damaged cells to die (a process called apoptosis).</p>
+                    </div>
+                  </StaggeredListItem>
+                  <StaggeredListItem>
+                     <div className="p-4 bg-slate-100/50 dark:bg-slate-800/30 rounded-lg border border-slate-200/80 dark:border-slate-800">
+                      <h3 className="font-semibold text-slate-800 dark:text-slate-200">Building Their Own Supply Lines</h3>
+                      <p className="text-sm text-slate-500 dark:text-slate-400">They trick the body into growing new blood vessels to feed them (a process called angiogenesis).</p>
+                    </div>
+                  </StaggeredListItem>
+                </ul>
+              </StaggeredList>
+            </div>
+        </section>
+
+        <section id="root-cause-mutations" className="scroll-mt-24">
+            <InfoBlock icon={<Dna size={24} />} title="The Root Cause: Genetic Mutations">
+                <p>
+                    At its core, cancer is a genetic disease. It is caused by <strong>mutations</strong> (changes) in a cell's DNA that hijack its instruction manual. Some mutations are inherited, but most are acquired over a lifetime from environmental factors or random errors during cell division.
+                </p>
+            </InfoBlock>
+        </section>
+
+        <section id="one-name-many-diseases" className="scroll-mt-24">
+            <InfoBlock icon={<Grid2x2 size={24} />} title="One Name, Many Diseases">
+                 <p>
+                    It is crucial to remember that "cancer" is not one disease—it's a group of <strong>over 100 distinct types</strong>. Some grow fast, others slow. Some need surgery, others need chemotherapy or radiation. Understanding the specific type is the first step to the right treatment.
+                </p>
+            </InfoBlock>
+        </section>
+
+      </div>
     </FadeIn>
   );
 }

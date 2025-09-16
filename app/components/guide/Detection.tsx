@@ -1,101 +1,86 @@
+// --- START OF FILE Detection.tsx ---
 "use client";
 import { Heading } from "./OnPageSidebar";
 import FadeIn from "./FadeIn";
 import { StaggeredList, StaggeredListItem } from "./StaggeredList";
+import { Beaker, Scan, Stethoscope, CalendarClock, Microscope } from 'lucide-react';
+
+const InfoBlock = ({ icon, title, children }: { icon: React.ReactNode, title: string, children?: React.ReactNode }) => (
+    <div className="flex items-start gap-3 md:gap-4">
+        <div className="flex-shrink-0 w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-lg md:rounded-xl bg-brand-lavender/10 text-brand-lavender">
+            {icon}
+        </div>
+        <div>
+            <h2 className="!text-xl md:!text-2xl !font-semibold !text-slate-900 dark:!text-slate-100 !mt-0 !mb-2">
+                {title}
+            </h2>
+            {children && (
+                <div className="text-slate-600 dark:text-slate-400 text-base md:text-lg leading-relaxed">
+                    {children}
+                </div>
+            )}
+        </div>
+    </div>
+);
 
 export const detectionHeadings: Heading[] = [
   { id: "pillars-of-detection", title: "The Pillars of Detection", level: 2 },
-  { id: "routine-screenings", title: "Routine Screenings Save Lives", level: 2 },
+  { id: "routine-screenings", title: "Routine Screenings", level: 2 },
   { id: "dont-wait", title: "Don’t Wait for a Warning", level: 2 },
 ];
 
 export default function Detection() {
   return (
     <FadeIn>
-      <article className="prose dark:prose-invert max-w-none prose-headings:font-bold prose-p:leading-relaxed sm:prose-lg lg:prose-xl">
-        <div className="text-center">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl">🧫 How Is Cancer Detected?</h1>
-          <p className="lead italic">
-            When found early, cancer can often be treated more effectively.
-          </p>
-        </div>
+      <div className="max-w-3xl mx-auto space-y-12 md:space-y-16">
+        <section>
+            <p className="text-slate-600 dark:text-slate-400 text-base md:text-lg leading-relaxed">
+                Early detection is the single most powerful tool in our arsenal. When found early, many cancers can be treated more effectively, giving patients a far better chance of survival. Too often, people ignore symptoms or delay screenings. Cancer doesn’t always shout; sometimes, it whispers.
+            </p>
+        </section>
 
-        <div>
-          <p>
-            Early detection is the single most powerful tool in the fight against cancer. When found early, many cancers can be treated more effectively, giving patients a far better chance of survival.
-          </p>
-          <p>
-            Yet too often, people ignore symptoms or delay screenings. Cancer doesn’t always shout. Sometimes, it whispers — and listening early can save a life.
-          </p>
-        </div>
-
-        <div id="pillars-of-detection" className="scroll-mt-24">
-          <div className="not-prose bg-white/60 dark:bg-zinc-900/60 backdrop-blur-lg rounded-2xl border border-zinc-200 dark:border-zinc-800 p-6 md:p-8 space-y-6 shadow-lg shadow-zinc-200/50 dark:shadow-black/20">
-            <h2 className="text-2xl font-semibold text-black dark:text-white mt-0">🔍 The Pillars of Detection</h2>
-
+        <section id="pillars-of-detection" className="scroll-mt-24">
+          <InfoBlock icon={<Microscope size={24} />} title="The Pillars of Detection" />
+          <div className="mt-8 not-prose">
             <StaggeredList>
-              <div className="space-y-6">
+              <div className="space-y-4">
                 <StaggeredListItem>
-                  <div className="space-y-2 text-black dark:text-zinc-200">
-                    <h3 className="text-xl font-semibold text-black dark:text-white">🧑‍⚕️ Physical Examination</h3>
-                    <p className="text-base">
-                      Doctors look for signs like lumps, swelling, or skin changes and review personal and family history to assess risks that may need further testing.
-                    </p>
-                  </div>
+                  <div className="flex items-start gap-4 p-4 bg-slate-100/50 dark:bg-slate-800/30 rounded-lg border border-slate-200/80 dark:border-slate-800"><Stethoscope className="w-6 h-6 text-brand-lavender flex-shrink-0 mt-1" /><div><h3 className="font-semibold text-slate-800 dark:text-slate-200">Physical Examination</h3><p className="text-sm text-slate-500 dark:text-slate-400">Doctors look for lumps or skin changes and review family history to assess risks.</p></div></div>
                 </StaggeredListItem>
                 <StaggeredListItem>
-                  <div className="space-y-2 text-black dark:text-zinc-200">
-                    <h3 className="text-xl font-semibold text-black dark:text-white">🖼️ Imaging Tests</h3>
-                    <p className="text-base">
-                      Imaging lets doctors <strong>see</strong> what’s happening inside the body. Common types include Mammograms, Colonoscopies, CT Scans, and MRIs.
-                    </p>
-                  </div>
+                  <div className="flex items-start gap-4 p-4 bg-slate-100/50 dark:bg-slate-800/30 rounded-lg border border-slate-200/80 dark:border-slate-800"><Scan className="w-6 h-6 text-brand-lavender flex-shrink-0 mt-1" /><div><h3 className="font-semibold text-slate-800 dark:text-slate-200">Imaging Tests</h3><p className="text-sm text-slate-500 dark:text-slate-400">Mammograms, CT Scans, and MRIs let doctors see what’s happening inside the body.</p></div></div>
                 </StaggeredListItem>
                 <StaggeredListItem>
-                  <div className="space-y-2 text-black dark:text-zinc-200">
-                    <h3 className="text-xl font-semibold text-black dark:text-white">🧪 Lab Tests</h3>
-                    <p className="text-base">
-                      Cancer may show up in blood, urine, or other fluids through tests like PSA (prostate), CA-125 (ovarian), Pap smears (cervical), and liquid biopsies.
-                    </p>
-                  </div>
+                   <div className="flex items-start gap-4 p-4 bg-slate-100/50 dark:bg-slate-800/30 rounded-lg border border-slate-200/80 dark:border-slate-800"><Beaker className="w-6 h-6 text-brand-lavender flex-shrink-0 mt-1" /><div><h3 className="font-semibold text-slate-800 dark:text-slate-200">Lab Tests</h3><p className="text-sm text-slate-500 dark:text-slate-400">Signs of cancer can appear in blood or urine, detected via Pap smears, PSA tests, and more.</p></div></div>
                 </StaggeredListItem>
                 <StaggeredListItem>
-                  <div className="space-y-2 text-black dark:text-zinc-200">
-                    <h3 className="text-xl font-semibold text-black dark:text-white">🧬 Biopsy</h3>
-                    <p className="text-base">
-                      This is the definitive test. A small tissue sample is removed and examined under a microscope to confirm cancer, its type, and its characteristics.
-                    </p>
-                  </div>
+                   <div className="flex items-start gap-4 p-4 bg-slate-100/50 dark:bg-slate-800/30 rounded-lg border border-slate-200/80 dark:border-slate-800"><Microscope className="w-6 h-6 text-brand-lavender flex-shrink-0 mt-1" /><div><h3 className="font-semibold text-slate-800 dark:text-slate-200">Biopsy (The Definitive Test)</h3><p className="text-sm text-slate-500 dark:text-slate-400">A small tissue sample is examined under a microscope to confirm cancer and its specific type.</p></div></div>
                 </StaggeredListItem>
               </div>
             </StaggeredList>
           </div>
-        </div>
+        </section>
 
-        <div id="routine-screenings" className="scroll-mt-24">
-          <h2>🗓️ Routine Screenings Save Lives</h2>
-          <p>
-            Screenings find cancer before symptoms appear. These should be a regular part of life for at-risk groups:
-          </p>
-          <ul>
-            <li><strong>Breast Cancer:</strong> Mammograms & clinical checks (after 40).</li>
-            <li><strong>Cervical Cancer:</strong> Pap smear + HPV (ages 21–65).</li>
-            <li><strong>Colorectal:</strong> Colonoscopies or stool tests (after 45).</li>
-            <li><strong>Oral Cancer:</strong> Visual exams (especially in tobacco users).</li>
-          </ul>
-        </div>
+        <section id="routine-screenings" className="scroll-mt-24">
+            <InfoBlock icon={<CalendarClock size={24} />} title="Routine Screenings Save Lives">
+                <p>
+                  Screenings find cancer before symptoms even appear. They should be a regular part of life for at-risk groups, including mammograms, Pap smears, colonoscopies, and oral exams for tobacco users.
+                </p>
+            </InfoBlock>
+             <div className="mt-8 not-prose w-full h-auto bg-slate-100/50 dark:bg-slate-800/30 rounded-2xl border border-slate-200/80 dark:border-slate-800 p-4 sm:p-6 flex items-center justify-center text-slate-700 dark:text-slate-300 text-base sm:text-lg font-medium italic">
+                [ Infographic: Screening Timeline by Age and Risk Factor ]
+            </div>
+        </section>
         
-        <div className="not-prose w-full h-64 sm:h-72 bg-gray-200 dark:bg-zinc-800 rounded-xl flex items-center justify-center text-gray-700 dark:text-zinc-300 text-lg font-medium italic">
-          [ Infographic: Screening Timeline by Age and Risk ]
-        </div>
-
-        <div id="dont-wait" className="text-center pt-8 scroll-mt-24">
-          <h3>📣 Don’t Wait for a Warning</h3>
-          <p className="max-w-3xl mx-auto">
-            In Tamil Nadu, screening services are available in government hospitals and rural clinics, but awareness is still low. Let’s normalize yearly checkups. If you have a high-risk lifestyle, screening isn’t optional—it’s urgent.
-          </p>
-        </div>
-      </article>
+        <section id="dont-wait" className="text-center pt-8 scroll-mt-24">
+          <div className="bg-slate-100/50 dark:bg-slate-800/30 backdrop-blur-lg rounded-2xl border border-slate-200/80 dark:border-slate-800 py-8 px-4 sm:py-10 sm:px-6">
+              <h2 className="!text-2xl !font-semibold !text-slate-900 dark:!text-slate-100 !mt-0">Don’t Wait for a Warning</h2>
+              <p className="max-w-xl mx-auto mt-2 text-slate-600 dark:text-slate-400 text-base md:text-lg">
+                Screening services are available in government hospitals, but awareness is still low. Let’s normalize yearly checkups. If you have a high-risk lifestyle, screening isn’t optional—it’s urgent.
+              </p>
+          </div>
+        </section>
+      </div>
     </FadeIn>
   );
 }

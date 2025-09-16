@@ -1,66 +1,82 @@
+// --- START OF FILE Conclusion.tsx ---
 import { Heading } from "./OnPageSidebar";
 import FadeIn from "./FadeIn";
+import { Check, Heart, Handshake } from "lucide-react";
+
+const InfoBlock = ({ icon, title, children }: { icon: React.ReactNode, title: string, children?: React.ReactNode }) => (
+    <div className="flex items-start gap-3 md:gap-4">
+        <div className="flex-shrink-0 w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-lg md:rounded-xl bg-brand-lavender/10 text-brand-lavender">
+            {icon}
+        </div>
+        <div>
+            <h2 className="!text-xl md:!text-2xl !font-semibold !text-slate-900 dark:!text-slate-100 !mt-0 !mb-2">
+                {title}
+            </h2>
+            {children && (
+                <div className="text-slate-600 dark:text-slate-400 text-base md:text-lg leading-relaxed">
+                    {children}
+                </div>
+            )}
+        </div>
+    </div>
+);
+
 
 export const conclusionHeadings: Heading[] = [
-  { id: "key-takeaways", title: "Our Path Forward: Key Takeaways", level: 2 },
+  { id: "key-takeaways", title: "Our Path Forward", level: 2 },
   { id: "be-the-change", title: "Be the Change", level: 2 },
 ];
 
 export default function Conclusion() {
   return (
     <FadeIn>
-      <article className="prose dark:prose-invert max-w-none prose-headings:font-bold prose-p:leading-relaxed sm:prose-lg lg:prose-xl">
-        <div className="text-center">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl">🎓 The Final Word on Cancer</h1>
-          <p className="lead italic">
-            Building a future where awareness leads to action—and action leads to hope.
+      <div className="max-w-3xl mx-auto space-y-12 md:space-y-16">
+        <section>
+          <p className="text-slate-600 dark:text-slate-400 text-base md:text-lg leading-relaxed">
+            Cancer is a complex illness, but it is no longer the death sentence it was once believed to be. Thanks to medical advancements, many cancers are now <strong>treatable, manageable, and even curable</strong>—especially when detected early. The future of cancer care in Tamil Nadu rests on our collective responsibility.
           </p>
-        </div>
+        </section>
 
-        <div>
-          <p>
-            Cancer is a complex and serious illness, but it is no longer the death sentence it was once believed to be. Thanks to medical advancements and a deeper understanding of its biology, many cancers today are <strong>treatable</strong>, <strong>manageable</strong>, and even <strong>curable</strong>—especially when detected early.
-          </p>
-          <p>
-            The future of cancer care in Tamil Nadu rests on <strong>collective responsibility</strong>. The key lies in awareness, early screening, and timely access to healthcare services for all.
-          </p>
-        </div>
-
-        <div id="key-takeaways" className="scroll-mt-24">
-          <div className="not-prose bg-white/60 dark:bg-zinc-900/60 backdrop-blur-lg rounded-2xl border border-zinc-200 dark:border-zinc-800 p-6 md:p-8 space-y-4 shadow-lg shadow-zinc-200/50 dark:shadow-black/20">
-            <h3 className="text-2xl font-semibold text-black dark:text-white mt-0">Our Path Forward: Key Takeaways</h3>
-            <ul className="list-none space-y-3 text-black dark:text-zinc-200 text-base">
-              <li className="flex items-start space-x-3">
-                <span className="text-green-500 font-bold text-xl mt-px">✓</span>
-                <span><strong>Prevention is Powerful:</strong> Regular check-ups, avoiding tobacco, eating nutritious food, and staying active are simple actions that drastically reduce risk.</span>
-              </li>
-              <li className="flex items-start space-x-3">
-                <span className="text-green-500 font-bold text-xl mt-px">✓</span>
-                <span><strong>Early Detection is a Lifesaver:</strong> We must normalize screenings and encourage everyone to seek help for persistent symptoms without delay or stigma.</span>
-              </li>
-              <li className="flex items-start space-x-3">
-                <span className="text-green-500 font-bold text-xl mt-px">✓</span>
-                <span><strong>Community is a Cure:</strong> Every individual, family, and leader has a role. We must support patients, educate children, and build a culture of health.</span>
-              </li>
-            </ul>
-          </div>
-        </div>
+        <section id="key-takeaways" className="scroll-mt-24">
+            <InfoBlock icon={<Heart size={24} />} title="Our Path Forward: Key Takeaways" />
+            <div className="mt-8 not-prose bg-slate-100/50 dark:bg-slate-800/30 backdrop-blur-lg rounded-2xl border border-slate-200/80 dark:border-slate-800 p-4 sm:p-6">
+              {/* DEFINITIVE FIX: Added `list-none p-0 m-0` to remove the default browser hyphens and padding. */}
+              <ul className="list-none space-y-4 text-slate-600 dark:text-slate-400 text-base p-0 m-0">
+                  <li className="flex items-start space-x-3">
+                    <Check className="text-green-500 font-bold w-5 h-5 mt-1 flex-shrink-0" />
+                    <span><strong>Prevention is Powerful:</strong> Regular check-ups, avoiding tobacco, and staying active are simple actions that drastically reduce risk.</span>
+                  </li>
+                  <li className="flex items-start space-x-3">
+                    <Check className="text-green-500 font-bold w-5 h-5 mt-1 flex-shrink-0" />
+                    <span><strong>Early Detection is a Lifesaver:</strong> We must normalize screenings and encourage everyone to seek help for persistent symptoms without delay.</span>
+                  </li>
+                  <li className="flex items-start space-x-3">
+                    <Check className="text-green-500 font-bold w-5 h-5 mt-1 flex-shrink-0" />
+                    <span><strong>Community is a Cure:</strong> Every individual, family, and leader has a role. We must support patients, educate children, and build a culture of health.</span>
+                  </li>
+              </ul>
+            </div>
+        </section>
         
-         <p className="text-center italic max-w-4xl mx-auto pt-4">
-            Let’s strive to make <strong>treatment accessible to all</strong> and <strong>survivors symbols of strength</strong>. A cancer-aware Tamil Nadu is not a dream—it is a vision we must realize together.
-          </p>
+        <section className="text-center italic text-slate-500 dark:text-slate-400 text-base md:text-lg">
+            <p>
+              Let’s strive to make <strong>treatment accessible to all</strong> and <strong>survivors symbols of strength</strong>. A cancer-aware Tamil Nadu is not a dream—it is a vision we must realize together.
+            </p>
+        </section>
 
-        <div id="be-the-change" className="text-center pt-6 scroll-mt-24">
-            <div className="not-prose border-t-2 border-b-2 border-gray-200 dark:border-zinc-800 py-6">
-                <h3 className="text-2xl font-semibold text-black dark:text-white mt-0">🫱🏽‍🫲🏽 Be the Change</h3>
-                <p className="mt-2 text-black dark:text-zinc-200 text-base max-w-3xl mx-auto leading-relaxed">
-                  By staying informed, supporting those affected, and making healthier choices every day, <strong>you</strong> can help
-                  transform fear into hope and isolation into solidarity. Let’s make cancer awareness not just a campaign, but
-                  a <strong>way of life</strong>.
+        <section id="be-the-change" className="text-center pt-8 scroll-mt-24">
+            <div className="bg-slate-100/50 dark:bg-slate-800/30 backdrop-blur-lg rounded-2xl border border-slate-200/80 dark:border-slate-800 py-8 px-4 sm:py-10 sm:px-6">
+                <div className="inline-flex items-center justify-center w-14 h-14 mb-4 text-brand-lavender bg-brand-lavender/10 rounded-full">
+                    <Handshake size={32} />
+                </div>
+                <h2 className="!text-2xl !font-semibold !text-slate-900 dark:!text-slate-100 !mt-0">Be the Change</h2>
+                <p className="max-w-xl mx-auto mt-2 text-slate-600 dark:text-slate-400 text-base md:text-lg">
+                  By staying informed, supporting those affected, and making healthier choices, <strong>you</strong> can help
+                  transform fear into hope and isolation into solidarity. Let’s make cancer awareness a way of life.
                 </p>
             </div>
-        </div>
-      </article>
+        </section>
+      </div>
     </FadeIn>
   );
 }

@@ -1,139 +1,201 @@
-// app/schemes/page.tsx
+// --- START OF FILE app/schemes/page.tsx ---
 
 'use client';
 
-import React from 'react';
+import { useState, useMemo } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import Link from 'next/link';
+import { 
+    ShieldCheck, 
+    HeartHandshake, 
+    FileText, 
+    UserCheck, 
+    IndianRupee,
+    ArrowRight,
+    Car,
+    Star
+} from 'lucide-react';
+
+// --- Import the data from the dedicated file ---
 import { schemesData, Scheme } from './schemes-data';
 
-// --- Reusable Icon Components (for visual consistency) ---
-const InsuranceIcon = (props: React.SVGProps<SVGSVGElement>) => (
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" {...props}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.286Zm0 13.036h.008v.008h-.008v-.008Z" />
-    </svg>
-);
-const SubsidyIcon = (props: React.SVGProps<SVGSVGElement>) => (
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" {...props}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.826-1.106-2.156 0-2.982C10.544 8.22 11.27 8 12 8c.768 0 1.536.219 2.148.659.879.659.879 2.047 0 2.705M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-    </svg>
-);
-const TravelIcon = (props: React.SVGProps<SVGSVGElement>) => (
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" {...props}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M6 12L3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L6 12Zm0 0h7.5" />
-    </svg>
-);
-const SupportIcon = (props: React.SVGProps<SVGSVGElement>) => (
-     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" {...props}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
-    </svg>
-);
+// --- Icon Mapping for Dynamic Rendering ---
+const iconMap: { [key in Scheme['icon']]: React.ReactNode } = {
+    'Insurance': <ShieldCheck className="w-7 h-7 sm:w-8 sm:h-8 text-white" />,
+    'Subsidy': <IndianRupee className="w-7 h-7 sm:w-8 sm:h-8 text-white" />,
+    'Travel': <Car className="w-7 h-7 sm:w-8 sm:h-8 text-white" />,
+    'Support': <HeartHandshake className="w-7 h-7 sm:w-8 sm:h-8 text-white" />,
+};
 
-// --- Reusable Scheme Card Component (Animation Removed) ---
-const SchemeCard: React.FC<{ scheme: Scheme }> = ({ scheme }) => (
-    <div className="flex h-full flex-col p-6 bg-white/60 dark:bg-black/40 backdrop-blur-xl border border-zinc-200/50 dark:border-zinc-800 rounded-3xl shadow-lg shadow-zinc-200/40 dark:shadow-black/30 transition-shadow duration-500 hover:shadow-pink-200/50 dark:hover:shadow-pink-500/20 hover:border-zinc-300 dark:hover:border-zinc-700">
-        <h3 className="text-xl font-bold text-zinc-900 dark:text-zinc-100 mb-2">{scheme.name}</h3>
-        <div className="flex flex-wrap gap-2 mb-4">
-            {scheme.tags.map(tag => (
-                <span key={tag} className="text-xs font-semibold bg-gradient-to-r from-[#5557fc]/20 to-[#f44e8b]/20 text-[#5557fc] dark:text-[#f44e8b] px-2 py-1 rounded-full">
-                    {tag}
-                </span>
-            ))}
+const iconColorMap: { [key in Scheme['icon']]: string } = {
+    'Insurance': 'bg-blue-500',
+    'Subsidy': 'bg-pink-500',
+    'Travel': 'bg-green-500',
+    'Support': 'bg-purple-500',
+};
+
+// --- RESPONSIVE FIX: Re-engineered for perfect alignment on all screen sizes ---
+const DetailSection = ({ title, items, icon }: { title: string; items: string[]; icon: React.ReactNode }) => (
+    <div className="flex items-start">
+        <div className="flex-shrink-0 w-6 mr-4 text-slate-500 dark:text-slate-400 pt-0.5">
+            {icon}
         </div>
-
-        <div className="space-y-4 text-sm flex-grow">
-            <div>
-                <h4 className="font-semibold text-zinc-800 dark:text-zinc-200">Eligibility</h4>
-                <ul className="list-disc list-inside text-zinc-600 dark:text-zinc-300 mt-1 space-y-1">
-                    {scheme.eligibility.map(item => <li key={item}>{item}</li>)}
-                </ul>
-            </div>
-            <div>
-                <h4 className="font-semibold text-zinc-800 dark:text-zinc-200">Key Benefits</h4>
-                <ul className="list-disc list-inside text-zinc-600 dark:text-zinc-300 mt-1 space-y-1">
-                    {scheme.benefits.map(item => <li key={item}>{item}</li>)}
-                </ul>
+        <div className="flex-1">
+            <h4 className="font-semibold text-slate-800 dark:text-slate-200">
+                {title}
+            </h4>
+            <div className="mt-1 space-y-1.5 text-sm text-slate-600 dark:text-slate-400">
+                {items.map((item, index) => (
+                    <div key={index} className="flex items-start">
+                        <span className="mr-2.5 mt-1 text-brand-lavender flex-shrink-0 leading-tight">•</span>
+                        <span>{item}</span>
+                    </div>
+                ))}
             </div>
         </div>
-
-        <a
-            href={scheme.applyLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-6 block w-full text-center bg-zinc-900 dark:bg-white text-white dark:text-black text-base font-semibold rounded-full shadow-lg hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-all transform hover:scale-105 py-2.5"
-        >
-            {scheme.applyLink === '#' ? 'Learn More (Offline)' : 'Apply Now'}
-        </a>
     </div>
 );
 
 
-// --- Main Page Component ---
-export default function GovernmentSchemesPage() {
+const SchemeCard = ({ scheme }: { scheme: Scheme }) => (
+    <motion.div 
+        layout
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 0.9 }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
+        className={`relative flex flex-col rounded-2xl bg-slate-100/50 dark:bg-slate-800/30 border dark:border-slate-800 backdrop-blur-lg overflow-hidden shadow-lg dark:shadow-black/20 ${scheme.isTopScheme ? 'border-brand-lavender/80' : 'border-slate-200/80'}`}
+    >
+        {scheme.isTopScheme && (
+            <div className="absolute top-0 right-0 text-xs bg-brand-lavender text-white font-bold px-3 py-1 rounded-bl-lg flex items-center z-10">
+                <Star size={12} className="mr-1.5 fill-current" />
+                Top Scheme
+            </div>
+        )}
+
+        {/* RESPONSIVE FIX: Adjusted padding and icon container size for mobile */}
+        <div className={`p-4 sm:p-6 flex items-start ${iconColorMap[scheme.icon]}`}>
+            <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center bg-white/20 mr-4 sm:mr-5 flex-shrink-0">
+                {iconMap[scheme.icon]}
+            </div>
+            <div>
+                <h3 className="text-lg sm:text-xl font-bold text-white leading-tight">{scheme.name}</h3>
+                <div className="flex flex-wrap gap-2 mt-2">
+                    {scheme.tags.map((tag: string) => (
+                        <span key={tag} className="text-xs font-semibold bg-white/20 text-white px-2 py-0.5 rounded-full">{tag}</span>
+                    ))}
+                </div>
+            </div>
+        </div>
+        
+        {/* RESPONSIVE FIX: Adjusted padding for mobile */}
+        <div className="p-4 sm:p-6 flex-grow">
+            <div className="space-y-6">
+                <DetailSection title="Eligibility" items={scheme.eligibility} icon={<UserCheck />} />
+                <DetailSection title="Key Benefits" items={scheme.benefits} icon={<IndianRupee />} />
+                <DetailSection title="Required Documents" items={scheme.documents} icon={<FileText />} />
+            </div>
+        </div>
+
+        <div className="border-t border-slate-200/80 dark:border-slate-700 px-4 sm:px-6 py-4 bg-slate-100/30 dark:bg-slate-900/20">
+            {scheme.applyLink !== "#" ? (
+                <Link 
+                    href={scheme.applyLink} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="group inline-flex items-center text-sm font-semibold text-blue-600 dark:text-blue-500 hover:text-blue-700 dark:hover:text-blue-400"
+                >
+                    Visit Official Site
+                    <ArrowRight className="w-4 h-4 ml-1.5 transition-transform duration-300 group-hover:translate-x-1" />
+                </Link>
+            ) : (
+                <p className="text-sm font-medium text-slate-600 dark:text-slate-400">{scheme.whereToApply}</p>
+            )}
+        </div>
+    </motion.div>
+);
+
+
+export default function SchemesPage() {
+    const [activeFilter, setActiveFilter] = useState('All');
+    
+    const filters = useMemo((): string[] => {
+        const allTags = schemesData.flatMap((scheme: Scheme) => scheme.tags);
+        return ['All', ...new Set<string>(allTags)];
+    }, []);
+
+    const filteredSchemes = useMemo(() => {
+        if (activeFilter === 'All') return schemesData;
+        return schemesData.filter((scheme: Scheme) => scheme.tags.includes(activeFilter));
+    }, [activeFilter]);
+
     return (
-        <div className="bg-transparent text-zinc-800 dark:text-zinc-200 overflow-x-hidden">
-            {/* Background Gradient */}
-            <div className="absolute inset-0 -z-10 h-full w-full">
-                <div className="absolute w-full h-full bg-gradient-to-br from-[#f44e8b] via-[#5557fc] to-[#f44e8b] opacity-20 dark:opacity-25 blur-[120px] rounded-full" />
+        <main className="relative isolate overflow-hidden">
+            {/* Background */}
+            <div className="absolute inset-0 -z-10">
+              <div className="absolute inset-0 [background-image:linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] [background-size:36px_36px]"></div>
+              <div className="absolute left-1/4 top-0 w-[800px] h-[800px] bg-brand-lavender/10 dark:bg-brand-lavender/20 rounded-full blur-3xl opacity-30"></div>
+              <div className="absolute right-1/4 bottom-0 w-[800px] h-[800px] bg-blue-300/10 dark:bg-blue-300/20 rounded-full blur-3xl opacity-30"></div>
             </div>
 
-            {/* 1. Hero Section - PT-16 FOR NAVBAR HEIGHT */}
-            <header className="relative text-center pt-32 pb-16 px-4">
-                <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-zinc-900 dark:text-white leading-tight">
-                    Government Schemes for <span className="bg-gradient-to-r from-[#5557fc] to-[#f44e8b] bg-clip-text text-transparent">Cancer Care</span>
-                </h1>
-                <p className="mt-6 text-lg text-zinc-600 dark:text-zinc-300 max-w-3xl mx-auto">
-                    A single place to find all financial support and aid programs available for cancer patients and their families in Tamil Nadu.
-                </p>
-                <div className="mt-8 max-w-xl mx-auto">
-                    <input
-                        type="search"
-                        placeholder="Search by scheme name or keyword..."
-                        className="w-full p-3 bg-white/60 dark:bg-black/40 backdrop-blur-xl border border-zinc-200/50 dark:border-zinc-800 rounded-full shadow-md placeholder:text-zinc-500"
-                    />
-                </div>
-            </header>
-
-            <main className="container mx-auto px-4 md:px-8 pb-16">
-                {/* 2. All Schemes Listing */}
-                <section>
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {schemesData.map(scheme => <SchemeCard key={scheme.id} scheme={scheme} />)}
-                    </div>
-                </section>
-
-                {/* 3. Guidance Section */}
-                <section className="mt-20 bg-zinc-50/70 dark:bg-zinc-900/50 py-16 rounded-3xl">
-                    <div className="max-w-4xl mx-auto text-center px-4">
-                        <h2 className="text-3xl font-bold text-zinc-900 dark:text-white">Navigating Your Options</h2>
-                        <p className="mt-4 text-lg text-zinc-600 dark:text-zinc-300">
-                           Applying for schemes can feel complex. Here’s a simple guide to help you start.
+            {/* RESPONSIVE FIX: Adjusted padding and font sizes for mobile */}
+            <section className="py-20 sm:py-24 md:py-32">
+                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                    {/* Header */}
+                    <div className="mx-auto max-w-3xl text-center">
+                        <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight text-slate-900 dark:text-slate-100">
+                            Financial Support for Cancer Care
+                        </h1>
+                        <p className="mt-4 text-base sm:text-lg leading-7 sm:leading-8 text-slate-600 dark:text-slate-400">
+                            Navigating treatment costs can be overwhelming. Here is a clear, filterable guide to the key government schemes available for patients in Tamil Nadu.
                         </p>
-                        <div className="mt-10 text-left grid md:grid-cols-2 gap-10">
-                            <div className="bg-white dark:bg-zinc-900 p-6 rounded-2xl border border-zinc-200/80 dark:border-zinc-800 shadow-lg shadow-zinc-100 dark:shadow-black/20">
-                               <h3 className="text-xl font-bold mb-4 text-zinc-900 dark:text-white">General Application Steps</h3>
-                                <ol className="list-decimal list-inside space-y-2 text-zinc-600 dark:text-zinc-300">
-                                    <li><strong>Confirm Eligibility:</strong> Carefully check the requirements on each scheme card.</li>
-                                    <li><strong>Collect Documents:</strong> Gather all necessary proofs like Aadhaar, Ration Card, and income certificates.</li>
-                                    <li><strong>Visit an Enrollment Center:</strong> Go to a District Kiosk, Taluk office, or the designated hospital department.</li>
-                                    <li><strong>Submit & Get Receipt:</strong> Fill the forms, submit your documents, and always ask for an application receipt.</li>
-                                </ol>
-                            </div>
-                             <div className="bg-white dark:bg-zinc-900 p-6 rounded-2xl border border-zinc-200/80 dark:border-zinc-800 shadow-lg shadow-zinc-100 dark:shadow-black/20">
-                                <h3 className="text-xl font-bold mb-4 text-zinc-900 dark:text-white">Frequently Asked Questions</h3>
-                                <div className="space-y-4">
-                                    <div>
-                                        <h4 className="font-semibold text-zinc-800 dark:text-zinc-200">Can I use multiple schemes?</h4>
-                                        <p className="text-zinc-600 dark:text-zinc-300">Yes. You can often combine schemes. For instance, use CMCHIS for hospital bills and the Travel Allowance for transport. Check each scheme's rules.</p>
-                                    </div>
-                                    <div>
-                                        <h4 className="font-semibold text-zinc-800 dark:text-zinc-200">What if I'm not from Tamil Nadu?</h4>
-                                        <p className="text-zinc-600 dark:text-zinc-300">Central schemes like PMJAY are for all eligible Indians. State schemes (TN Govt) are typically for residents only.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
-                </section>
-            </main>
-        </div>
+
+                    {/* Filter Controls */}
+                    <div className="my-12 sm:my-16 flex justify-center flex-wrap gap-2 sm:gap-3">
+                        {filters.map(filter => (
+                            <button
+                                key={filter}
+                                onClick={() => setActiveFilter(filter)}
+                                className={`px-3.5 sm:px-4 py-2 text-xs sm:text-sm font-semibold rounded-full transition-colors duration-200 ${
+                                    activeFilter === filter
+                                        ? 'bg-brand-lavender text-white'
+                                        : 'bg-slate-200/60 dark:bg-slate-800/60 text-slate-700 dark:text-slate-300 hover:bg-slate-300/60 dark:hover:bg-slate-700/60'
+                                }`}
+                            >
+                                {filter}
+                            </button>
+                        ))}
+                    </div>
+
+                    {/* Schemes Grid */}
+                    <motion.div layout className="mx-auto grid max-w-5xl grid-cols-1 gap-8 sm:gap-10">
+                        <AnimatePresence>
+                            {filteredSchemes.map((scheme: Scheme) => (
+                                <SchemeCard key={scheme.id} scheme={scheme} />
+                            ))}
+                        </AnimatePresence>
+                    </motion.div>
+                    
+                    {/* No Results Message */}
+                    {filteredSchemes.length === 0 && (
+                        <div className="text-center mt-10 text-slate-500 dark:text-slate-400">
+                            <p>No schemes match the selected filter.</p>
+                        </div>
+                    )}
+
+
+                    {/* Disclaimer */}
+                    <div className="mt-16 sm:mt-20 text-center max-w-3xl mx-auto">
+                         <div className="p-6 bg-slate-100/40 dark:bg-slate-800/20 rounded-2xl border border-slate-200/80 dark:border-slate-800">
+                            <h3 className="font-semibold text-slate-900 dark:text-slate-100">Please Note</h3>
+                            <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
+                                This information is for guidance purposes only. Scheme details may change. We strongly recommend visiting the official government websites for the most current information.
+                            </p>
+                         </div>
+                    </div>
+                </div>
+            </section>
+        </main>
     );
 }
