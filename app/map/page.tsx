@@ -177,32 +177,30 @@ export default function MapPage() {
 
   if (!geoData || !cancerData || !districtTotals) {
     return (
-      <div className="w-full min-h-screen flex items-center justify-center bg-slate-50 dark:bg-slate-900">
+      <div className="w-full min-h-screen flex items-center justify-center">
         <p className="text-slate-500 dark:text-slate-400 animate-pulse">Loading Atlas...</p>
       </div>
     );
   }
 
   return (
-    <main className="w-full min-h-screen relative bg-slate-50 dark:bg-slate-900 overflow-hidden">
+    <main className="w-full min-h-screen relative isolate overflow-hidden">
       <div className="absolute inset-0 -z-10">
           <div className="absolute inset-0 [background-image:linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] [background-size:36px_36px]"></div>
-          <div className="absolute left-1/4 top-1/4 w-[700px] h-[700px] bg-brand-lavender/10 dark:bg-brand-lavender/20 rounded-full blur-3xl opacity-40 animate-pulse"></div>
-          <div className="absolute right-1/4 bottom-1/4 w-[700px] h-[700px] bg-blue-300/10 dark:bg-blue-300/20 rounded-full blur-3xl opacity-40 animate-pulse [animation-delay:2s]"></div>
+          {/* --- DEFINITIVE FIX: The two decorative "halo" divs have been removed. --- */}
       </div>
       
       <div className="w-full max-w-screen-xl mx-auto pt-20 md:pt-24 pb-16 flex flex-col items-center">
         
         <div className="w-full max-w-3xl mb-12 px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col sm:flex-row items-center justify-center gap-8 sm:gap-16">
-                {/* --- DEFINITIVE FIX: Added `text-center` to align the label consistently with the legend below it --- */}
                 <div className="w-full max-w-[300px] sm:max-w-xs text-center">
                     <label htmlFor="district-select" className="block text-sm mb-2 font-semibold text-slate-700 dark:text-slate-300">
                         Select a District
                     </label>
                     <select
                         id="district-select"
-                        className="w-11/12 mx-auto border border-slate-300 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 text-slate-800 dark:text-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none"
+                        className="w-11/12 mx-auto border border-slate-300 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 text-slate-800 dark:text-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-lavender"
                         value={selectedDistrict}
                         onChange={(e) => setSelectedDistrict(e.target.value)}
                     >

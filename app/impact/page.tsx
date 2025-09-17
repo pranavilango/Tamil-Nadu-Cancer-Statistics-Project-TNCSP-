@@ -96,7 +96,9 @@ const campaigns = [
 ];
 
 const StaticStatCard = ({ stat }: { stat: { icon: React.ReactNode; value: string; label: string; } }) => (
-    <div className="flex flex-col items-center justify-center text-center p-6 md:p-8 rounded-3xl h-full bg-slate-100/50 dark:bg-slate-800/30 border border-slate-200/80 dark:border-slate-800">
+    // DEFINITIVE FIX: `h-full` is now `sm:h-full`. This allows cards to size to their content on mobile (preventing overlap)
+    // while ensuring they are uniform height on small screens and larger.
+    <div className="flex flex-col items-center justify-center text-center p-6 md:p-8 rounded-3xl sm:h-full bg-slate-100/50 dark:bg-slate-800/30 border border-slate-200/80 dark:border-slate-800">
         <div className="text-brand-lavender mb-4">{stat.icon}</div>
         <p className="text-4xl sm:text-5xl font-semibold tracking-tight text-slate-900 dark:text-slate-100 mb-2">
             {stat.value}
@@ -109,8 +111,6 @@ const CampaignCard = ({ campaign, onClick }: { campaign: typeof campaigns[0], on
     const hasImages = campaign.images && campaign.images.length > 0;
 
     return (
-        // DEFINITIVE FIX: Removed `h-full`. On mobile, this allows cards to size to their content, preventing overlaps.
-        // On desktop, the parent CSS Grid automatically stretches items to be equal height per row, so the visual layout is preserved.
         <motion.div
             className={`group relative flex flex-col w-full rounded-2xl bg-slate-100/50 dark:bg-slate-800/30 border border-slate-200/80 dark:border-slate-800 overflow-hidden ${hasImages ? 'cursor-pointer' : ''}`}
             variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
@@ -137,7 +137,6 @@ const CampaignCard = ({ campaign, onClick }: { campaign: typeof campaigns[0], on
             <div className="p-6 flex flex-col flex-grow">
                 <h3 className="text-xl font-semibold text-slate-900 dark:text-slate-100">{campaign.title}</h3>
                 
-                {/* --- AESTHETIC IMPROVEMENT: Added "People Reached" here --- */}
                 <div className="mt-2 space-y-1.5">
                     <div className="flex items-center text-sm text-slate-500 dark:text-slate-400">
                         <MapPin size={14} className="mr-2 flex-shrink-0" />
@@ -197,7 +196,7 @@ const GalleryModal = ({ campaign, onClose }: { campaign: typeof campaigns[0], on
                     </motion.div>
                 </AnimatePresence>
                 
-                <button onClick={prev} className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 p-2 rounded-full transition"><ArrowLeft size={24} className="text-white"/></button>
+                <button onClick={prev} className="absolute left-2 top-1/2 -translate-y-1.2 bg-white/20 hover:bg-white/30 p-2 rounded-full transition"><ArrowLeft size={24} className="text-white"/></button>
                 <button onClick={next} className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 p-2 rounded-full transition"><ArrowRight size={24} className="text-white"/></button>
             </motion.div>
             <button onClick={onClose} className="absolute top-4 right-4 bg-white/20 hover:bg-white/30 p-2 rounded-full transition"><X size={24} className="text-white"/></button>
