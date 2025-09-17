@@ -28,12 +28,12 @@ const MapLegend = ({ colorScale, min, max }: { colorScale: d3.ScaleSequential<st
   const range = d3.range(0, 1.01, 0.05);
 
   return (
-    <div className="w-full mt-3 px-1 lg:px-2 lg:mt-4">
-        <p className="text-[10px] lg:text-xs font-semibold text-slate-600 dark:text-slate-400 lg:text-gray-600 mb-2 text-center">Total Cases</p>
-        <div className="w-full h-2.5 lg:h-3 rounded-full overflow-hidden" style={{
+    <div className="w-full">
+        <p className="text-xs font-semibold text-slate-600 dark:text-slate-400 mb-2 text-center">Total Cases</p>
+        <div className="w-full h-3 rounded-full overflow-hidden" style={{
             background: `linear-gradient(to right, ${range.map(t => colorScale(t * max)).join(',')})`
         }}></div>
-        <div className="flex justify-between mt-1 text-[10px] lg:text-xs text-slate-500 dark:text-slate-400 lg:text-gray-500">
+        <div className="flex justify-between mt-1 text-xs text-slate-500 dark:text-slate-400">
             <span>{Math.floor(min)}</span>
             <span>{Math.ceil(max)}</span>
         </div>
@@ -112,7 +112,7 @@ export default function MapPage() {
     svg.selectAll("*").remove();
     
     const width = 500;
-    const height = 600;
+    const height = 500; // Adjusted for a square aspect ratio
     svg.attr("viewBox", `0 0 ${width} ${height}`);
 
     const projection = d3.geoMercator().fitSize([width, height], geoData);
@@ -184,96 +184,73 @@ export default function MapPage() {
   }
 
   return (
-    <main className="w-full min-h-screen pt-16 lg:pt-0 relative bg-slate-50 dark:bg-slate-900 overflow-hidden">
+    <main className="w-full min-h-screen relative bg-slate-50 dark:bg-slate-900 overflow-hidden">
       <div className="absolute inset-0 -z-10">
           <div className="absolute inset-0 [background-image:linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] [background-size:36px_36px]"></div>
           <div className="absolute left-1/4 top-1/4 w-[700px] h-[700px] bg-brand-lavender/10 dark:bg-brand-lavender/20 rounded-full blur-3xl opacity-40 animate-pulse"></div>
           <div className="absolute right-1/4 bottom-1/4 w-[700px] h-[700px] bg-blue-300/10 dark:bg-blue-300/20 rounded-full blur-3xl opacity-40 animate-pulse [animation-delay:2s]"></div>
       </div>
       
-      {/* PERFECT MOBILE (preserved) + PERFECT DESKTOP (original) */}
-      <div className="w-full min-h-screen flex flex-col lg:flex-row lg:justify-start lg:items-center box-border overflow-x-hidden">
+      <div className="w-full max-w-screen-xl mx-auto pt-20 md:pt-24 pb-16 flex flex-col items-center">
         
-        {/* DEFINITIVE FIX: Changed z-index from z-50 to z-30 to ensure it's below the z-50 navbar. */}
-        <div className="w-full px-3 py-4 lg:px-0 lg:py-0 lg:fixed lg:top-0 lg:h-[100vh] lg:w-[50vw] flex lg:items-center lg:justify-start z-30 lg:ml-6">
-          <div className="w-full max-w-[calc(100vw-24px)] sm:max-w-md lg:max-w-none rounded-2xl lg:rounded-4xl bg-slate-100/50 lg:bg-gray-100 dark:bg-slate-800/30 backdrop-blur-lg border border-slate-200/80 dark:border-slate-800 flex flex-col lg:flex-row shadow-lg lg:shadow-[0_0_25px_rgba(0,0,0,0.2)] overflow-hidden min-w-0">
-            
-            {/* Controls Panel - MOBILE: Safe, DESKTOP: Original */}
-            <div className="w-full lg:w-2/5 p-3 lg:p-6 min-w-0 flex flex-col lg:justify-start lg:rounded-l-4xl lg:shadow-[0_5px_15px_rgba(0,0,0,0.05)]">
-                <div className="mb-3 lg:mb-4">
-                    <h1 className="text-lg lg:text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-100 truncate lg:no-truncate">Tamil Nadu</h1>
-                    <p className="text-sm lg:text-lg font-medium text-slate-600 dark:text-slate-300">Cancer Atlas</p>
+        <div className="w-full max-w-3xl mb-12 px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-8 sm:gap-16">
+                {/* --- DEFINITIVE FIX: Added `text-center` to align the label consistently with the legend below it --- */}
+                <div className="w-full max-w-[300px] sm:max-w-xs text-center">
+                    <label htmlFor="district-select" className="block text-sm mb-2 font-semibold text-slate-700 dark:text-slate-300">
+                        Select a District
+                    </label>
+                    <select
+                        id="district-select"
+                        className="w-11/12 mx-auto border border-slate-300 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 text-slate-800 dark:text-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none"
+                        value={selectedDistrict}
+                        onChange={(e) => setSelectedDistrict(e.target.value)}
+                    >
+                        {geoData?.features.map((feature: DistrictFeature) => (
+                            <option key={feature.properties.Dist_Name} value={feature.properties.Dist_Name}>
+                                {feature.properties.Dist_Name}
+                            </option>
+                        ))}
+                    </select>
                 </div>
-                
-                <label htmlFor="district-select" className="block text-xs lg:text-sm mb-1 lg:mb-2 font-semibold text-slate-700 lg:text-black dark:text-slate-300">
-                    Select a District
-                </label>
-                
-                {/* Select - MOBILE: Safe, DESKTOP: Original */}
-                <select
-                    id="district-select"
-                    className="w-full min-w-0 border border-slate-300 lg:border-gray-300 dark:border-slate-700 bg-white/50 lg:bg-white dark:bg-slate-900/50 text-slate-800 dark:text-slate-200 rounded-lg px-2 lg:px-3 py-2 text-xs lg:text-sm focus:outline-none focus:ring-2 lg:focus:ring-1 focus:ring-brand-lavender lg:focus:ring-black truncate lg:truncate-none"
-                    value={selectedDistrict}
-                    onChange={(e) => setSelectedDistrict(e.target.value)}
-                >
-                    {geoData?.features.map((feature: DistrictFeature) => (
-                        <option key={feature.properties.Dist_Name} value={feature.properties.Dist_Name}>
-                            {feature.properties.Dist_Name}
-                        </option>
-                    ))}
-                </select>
-                
-                <MapLegend colorScale={colorScale} min={mapMetrics.min} max={mapMetrics.max} />
-                
-                {/* Desktop original text content */}
-                <div className="hidden lg:block mt-8">
-                  <p className="text-xs text-gray-600 text-center mb-4">
-                      This data is from the 2020 TNCRP Report, presenting statistics from 2016.
-                  </p>
-                  <p className="text-xs text-gray-600 text-center mb-4">
-                      The pie chart includes both male and female cases. Hover over slices for details.
-                  </p>
-                  <div className="mt-4 bg-gray-200 rounded-lg p-3 text-center">
-                      <p className="text-xs text-gray-600 font-medium">
-                          Other selectors coming soon.
-                      </p>
-                  </div>
+                <div className="w-full max-w-[300px] sm:max-w-xs">
+                    <MapLegend colorScale={colorScale} min={mapMetrics.min} max={mapMetrics.max} />
                 </div>
             </div>
-            
-            {/* Map SVG Container - MOBILE: Perfect sizing, DESKTOP: Original */}
-            <div className="w-full lg:w-3/5 p-2 lg:p-4 flex items-center justify-center min-w-0">
-              <div className="w-full max-w-[260px] sm:max-w-[300px] lg:max-w-full aspect-[4/5] lg:aspect-auto lg:h-full">
-                <svg ref={svgRef} className="w-full h-full lg:h-auto block" />
-              </div>
-            </div>
-          </div>
         </div>
+        
+        <div className="w-full flex-grow flex flex-col lg:flex-row items-center justify-center gap-12 px-4 sm:px-6 lg:px-8">
+            {/* Left Column: The Map */}
+            <div className="w-full lg:w-1/2 flex justify-center items-center">
+                <div className="w-full max-w-md aspect-square">
+                    <svg ref={svgRef} className="w-full h-full" />
+                </div>
+            </div>
 
-        {/* Chart Container - MOBILE: Perfect containment, DESKTOP: Original positioning */}
-        <div className="w-full px-3 py-4 lg:ml-[52vw] lg:w-[48vw] lg:h-screen flex flex-col items-center justify-center lg:px-6">
-          {selectedDistrict && cancerData && cancerData[selectedDistrict] ? (
-            <div className="w-full max-w-[calc(100vw-24px)] sm:max-w-md lg:max-w-full flex flex-col items-center">
-              <h2 className="text-xl sm:text-2xl lg:text-3xl font-semibold lg:font-bold tracking-tighter mb-4 lg:mb-8 text-center text-slate-900 dark:text-white px-2 lg:px-0">
-                Cancer in <span className="text-brand-lavender break-words">{selectedDistrict}</span>
-              </h2>
-              <div className="w-full flex justify-center">
-                <PieChart
-                  data={Object.entries(cancerData[selectedDistrict]).map(
-                    ([type, value]) => {
-                      const { Male = 0, Female = 0 } = value as { Male?: number; Female?: number };
-                      return { type, Male, Female, Total: Male + Female };
-                    }
-                  )}
-                />
-              </div>
+            {/* Right Column: The Pie Chart */}
+            <div className="w-full lg:w-1/2 flex flex-col justify-center items-center min-h-[450px]">
+              {selectedDistrict && cancerData && cancerData[selectedDistrict] ? (
+                <div className="w-full max-w-lg flex flex-col items-center">
+                  <h2 className="text-3xl lg:text-4xl font-semibold tracking-tighter mb-6 text-center text-slate-900 dark:text-white">
+                    <span className="text-brand-lavender break-words">{selectedDistrict}</span>
+
+                  </h2>
+                  <PieChart
+                    data={Object.entries(cancerData[selectedDistrict]).map(
+                      ([type, value]) => {
+                        const { Male = 0, Female = 0 } = value as { Male?: number; Female?: number };
+                        return { type, Male, Female, Total: Male + Female };
+                      }
+                    )}
+                  />
+                </div>
+              ) : (
+                 <div className="text-center text-slate-500 dark:text-slate-400 bg-slate-100/50 dark:bg-slate-800/30 p-8 sm:p-10 rounded-2xl border border-slate-200/80 dark:border-slate-800 w-full max-w-md">
+                    <p className="text-lg font-medium">Select a district</p>
+                    <p className="mt-2 text-sm">Choose a district from the dropdown or click on the map to view detailed cancer statistics.</p>
+                </div>
+              )}
             </div>
-          ) : (
-             <div className="text-center text-slate-500 dark:text-slate-400 bg-slate-100/50 dark:bg-slate-800/30 p-6 lg:p-8 rounded-2xl border border-slate-200/80 dark:border-slate-800 w-full max-w-[calc(100vw-24px)] sm:max-w-md lg:max-w-lg mx-auto">
-                <p className="text-base lg:text-lg font-medium">Select a district</p>
-                <p className="mt-2 text-sm">Choose a district from the dropdown or click on the map to view detailed cancer statistics.</p>
-            </div>
-          )}
         </div>
       </div>
     </main>

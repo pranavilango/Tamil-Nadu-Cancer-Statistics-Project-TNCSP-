@@ -84,8 +84,7 @@ export default function PieChart({ data }: Props) {
       .attr("d", arc)
       .attr("fill", (d) => color(d.data.type))
       .attr("stroke", isDark ? "#0f172a" : "#f8fafc") 
-      // DEFINITIVE FIX: Reduced stroke width for a cleaner look.
-      .attr("stroke-width", 1.5)
+      .attr("stroke-width", 1.0)
       .style("cursor", "pointer")
       .on("mouseover", function (event, d) {
         const [cx, cy] = arc.centroid(d);
@@ -125,13 +124,12 @@ export default function PieChart({ data }: Props) {
   }, [chartData, color, isDark]);
 
   return (
-    /* DEFINITIVE FIX: Changed sm breakpoint to md for a better tablet/large phone experience */
     <div className="flex flex-col md:flex-row gap-4 md:gap-6 items-center justify-center w-full max-w-lg">
       <div className="w-full max-w-[280px] md:max-w-none md:w-2/3 relative">
         <svg ref={ref} className="w-full h-auto"></svg>
       </div>
       <div
-        className="w-full md:w-1/3 max-h-[220px] md:max-h-[300px] overflow-y-auto p-3 border border-slate-200/80 dark:border-slate-800 rounded-lg shadow-inner bg-slate-100/50 dark:bg-slate-800/30 scrollbar-hide"
+        className="w-full max-w-[280px] md:w-1/3 md:max-w-none max-h-[220px] md:max-h-[300px] overflow-y-auto p-3 border border-slate-200/80 dark:border-slate-800 rounded-lg shadow-inner bg-slate-100/50 dark:bg-slate-800/30 scrollbar-hide"
       >
         {chartData.map((d, i) => (
             <div key={i} className="flex items-center mb-2 text-xs text-slate-700 dark:text-slate-300">
