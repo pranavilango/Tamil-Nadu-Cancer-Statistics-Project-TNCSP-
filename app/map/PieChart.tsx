@@ -1,6 +1,7 @@
+// --- START OF FILE app/map/PieChart.tsx ---
 "use client";
 
-import { useEffect, useRef, useMemo } from "react";
+import { useEffect, useRef, useMemo, useState } from "react";
 import * as d3 from "d3";
 
 type CancerDataItem = {
@@ -16,7 +17,15 @@ type Props = {
 
 export default function PieChart({ data }: Props) {
   const ref = useRef<SVGSVGElement | null>(null);
-  const isDarkMode = typeof window !== 'undefined' && document.documentElement.classList.contains('dark');
+  const [isDark, setIsDark] = useState(false);
+
+  useEffect(() => {
+    const darkModeMatcher = window.matchMedia('(prefers-color-scheme: dark)');
+    setIsDark(darkModeMatcher.matches);
+    const listener = (e: MediaQueryListEvent) => setIsDark(e.matches);
+    darkModeMatcher.addEventListener('change', listener);
+    return () => darkModeMatcher.removeEventListener('change', listener);
+  }, []);
 
   const color = d3.scaleOrdinal(d3.schemeTableau10);
 
@@ -31,10 +40,6 @@ export default function PieChart({ data }: Props) {
     const svg = d3.select(ref.current);
     svg.selectAll("*").remove();
     
-    // Accessibility for screen readers
-    svg.append("title").text("Donut chart of cancer types");
-    svg.append("desc").text("Shows the proportion of different types of cancer. Hover over a slice for details.");
-
     const width = 400;
     const height = 300;
     const radius = Math.min(width, height) / 2.5;
@@ -44,7 +49,7 @@ export default function PieChart({ data }: Props) {
       .attr("width", "100%")
       .attr("height", "100%")
       .append("g")
-      .attr("transform", `translate(${width / 2.2}, ${height / 2})`);
+      .attr("transform", `translate(${width / 2}, ${height / 2})`);
 
     const totalCases = d3.sum(chartData, (d) => d.Total);
 
@@ -59,10 +64,10 @@ export default function PieChart({ data }: Props) {
       .attr("id", "d3-tooltip")
       .style("position", "absolute")
       .style("padding", "8px 12px")
-      .style("background", isDarkMode ? "rgba(30, 41, 59, 0.8)" : "rgba(255, 255, 255, 0.8)")
+      .style("background", isDark ? "rgba(30, 41, 59, 0.8)" : "rgba(255, 255, 255, 0.8)")
       .style("backdrop-filter", "blur(10px)")
-      .style("border", `1px solid ${isDarkMode ? "rgba(51, 65, 85, 0.5)" : "rgba(226, 232, 240, 0.8)"}`)
-      .style("color", isDarkMode ? "#f1f5f9" : "#1e293b") 
+      .style("border", `1px solid ${isDark ? "rgba(51, 65, 85, 0.5)" : "rgba(226, 232, 240, 0.8)"}`)
+      .style("color", isDark ? "#f1f5f9" : "#1e293b") 
       .style("border-radius", "8px")
       .style("pointer-events", "none")
       .style("font-size", "13px")
@@ -78,8 +83,9 @@ export default function PieChart({ data }: Props) {
       .append("path")
       .attr("d", arc)
       .attr("fill", (d) => color(d.data.type))
-      .attr("stroke", isDarkMode ? "#0f172a" : "#f8fafc") 
-      .attr("stroke-width", 2)
+      .attr("stroke", isDark ? "#0f172a" : "#f8fafc") 
+      // DEFINITIVE FIX: Reduced stroke width for a cleaner look.
+      .attr("stroke-width", 1.5)
       .style("cursor", "pointer")
       .on("mouseover", function (event, d) {
         const [cx, cy] = arc.centroid(d);
@@ -91,12 +97,12 @@ export default function PieChart({ data }: Props) {
         tooltip
           .style("opacity", 1)
           .html(`
-            <div style="font-weight: 600; margin-bottom: 5px; border-bottom: 1px solid ${isDarkMode ? '#334155' : '#e2e8f0'}; padding-bottom: 5px;">${d.data.type}</div>
+            <div style="font-weight: 600; margin-bottom: 5px; border-bottom: 1px solid ${isDark ? '#334155' : '#e2e8f0'}; padding-bottom: 5px;">${d.data.type}</div>
             <div style="display: grid; grid-template-columns: auto 1fr; gap: 4px 8px; margin-top: 5px;">
                 <span>Male:</span><span style="font-weight: 500;">${d.data.Male.toLocaleString()}</span>
                 <span>Female:</span><span style="font-weight: 500;">${d.data.Female.toLocaleString()}</span>
             </div>
-            <div style="margin-top: 6px; padding-top: 6px; border-top: 1px solid ${isDarkMode ? '#334155' : '#e2e8f0'}; font-weight: 500;">Share: ${(d.data.Total / totalCases * 100).toFixed(1)}%</div>
+            <div style="margin-top: 6px; padding-top: 6px; border-top: 1px solid ${isDark ? '#334155' : '#e2e8f0'}; font-weight: 500;">Share: ${(d.data.Total / totalCases * 100).toFixed(1)}%</div>
           `);
       })
       .on("mousemove", function (event) {
@@ -116,15 +122,16 @@ export default function PieChart({ data }: Props) {
     return () => {
       tooltip.remove();
     };
-  }, [chartData, color, isDarkMode]);
+  }, [chartData, color, isDark]);
 
   return (
-    <div className="flex flex-col sm:flex-row gap-6 items-center justify-center w-full max-w-lg">
-      <div className="w-full max-w-xs sm:max-w-none sm:w-auto relative">
-        <svg ref={ref}></svg>
+    /* DEFINITIVE FIX: Changed sm breakpoint to md for a better tablet/large phone experience */
+    <div className="flex flex-col md:flex-row gap-4 md:gap-6 items-center justify-center w-full max-w-lg">
+      <div className="w-full max-w-[280px] md:max-w-none md:w-2/3 relative">
+        <svg ref={ref} className="w-full h-auto"></svg>
       </div>
       <div
-        className="w-full sm:w-[200px] max-h-[220px] sm:max-h-[300px] overflow-y-auto p-3 border border-slate-200/80 dark:border-slate-800 rounded-lg shadow-inner bg-slate-100/50 dark:bg-slate-800/30 scrollbar-hide"
+        className="w-full md:w-1/3 max-h-[220px] md:max-h-[300px] overflow-y-auto p-3 border border-slate-200/80 dark:border-slate-800 rounded-lg shadow-inner bg-slate-100/50 dark:bg-slate-800/30 scrollbar-hide"
       >
         {chartData.map((d, i) => (
             <div key={i} className="flex items-center mb-2 text-xs text-slate-700 dark:text-slate-300">

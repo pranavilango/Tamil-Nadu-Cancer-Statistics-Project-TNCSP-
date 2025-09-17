@@ -21,7 +21,6 @@ import {
 
 // Reusable custom components
 import AnimatedCounter from './components/impact/AnimatedCounter';
-import Footer from "./components/Footer";
 import Script from 'next/script';
 
 // A local, custom Card component with perfected responsive padding.
@@ -208,8 +207,6 @@ export default function Home() {
           </div>
         </section>
       </main>
-      
-      <Footer />
     </>
   );
 }

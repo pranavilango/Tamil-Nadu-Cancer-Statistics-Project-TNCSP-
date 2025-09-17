@@ -14,63 +14,63 @@ const campaigns = [
         description: 'Our inaugural campaign focused on direct community engagement, distributing materials and connecting with residents to spread vital awareness about early screening.',
         location: 'Sai Baba Temple, Railway Colony, Erode',
         peopleReached: '200+ Individuals',
-        images: ['/awareness-erode-1.jpg', '/awareness-erode-2.jpg', '/awareness-erode-3.jpg'],
+        images: ['/awareness-erode-1.webp', '/awareness-erode-2.webp', '/awareness-erode-3.webp'],
     },
     {
         title: 'Awareness Campaign #2',
         description: 'The second campaign expanded our reach to local markets, engaging with vendors and shoppers with visual aids and interactive sessions to explain regular health check-ups.',
         location: 'Farmers Market, Sampath Nagar, Erode',
         peopleReached: '200+ Individuals',
-        images: ['/awareness-sampath-1.jpg', '/awareness-sampath-2.jpg', '/awareness-sampath-3.jpg', '/awareness-sampath-4.jpg'],
+        images: ['/awareness-sampath-1.webp', '/awareness-sampath-2.webp', '/awareness-sampath-3.webp', '/awareness-sampath-4.webp'],
     },
     {
         title: 'Awareness Campaign #3',
         description: 'Our third campaign focused on the community at a local market, using interactive sessions to highlight the importance of early cancer detection and healthy lifestyles.',
         location: 'Farmers Market, Nasiyanur, Erode',
         peopleReached: '200+ Individuals',
-        images: ['/awareness-nasiyanur-1.jpg', '/awareness-nasiyanur-2.jpg', '/awareness-nasiyanur-3.jpg'],
+        images: ['/awareness-nasiyanur-1.webp', '/awareness-nasiyanur-2.webp', '/awareness-nasiyanur-3.webp'],
     },
     {
         title: 'Awareness Campaign #4',
         description: 'The fourth campaign expanded our reach to the biggest church in Erode, using visual aids and personal stories to explain the importance of regular health check-ups.',
         location: 'CSI Brough Memorial Church, Erode',
         peopleReached: '500+ Individuals',
-        images: ['/awareness-brough-1.jpg', '/awareness-brough-2.jpg', '/awareness-brough-3.jpg'],
+        images: ['/awareness-brough-1.webp', '/awareness-brough-2.webp', '/awareness-brough-3.webp'],
     },
     {
         title: 'Awareness Campaign #5',
         description: 'This campaign took advantage of a local festival to explain early cancer screening to devotees in a famous temple, reaching a large and diverse audience.',
         location: 'Perur Pateeswarar Temple, Coimbatore',
         peopleReached: '3,000+ Individuals',
-        images: ['/awareness-perur-1.jpg', '/awareness-perur-2.jpg', '/awareness-perur-3.jpg', '/awareness-perur-4.jpg'],
+        images: ['/awareness-perur-1.webp', '/awareness-perur-2.webp', '/awareness-perur-3.webp', '/awareness-perur-4.webp'],
     },
     {
         title: 'Awareness Campaign #6',
         description: 'Our sixth campaign was aimed at boosting cancer awareness amongst devotees in a famous temple in the heart of Erode through one-on-one conversations.',
         location: 'Eswaran and Perumal Temple, Erode',
         peopleReached: '100+ Individuals',
-        images: ['/awareness-eswaran-1.jpg', '/awareness-eswaran-2.jpg'],
+        images: ['/awareness-eswaran-1.webp', '/awareness-eswaran-2.webp'],
     },
     {
         title: 'Awareness Campaign #7',
         description: 'For the seventh campaign, two student volunteers went to the busiest temple in Erode to create early screening awareness and distribute informational pamphlets.',
         location: 'Thindal Murugan Temple, Erode',
         peopleReached: '300+ Individuals',
-        images: ['/awareness-thindal-1.jpg', '/awareness-thindal-2.jpg'],
+        images: ['/awareness-thindal-1.webp', '/awareness-thindal-2.webp'],
     },
     {
         title: 'Awareness Campaign #8',
         description: 'For our eighth campaign, we turned to our own school to raise awareness at a Parent - Teacher meet. Students focused on distributing pamphlets and explaining the core ideas of cancer awarness to our teachers and parents alike.',
         location: 'CS Academy International, Coimbatore',
         peopleReached: '700+ Individuals',
-        images: ['/awareness-csicbe-1.jpg', '/awareness-csicbe-2.jpg', '/awareness-csicbe-3.jpg', '/awareness-csicbe-4.jpg', '/awareness-csicbe-5.jpg', '/awareness-csicbe-6.jpg'],
+        images: ['/awareness-csicbe-1.webp', '/awareness-csicbe-2.webp', '/awareness-csicbe-3.webp', '/awareness-csicbe-4.webp', '/awareness-csicbe-5.webp', '/awareness-csicbe-6.webp'],
     },
     {
         title: 'Awareness Campaign #9',
         description: 'Coimbatore boasts big, modern shopping centers, which is where we went next. Prozone mall gave our team a chance to try different methods of spreading the word, apart from pamphlets and one on one interactions with people. Overall, we were able to target a huge, constantly changing audience to spread awareness effectively. ',
         location: 'Prozone Mall, Coimbatore',
         peopleReached: '4000+ Individuals',
-        images: ['/awareness-prozone-1.jpg', '/awareness-prozone-2.jpg', '/awareness-prozone-3.jpg', '/awareness-prozone-4.jpg'],
+        images: ['/awareness-prozone-1.webp', '/awareness-prozone-2.webp', '/awareness-prozone-3.webp', '/awareness-prozone-4.webp'],
     },
     {
         title: 'Awareness Campaign #10',
@@ -109,8 +109,10 @@ const CampaignCard = ({ campaign, onClick }: { campaign: typeof campaigns[0], on
     const hasImages = campaign.images && campaign.images.length > 0;
 
     return (
+        // DEFINITIVE FIX: Removed `h-full`. On mobile, this allows cards to size to their content, preventing overlaps.
+        // On desktop, the parent CSS Grid automatically stretches items to be equal height per row, so the visual layout is preserved.
         <motion.div
-            className={`group relative flex flex-col w-full h-full rounded-2xl bg-slate-100/50 dark:bg-slate-800/30 border border-slate-200/80 dark:border-slate-800 overflow-hidden ${hasImages ? 'cursor-pointer' : ''}`}
+            className={`group relative flex flex-col w-full rounded-2xl bg-slate-100/50 dark:bg-slate-800/30 border border-slate-200/80 dark:border-slate-800 overflow-hidden ${hasImages ? 'cursor-pointer' : ''}`}
             variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
             onClick={hasImages ? onClick : undefined}
         >

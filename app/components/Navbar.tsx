@@ -98,7 +98,7 @@ export default function NavBar() {
                         {/* Column 1: Logo (Aligned Left) */}
                         <div className="justify-self-start">
                             <Link href="/" onClick={handleLinkClick} className="flex items-center gap-2">
-                                <Image src="/tncsp-circle-logo.png" alt="TNCSP Logo" width={28} height={28} />
+                                <Image src="/tncsp-circle-logo.webp" alt="TNCSP Logo" width={28} height={28} />
                                 <span className="text-lg text-slate-900 dark:text-slate-100 font-bold tracking-tight">TNCSP</span>
                             </Link>
                         </div>

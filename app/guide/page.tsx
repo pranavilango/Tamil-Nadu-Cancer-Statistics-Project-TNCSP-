@@ -1,10 +1,10 @@
 // --- File: app/guide/page.tsx ---
-'use client'; 
+'use client';
 
 import { useState, useEffect, useRef, Suspense } from "react";
 import { useRouter, useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { BookOpen, BrainCircuit, ShieldAlert, BarChartHorizontal, HeartPulse, Search, MessageSquareWarning, Zap, CheckCircle, Menu, Pin, List } from 'lucide-react';
+import { BookOpen, BrainCircuit, ShieldAlert, BarChartHorizontal, HeartPulse, Search, MessageSquareWarning, Zap, CheckCircle, Menu, List } from 'lucide-react';
 
 import Sidebar from "../components/guide/SideBar";
 import OnPageSidebar, { Heading } from "../components/guide/OnPageSidebar";
@@ -21,26 +21,26 @@ import Lifestyle, { lifestyleHeadings } from "../components/guide/Lifestyle";
 import Conclusion, { conclusionHeadings } from "../components/guide/Conclusion";
 
 const contentMap: { [key: string]: React.ReactNode } = {
-  "Introduction": <Introduction />, 
+  "Introduction": <Introduction />,
   "Disease Mechanism": <DiseaseMechanism />,
-  "Causative Agents": <CausativeAgents />, 
+  "Causative Agents": <CausativeAgents />,
   "Stages of Cancer": <StagesOfCancer />,
-  "Symptoms": <Symptoms />, 
-  "Detection": <Detection />, 
+  "Symptoms": <Symptoms />,
+  "Detection": <Detection />,
   "Stigmas": <Stigmas />,
-  "Lifestyle Changes": <Lifestyle />, 
+  "Lifestyle Changes": <Lifestyle />,
   "Conclusion": <Conclusion />,
 };
 
 const headingsMap: { [key:string]: Heading[] } = {
-  "Introduction": introductionHeadings, 
+  "Introduction": introductionHeadings,
   "Disease Mechanism": diseaseMechanismHeadings,
-  "Causative Agents": causativeAgentsHeadings, 
+  "Causative Agents": causativeAgentsHeadings,
   "Stages of Cancer": stagesOfCancerHeadings,
-  "Symptoms": symptomsHeadings, 
-  "Detection": detectionHeadings, 
+  "Symptoms": symptomsHeadings,
+  "Detection": detectionHeadings,
   "Stigmas": stigmasHeadings,
-  "Lifestyle Changes": lifestyleHeadings, 
+  "Lifestyle Changes": lifestyleHeadings,
   "Conclusion": conclusionHeadings,
 };
 
@@ -109,74 +109,74 @@ function GuideView() {
   const currentMetadata = sectionMetadata[activeSection as keyof typeof sectionMetadata];
 
   return (
-    // ===== THE DEFINITIVE FIX =====
-    // 1. Removed `flex` to stop the sidebars from pushing the layout.
-    // 2. Added `overflow-x-hidden` to clip any potential overflow as a failsafe.
-    // 3. Removed `pt-16`, as padding should be on the <main> content area, not the whole page.
-    <div className="min-h-screen relative isolate overflow-x-hidden">
+    // clip horizontal overflow on small viewports, allow visible overflow on md+ to keep desktop sticky behaviour
+    <div className="relative isolate overflow-x-hidden md:overflow-visible">
       <div className="absolute inset-0 -z-10">
+        {/* light grid - safe to keep */}
         <div className="absolute inset-0 [background-image:linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] [background-size:36px_36px]"></div>
-        <div className="absolute left-0 top-1/4 w-[800px] h-[800px] bg-brand-lavender/10 dark:bg-brand-lavender/20 rounded-full blur-3xl opacity-30"></div>
-        <div className="absolute right-0 bottom-1/4 w-[800px] h-[800px] bg-blue-300/10 dark:bg-blue-300/20 rounded-full blur-3xl opacity-30"></div>
+
+        {/* hide the large decorative blobs on small screens (they can cause overflow) */}
+        <div className="hidden md:block absolute left-0 top-1/4 w-[800px] h-[800px] bg-brand-lavender/10 dark:bg-brand-lavender/20 rounded-full blur-3xl opacity-30 pointer-events-none" />
+        <div className="hidden md:block absolute right-0 bottom-1/4 w-[800px] h-[800px] bg-blue-300/10 dark:bg-blue-300/20 rounded-full blur-3xl opacity-30 pointer-events-none" />
       </div>
       
-      <Sidebar
-        sections={sections}
-        activeSection={activeSection}
-        onSectionClick={handleSectionClick}
-        isOpen={isLeftSidebarOpen}
-        onClose={() => setIsLeftSidebarOpen(false)}
-      />
-      
-      {/* ===== THE DEFINITIVE FIX (Part 2) =====
-          1. Removed `flex-1`.
-          2. Added `pt-16` here to push content below the main site header.
-          3. Kept `md:ml-64 md:mr-64` which correctly creates space for the sidebars ONLY on desktop.
-      */}
-      <main className="pt-16 md:ml-64 md:mr-64 px-4 sm:px-6 lg:px-8 pb-24 md:pb-10">
-        <motion.header 
-            key={activeSection}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, ease: 'easeOut' }}
-            className="py-10 md:py-16 text-center border-b border-slate-900/10 dark:border-slate-50/[0.06] mb-8 md:mb-12"
-        >
-            <div className="inline-flex items-center justify-center w-14 h-14 md:w-16 md:h-16 mb-4 md:mb-6 text-brand-lavender bg-brand-lavender/10 rounded-2xl">
-                {currentMetadata.icon}
-            </div>
-            <h1 className="text-4xl sm:text-5xl font-semibold tracking-tighter text-slate-900 dark:text-slate-100">
-                {activeSection}
-            </h1>
-            <p className="mt-4 text-base sm:text-lg max-w-2xl mx-auto text-slate-600 dark:text-slate-400">
-                {currentMetadata.description}
-            </p>
-        </motion.header>
+      <div className="max-w-screen-2xl mx-auto md:flex md:flex-row">
+        <Sidebar
+          sections={sections}
+          activeSection={activeSection}
+          onSectionClick={handleSectionClick}
+          isOpen={isLeftSidebarOpen}
+          onClose={() => setIsLeftSidebarOpen(false)}
+        />
         
-        {contentMap[activeSection]}
-      </main>
+        <div className="w-full flex-1 min-w-0 overflow-x-hidden md:overflow-visible">
+            <main className="pt-16 px-4 sm:px-6 lg:px-8 pb-24 md:pb-16">
+              <motion.header 
+                  key={activeSection}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, ease: 'easeOut' }}
+                  className="py-10 md:py-16 text-center border-b border-slate-900/10 dark:border-slate-50/[0.06] mb-8 md:mb-12"
+              >
+                  <div className="inline-flex items-center justify-center w-14 h-14 md:w-16 md:h-16 mb-4 md:mb-6 text-brand-lavender bg-brand-lavender/10 rounded-2xl">
+                      {currentMetadata.icon}
+                  </div>
+                  <h1 className="text-4xl sm:text-5xl font-semibold tracking-tighter text-slate-900 dark:text-slate-100">
+                      {activeSection}
+                  </h1>
+                  <p className="mt-4 text-base sm:text-lg max-w-2xl mx-auto text-slate-600 dark:text-slate-400">
+                      {currentMetadata.description}
+                  </p>
+              </motion.header>
+              
+              {contentMap[activeSection]}
+            </main>
+        </div>
 
-      <OnPageSidebar
-        headings={headingsMap[activeSection] || []}
-        activeHeading={activeHeading}
-        onHeadingClick={handleHeadingClick}
-        isOpen={isRightSidebarOpen}
-        onClose={() => setIsRightSidebarOpen(false)}
-      />
+        <OnPageSidebar
+          headings={headingsMap[activeSection] || []}
+          activeHeading={activeHeading}
+          onHeadingClick={handleHeadingClick}
+          isOpen={isRightSidebarOpen}
+          onClose={() => setIsRightSidebarOpen(false)}
+        />
+      </div>
 
-      <div className="md:hidden fixed bottom-0 left-0 w-full h-16 bg-white/80 dark:bg-slate-900/80 backdrop-blur-lg border-t border-slate-900/10 dark:border-slate-50/[0.06] flex justify-around items-center z-40">
+      {/* The mobile FABs are perfect and remain untouched. */}
+      <div className="md:hidden z-40">
         <button 
           onClick={() => setIsLeftSidebarOpen(true)}
-          className="flex flex-col items-center text-slate-600 dark:text-slate-400 hover:text-brand-lavender dark:hover:text-brand-lavender transition-colors p-2"
+          className="fixed top-[calc(4rem+1rem)] left-4 flex items-center justify-center w-12 h-12 bg-white/80 dark:bg-slate-900/80 backdrop-blur-lg border border-slate-900/10 dark:border-slate-50/[0.06] rounded-full shadow-lg text-slate-600 dark:text-slate-400 hover:text-brand-lavender dark:hover:text-brand-lavender transition-colors"
+          aria-label="Open sections menu"
         >
           <Menu className="h-6 w-6" />
-          <span className="text-xs font-medium tracking-wide">Sections</span>
         </button>
         <button 
           onClick={() => setIsRightSidebarOpen(true)}
-          className="flex flex-col items-center text-slate-600 dark:text-slate-400 hover:text-brand-lavender dark:hover:text-brand-lavender transition-colors p-2"
+          className="fixed top-[calc(4rem+1rem)] right-4 flex items-center justify-center w-12 h-12 bg-white/80 dark:bg-slate-900/80 backdrop-blur-lg border border-slate-900/10 dark:border-slate-50/[0.06] rounded-full shadow-lg text-slate-600 dark:text-slate-400 hover:text-brand-lavender dark:hover:text-brand-lavender transition-colors"
+          aria-label="Open on this page menu"
         >
           <List className="h-6 w-6" />
-          <span className="text-xs font-medium tracking-wide">On This Page</span>
         </button>
       </div>
     </div>

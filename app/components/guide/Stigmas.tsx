@@ -46,17 +46,27 @@ export default function Stigmas() {
             <div className="mt-8 not-prose">
               <StaggeredList>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <StaggeredListItem>
-                    <div className="bg-slate-100/50 dark:bg-slate-800/30 h-full rounded-lg border border-slate-200/80 dark:border-slate-800 p-4 space-y-2"><h3 className="font-semibold text-slate-800 dark:text-slate-200">Isolation at Home</h3><p className="text-sm text-slate-500 dark:text-slate-400">Families may hide a diagnosis, fearing judgment. This secrecy isolates the patient when they need support the most.</p></div>
+                  {/* 
+                    --- THE DEFINITIVE FIX ---
+                    1. The styling for the card (background, border, padding, etc.) has been moved DIRECTLY to the `StaggeredListItem`.
+                    2. The unnecessary inner `div` has been completely removed.
+                    This simplifies the structure, making the animated item the direct child of the grid. The grid can now perfectly control its size and spacing without any conflicts, eliminating all overlap.
+                  */}
+                  <StaggeredListItem className="bg-slate-100/50 dark:bg-slate-800/30 rounded-lg border border-slate-200/80 dark:border-slate-800 p-4 space-y-2">
+                    <h3 className="font-semibold text-slate-800 dark:text-slate-200">Isolation at Home</h3>
+                    <p className="text-sm text-slate-500 dark:text-slate-400">Families may hide a diagnosis, fearing judgment. This secrecy isolates the patient when they need support the most.</p>
                   </StaggeredListItem>
-                  <StaggeredListItem>
-                    <div className="bg-slate-100/50 dark:bg-slate-800/30 h-full rounded-lg border border-slate-200/80 dark:border-slate-800 p-4 space-y-2"><h3 className="font-semibold text-slate-800 dark:text-slate-200">A Double Burden for Women</h3><p className="text-sm text-slate-500 dark:text-slate-400">Stigma hits women especially hard. Reproductive cancers are seen as a source of dishonor, and women may be blamed or shunned.</p></div>
+                  <StaggeredListItem className="bg-slate-100/50 dark:bg-slate-800/30 rounded-lg border border-slate-200/80 dark:border-slate-800 p-4 space-y-2">
+                    <h3 className="font-semibold text-slate-800 dark:text-slate-200">A Double Burden for Women</h3>
+                    <p className="text-sm text-slate-500 dark:text-slate-400">Stigma hits women especially hard. Reproductive cancers are seen as a source of dishonor, and women may be blamed or shunned.</p>
                   </StaggeredListItem>
-                  <StaggeredListItem>
-                    <div className="bg-slate-100/50 dark:bg-slate-800/30 h-full rounded-lg border border-slate-200/80 dark:border-slate-800 p-4 space-y-2"><h3 className="font-semibold text-slate-800 dark:text-slate-200">More Than Hair Loss</h3><p className="text-sm text-slate-500 dark:text-slate-400">Visible changes are deeply emotional. The myth that cancer always means death prevents people from getting tested early.</p></div>
+                  <StaggeredListItem className="bg-slate-100/50 dark:bg-slate-800/30 rounded-lg border border-slate-200/80 dark:border-slate-800 p-4 space-y-2">
+                    <h3 className="font-semibold text-slate-800 dark:text-slate-200">More Than Hair Loss</h3>
+                    <p className="text-sm text-slate-500 dark:text-slate-400">Visible changes are deeply emotional. The myth that cancer always means death prevents people from getting tested early.</p>
                   </StaggeredListItem>
-                   <StaggeredListItem>
-                    <div className="bg-slate-100/50 dark:bg-slate-800/30 h-full rounded-lg border border-slate-200/80 dark:border-slate-800 p-4 space-y-2"><h3 className="font-semibold text-slate-800 dark:text-slate-200">The Price of Survival</h3><p className="text-sm text-slate-500 dark:text-slate-400">The high cost of treatment leads to another stigma. Families may sell assets, and patients can feel like a burden.</p></div>
+                   <StaggeredListItem className="bg-slate-100/50 dark:bg-slate-800/30 rounded-lg border border-slate-200/80 dark:border-slate-800 p-4 space-y-2">
+                    <h3 className="font-semibold text-slate-800 dark:text-slate-200">The Price of Survival</h3>
+                    <p className="text-sm text-slate-500 dark:text-slate-400">The high cost of treatment leads to another stigma. Families may sell assets, and patients can feel like a burden.</p>
                   </StaggeredListItem>
                 </div>
               </StaggeredList>

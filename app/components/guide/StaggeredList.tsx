@@ -47,6 +47,10 @@ export function StaggeredList({ children }: { children: React.ReactNode }) {
  * A wrapper for each item inside a StaggeredList.
  * Wrap each `<li>` or grid item with this component.
  */
-export function StaggeredListItem({ children }: { children: React.ReactNode }) {
-  return <motion.div variants={itemVariants}>{children}</motion.div>;
-}   
+// --- THE DEFINITIVE FIX ---
+// 1. The component's props are updated to accept an optional `className`.
+// 2. The `className` is passed directly to the `motion.div`.
+// This allows you to style the animated item from the outside, resolving the TypeScript error.
+export function StaggeredListItem({ children, className }: { children: React.ReactNode, className?: string }) {
+  return <motion.div variants={itemVariants} className={className}>{children}</motion.div>;
+}

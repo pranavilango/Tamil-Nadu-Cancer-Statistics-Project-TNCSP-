@@ -44,7 +44,7 @@ export default function Footer() {
                     {/* RESPONSIVE FIX: Branding spans full width on mobile, 2 columns on medium screens. */}
                     <div className="col-span-2 md:col-span-2">
                         <Link href="/" className="flex items-center gap-2">
-                            <Image src="/tncsp-circle-logo.png" alt="TNCSP Logo" width={32} height={32} />
+                            <Image src="/tncsp-circle-logo.webp" alt="TNCSP Logo" width={32} height={32} />
                             <span className="text-xl text-slate-900 dark:text-slate-100 font-bold tracking-tight">
                                 TNCSP
                             </span>

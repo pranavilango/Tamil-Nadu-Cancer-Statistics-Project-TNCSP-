@@ -11,56 +11,56 @@ const teamMembers = [
         name: "Pranav Ilango",
         role: "Co-Founder",
         bio: "Harnessing data science to make cancer care transparent, equitable, and accessible for every person in Tamil Nadu.",
-        imageUrl: "/pranav.png", 
+        imageUrl: "/pranav.webp", 
         linkedIn: "https://www.linkedin.com/in/pranav-ilango/",
     },
     {
         name: "Gautham G Anand",
         role: "Co-Founder",
         bio: "Aiming to use cancer statistics to raise awareness in Tamil Nadu, where the need for early detection is critical.",
-        imageUrl: "/gautham.png",
+        imageUrl: "/gautham.webp",
         linkedIn: ""
     },
     {
         name: "Krishnaraj M Saravanan",
         role: "Head, Erode Wing",
         bio: "Deeply moved by the cause, Krishnaraj hopes to bring much-needed awareness and impact to the project.",
-        imageUrl: "/krishnaraj.png",
+        imageUrl: "/krishnaraj.webp",
         linkedIn: "https://www.linkedin.com/in/krishnaraj-m-951b94213/"
     },
     {
         name: "Adharsh",
         role: "Fundraising Lead",
         bio: "In Tamil Nadu, awareness is rare—I want to break the silence around cancer and turn fear into early action.",
-        imageUrl: "/adharsh.jpg",
+        imageUrl: "/adharsh.webp",
         linkedIn: ""
     },
     {
         name: "Dharshan Balu",
         role: "Campaigner & Data Collection",
         bio: "Passionate about chemistry, Dharshan wants to contribute to help people know that cancer isn't unstoppable.",
-        imageUrl: "/placeholder.png",
+        imageUrl: "/placeholder.webp",
         linkedIn: ""
     },
     {
         name: "Dhakshan Vasantharajan",
         role: "Campaigner",
         bio: "Eager to explore genetics, I aim to ensure complete transparency in cancer statistics and make it available to all.",
-        imageUrl: "/dhakshan.png",
+        imageUrl: "/dhakshan.webp",
         linkedIn: ""
     },
     {
         name: "Aadarsh V",
         role: "Campaigner & LinkedIn Manager",
         bio: "Crafting intuitive charts and maps that bring our data to life and make complex findings understandable.",
-        imageUrl: "/aadarsh.png",
+        imageUrl: "/aadarsh.webp",
         linkedIn: "https://www.linkedin.com/in/aadarsh-v-b460742b0/"
     },
     {
         name: "Shambhavi Basu",
         role: "Campaigner",
         bio: "I hope to empower the public to take meaningful steps toward safeguarding the health of those they cherish.",
-        imageUrl: "/placeholder.png",
+        imageUrl: "/placeholder.webp",
         linkedIn: ""
     },         
 ];
