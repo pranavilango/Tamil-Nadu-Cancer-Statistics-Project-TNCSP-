@@ -68,14 +68,14 @@ export default function NavBar() {
     const mainLinks = {
         home: { href: "/", label: "Home" },
         impact: { href: "/impact", label: "Impact" },
-        about: { href: "/about", label: "About Us" },
+        about: { href: "/about", label: "About" },
         join: { href: "/join", label: "Join Us" }
     };
 
     const resourceLinks = [
         { href: "/guide", label: "Cancer Guide" },
         { href: "/hospitals", label: "Hospital Finder" },
-        { href: "/map", label: "TN Data Atlas" },
+        { href: "/map", label: "TN Data" },
         { href: "/schemes", label: "Support Schemes" },
     ];
 
