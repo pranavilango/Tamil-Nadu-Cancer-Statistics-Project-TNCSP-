@@ -119,7 +119,7 @@ export default function Home() {
               className="w-full max-w-4xl mx-auto"
             >
               <p className="text-center text-xs font-semibold tracking-widest text-slate-500 dark:text-slate-400 uppercase mb-4">
-                Our Partners
+                Partners & Supporters
               </p>
               <div className="relative w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,white_10%,white_90%,transparent)]">
                 <div className="flex w-max">

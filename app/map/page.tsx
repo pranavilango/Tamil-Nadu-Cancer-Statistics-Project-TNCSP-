@@ -44,10 +44,49 @@ const MapLegend = ({ colorScale, min, max }: { colorScale: d3.ScaleSequential<st
 
 export default function MapPage() {
   const svgRef = useRef<SVGSVGElement | null>(null);
+  const pieChartRef = useRef<HTMLDivElement | null>(null); // Ref for the pie chart container
   const [geoData, setGeoData] = useState<DistrictFeatureCollection | null>(null);
   const [selectedDistrict, setSelectedDistrict] = useState("");
   const [cancerData, setCancerData] = useState<CancerData | null>(null);
   const [isDark, setIsDark] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Effect to check for mobile screen size
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 1024); // lg breakpoint in Tailwind
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+  
+  // --- MODIFIED CODE START ---
+  // Effect to scroll to pie chart on mobile when district is selected
+  useEffect(() => {
+    if (isMobile && selectedDistrict && pieChartRef.current) {
+      // 1. Add a delay to allow user to see the map highlight
+      const scrollDelay = 400; // ms
+
+      const timer = setTimeout(() => {
+        if (pieChartRef.current) {
+          // 2. Calculate scroll position with an offset for the navbar
+          const navbarHeight = 80; // 4rem navbar (64px) + 16px extra space
+          const elementPosition = pieChartRef.current.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.scrollY - navbarHeight;
+          
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth"
+          });
+        }
+      }, scrollDelay);
+
+      // Cleanup timeout if district changes before scroll
+      return () => clearTimeout(timer);
+    }
+  }, [selectedDistrict, isMobile]);
+  // --- MODIFIED CODE END ---
 
   useEffect(() => {
     const darkModeMatcher = window.matchMedia('(prefers-color-scheme: dark)');
@@ -200,7 +239,7 @@ export default function MapPage() {
                     </label>
                     <select
                         id="district-select"
-                        className="w-11/12 mx-auto border border-slate-300 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 text-slate-800 dark:text-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-lavender"
+                        className="w-11/12 mx-auto border border-slate-300 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 text-slate-800 dark:text-slate-200 rounded-lg px-3 py-2 text-sm"
                         value={selectedDistrict}
                         onChange={(e) => setSelectedDistrict(e.target.value)}
                     >
@@ -226,7 +265,7 @@ export default function MapPage() {
             </div>
 
             {/* Right Column: The Pie Chart */}
-            <div className="w-full lg:w-1/2 flex flex-col justify-center items-center min-h-[450px]">
+            <div ref={pieChartRef} className="w-full lg:w-1/2 flex flex-col justify-center items-center min-h-[450px]">
               {selectedDistrict && cancerData && cancerData[selectedDistrict] ? (
                 <div className="w-full max-w-lg flex flex-col items-center">
                   <h2 className="text-3xl lg:text-4xl font-semibold tracking-tighter mb-6 text-center text-slate-900 dark:text-white">
