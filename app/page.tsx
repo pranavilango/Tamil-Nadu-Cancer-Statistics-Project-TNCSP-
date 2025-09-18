@@ -154,7 +154,7 @@ export default function Home() {
                       </Link>
                     }
                   >
-                    <div className="mb-4 text-5xl sm:text-7xl font-semibold text-brand-lavender leading-none">
+                    <div className="mb-4 text-[2.5rem] leading-none sm:text-7xl font-semibold text-brand-lavender">
                       <AnimatedCounter value={insight.value} />%
                     </div>
                     <h3 className="text-2xl font-semibold text-slate-900 dark:text-slate-100">{insight.label}</h3>
