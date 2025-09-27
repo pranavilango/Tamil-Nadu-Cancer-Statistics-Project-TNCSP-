@@ -93,6 +93,41 @@ const campaigns = [
         peopleReached: '200+ Individuals',
         images: [],
     },
+    {
+        title: 'Awareness Campaign #13',
+        description: 'Our thirteenth campaign was held at Texvalley, where members interacted with passerbys and shopkeepers, explaining about cancer awareness and prevention in Tamil Nadu.',
+        location: 'Texvalley, Erode',
+        peopleReached: '3,000+ Individuals',
+        images: ['/awareness-tex-1.webp', '/awareness-tex-2.webp', '/awareness-tex-3.webp'],
+    },
+    {
+        title: 'Awareness Campaign #14',
+        description: 'On a festive Tuesday, campaigners visited the bustling Thindal market, engaging with locals and distributing pamphlets to raise awareness about early cancer detection and prevention.',
+        location: 'Thindal Bustop, Erode',
+        peopleReached: '500+ Individuals',
+        images: ['/awareness-thibus-1.webp', '/awareness-thibus-2.webp', '/awareness-thibus-3.webp'],
+    },
+    {
+        title: 'Awareness Campaign #15',
+        description: 'Our fifteenth campaign was held at RS Puram, where members distributed pamphlets and engaged with the community, especially store owners, to raise awareness about cancer prevention.',
+        location: 'RS Puram, Coimbatore',
+        peopleReached: '7,500+ Individuals',
+        images: ['/awareness-rspuram-1.webp', '/awareness-rspuram-2.webp', '/awareness-rspuram-3.webp'],
+    },
+    {
+        title: 'Awareness Campaign #16',
+        description: 'Campaign number 16 was special. Held at the helm of Coimbatore city, this campaign was our largest yet, with over 10,000 pamphlets distributed and thousands of individuals reached.',
+        location: 'Race Course, Coimbatore',
+        peopleReached: '0 Individuals',
+        images: [],
+    },
+    {
+        title: 'Awareness Campaign #17',
+        description: 'Riding the success of our previous campaign, this initiative aimed to further engage the community at Brookfields Mall, spreading awareness about cancer prevention and early detection.',
+        location: 'Brookfields Mall, Coimbatore',
+        peopleReached: '0 Individuals',
+        images: [],
+    },
 ];
 
 const StaticStatCard = ({ stat }: { stat: { icon: React.ReactNode; value: string; label: string; } }) => (
@@ -107,13 +142,23 @@ const StaticStatCard = ({ stat }: { stat: { icon: React.ReactNode; value: string
     </div>
 );
 
+// --- EDITED SECTION: CAMPAIGN CARD ANIMATION ---
 const CampaignCard = ({ campaign, onClick }: { campaign: typeof campaigns[0], onClick: () => void }) => {
     const hasImages = campaign.images && campaign.images.length > 0;
 
     return (
         <motion.div
+            // The variants now define the animation states
+            variants={{
+                hidden: { opacity: 0, y: 20 },
+                visible: { opacity: 1, y: 0 }
+            }}
+            // Trigger the animation when the card itself enters the view
+            initial="hidden"
+            whileInView="visible"
+            // The animation triggers when 20% of the card is visible, and only runs once
+            viewport={{ once: true, amount: 0.2 }}
             className={`group relative flex flex-col w-full rounded-2xl bg-slate-100/50 dark:bg-slate-800/30 border border-slate-200/80 dark:border-slate-800 overflow-hidden ${hasImages ? 'cursor-pointer' : ''}`}
-            variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
             onClick={hasImages ? onClick : undefined}
         >
             <div className="relative w-full aspect-[16/10] overflow-hidden">
@@ -165,6 +210,8 @@ const CampaignCard = ({ campaign, onClick }: { campaign: typeof campaigns[0], on
         </motion.div>
     );
 };
+// --- END OF EDITED SECTION ---
+
 
 const GalleryModal = ({ campaign, onClose }: { campaign: typeof campaigns[0], onClose: () => void }) => {
     const [index, setIndex] = useState(0);
@@ -208,11 +255,19 @@ const GalleryModal = ({ campaign, onClose }: { campaign: typeof campaigns[0], on
 export default function ImpactPage() {
     const [selectedCampaign, setSelectedCampaign] = useState<typeof campaigns[0] | null>(null);
     
+    // This is no longer needed for the staggered animation, but can be kept for other uses if necessary
     const containerVariants = { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.2 } } };
     
+    const totalPeopleReached = campaigns.reduce((acc, campaign) => {
+        const numberString = campaign.peopleReached.replace(/[^0-9]/g, '');
+        return acc + (parseInt(numberString, 10) || 0);
+    }, 0);
+
+    const formattedTotalPeopleReached = `${(Math.round(totalPeopleReached / 100) / 10)}K+`;
+
     const stats = [
-        { icon: <Users size={32} />, value: '11.6K+', label: 'People Reached' },
-        { icon: <Megaphone size={32} />, value: '12', label: 'Campaigns Organized' },
+        { icon: <Users size={32} />, value: formattedTotalPeopleReached, label: 'People Reached' },
+        { icon: <Megaphone size={32} />, value: campaigns.length.toString(), label: 'Campaigns Organized' },
         { icon: <Heart size={32} />, value: '25+', label: 'Student Volunteers' },
         { icon: <IndianRupee size={32} />, value: '10K+', label: 'INR Raised in Funds' }
     ];
@@ -259,13 +314,17 @@ export default function ImpactPage() {
                         </p>
                     </div>
 
-                    <motion.div variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.1 }}
+                    {/* --- EDITED SECTION: GRID ANIMATION CONTAINER --- */}
+                    {/* The animation props have been removed from this container */}
+                    <div
                         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
                     >
                         {campaigns.map((campaign) => (
                             <CampaignCard key={campaign.title} campaign={campaign} onClick={() => setSelectedCampaign(campaign)} />
                         ))}
-                    </motion.div>
+                    </div>
+                    {/* --- END OF EDITED SECTION --- */}
+
                 </div>
             </section>
 
