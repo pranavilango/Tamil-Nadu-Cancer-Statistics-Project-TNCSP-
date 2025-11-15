@@ -48,7 +48,7 @@ const CustomCard = ({
 // Partner logos component
 const PartnerLogos = () => (
   <>
-    <div className="flex items-center mx-8 text-slate-500 dark:text-slate-400 flex-shrink-0"><span className="text-xl mr-3">🤝</span><span className="text-sm font-medium">Rotaract Coimbatore</span></div>
+    <div className="flex items-center mx-8 text-slate-500 dark:text-slate-400 flex-shrink-0"><span className="text-xl mr-3">🤝</span><span className="text-sm font-medium">Schools across 7 districts</span></div>
     <div className="flex items-center mx-8 text-slate-500 dark:text-slate-400 flex-shrink-0"><span className="text-xl mr-3">📊</span><span className="text-sm font-medium">Adyar Cancer Institute</span></div>
     <div className="flex items-center mx-8 text-slate-500 dark:text-slate-400 flex-shrink-0"><span className="text-xl mr-3">❤️</span><span className="text-sm font-medium">Rotary Club of Erode</span></div>
     <div className="flex items-center mx-8 text-slate-500 dark:text-slate-400 flex-shrink-0"><span className="text-xl mr-3">💻</span><span className="text-sm font-medium">CS Cancer Club</span></div>
