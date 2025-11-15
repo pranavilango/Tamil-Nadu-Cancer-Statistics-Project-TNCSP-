@@ -1,0 +1,12 @@
+[
+  { "label": "Breast", "value": 54458 },
+  { "label": "Cervix", "value": 32428 },
+  { "label": "Ovary", "value": 11322 },
+  { "label": "Corpus Uteri", "value": 8032 },
+  { "label": "Mouth", "value": 6648 },
+  { "label": "Stomach", "value": 6544 },
+  { "label": "Thyroid", "value": 5279 },
+  { "label": "Lung", "value": 4990 },
+  { "label": "Oesophagus", "value": 4245 },
+  { "label": "Rectum", "value": 4216 }
+]

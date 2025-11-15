@@ -1,0 +1,12 @@
+[
+  { "label": "Mouth", "value": 12957 },
+  { "label": "Stomach", "value": 12701 },
+  { "label": "Lung", "value": 11973 },
+  { "label": "Tongue", "value": 8976 },
+  { "label": "Oesophagus", "value": 6962 },
+  { "label": "Prostate", "value": 6553 },
+  { "label": "Larynx", "value": 6365 },
+  { "label": "Rectum", "value": 6282 },
+  { "label": "Colon", "value": 5094 },
+  { "label": "Hypopharynx", "value": 4529 }
+]

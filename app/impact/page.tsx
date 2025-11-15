@@ -118,21 +118,40 @@ const campaigns = [
         title: 'Awareness Campaign #16',
         description: 'Campaign number 16 was special. Held at the helm of Coimbatore city, this campaign was our largest yet, with over 10,000 pamphlets distributed and thousands of individuals reached.',
         location: 'Race Course, Coimbatore',
-        peopleReached: '0 Individuals',
+        peopleReached: '6,000+ Individuals',
         images: [],
     },
     {
         title: 'Awareness Campaign #17',
         description: 'Riding the success of our previous campaign, this initiative aimed to further engage the community at Brookfields Mall, spreading awareness about cancer prevention and early detection.',
         location: 'Brookfields Mall, Coimbatore',
-        peopleReached: '0 Individuals',
+        peopleReached: '1,000+ Individuals',
+        images: [],
+    },
+    {
+        title: 'Awareness Campaign #18',
+        description: 'Our eighteenth campaign took us to a local hospital, where we focused on educating patients and visitors about the importance of early cancer screening and prevention strategies.',
+        location: 'MVS Hospital, Attur, Salem',
+        peopleReached: '6,000+ Individuals',
+        images: ['/awareness-salemhosp-1.webp', '/awareness-salemhosp-2.webp', '/awareness-salemhosp-3.webp'],
+    },
+    {
+        title: 'Awareness Campaign #19',
+        description: 'Our nineteenth campaign took us to a serene lake area, where we engaged with visitors and locals alike, distributing pamphlets and discussing the significance of early cancer detection.',
+        location: 'Emerald Lake, Yercaud',
+        peopleReached: '1,000+ Individuals',
+        images: ['/awareness-yercaud-1.webp'],
+    },
+    {
+        title: 'Awareness Campaign #20',
+        description: 'For our twentieth campaign, we traveled to Nilgiris Express in Chennai, where we reached out to travelers and staff, sharing vital information about cancer awareness and prevention.',
+        location: 'Nilgiris Express, Chennai',
+        peopleReached: '200+ Individuals',
         images: [],
     },
 ];
 
 const StaticStatCard = ({ stat }: { stat: { icon: React.ReactNode; value: string; label: string; } }) => (
-    // DEFINITIVE FIX: `h-full` is now `sm:h-full`. This allows cards to size to their content on mobile (preventing overlap)
-    // while ensuring they are uniform height on small screens and larger.
     <div className="flex flex-col items-center justify-center text-center p-6 md:p-8 rounded-3xl sm:h-full bg-slate-100/50 dark:bg-slate-800/30 border border-slate-200/80 dark:border-slate-800">
         <div className="text-brand-lavender mb-4">{stat.icon}</div>
         <p className="text-4xl sm:text-5xl font-semibold tracking-tight text-slate-900 dark:text-slate-100 mb-2">
@@ -268,7 +287,7 @@ export default function ImpactPage() {
     const stats = [
         { icon: <Users size={32} />, value: formattedTotalPeopleReached, label: 'People Reached' },
         { icon: <Megaphone size={32} />, value: campaigns.length.toString(), label: 'Campaigns Organized' },
-        { icon: <Heart size={32} />, value: '25+', label: 'Student Volunteers' },
+        { icon: <Heart size={32} />, value: '40+', label: 'Student Volunteers' },
         { icon: <IndianRupee size={32} />, value: '10K+', label: 'INR Raised in Funds' }
     ];
 

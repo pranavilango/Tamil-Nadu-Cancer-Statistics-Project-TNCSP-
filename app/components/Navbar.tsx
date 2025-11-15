@@ -115,8 +115,9 @@ export default function NavBar() {
                                 </div>
                                 <AnimatePresence>
                                 {isDesktopResourcesOpen && (
-                                    <motion.div initial={{ opacity: 0, scale: 0.95, y: -10 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95, y: -10 }} transition={{ duration: 0.2, ease: 'easeOut' }} className="absolute top-full w-48 left-1/2 -translate-x-1/2 pt-2">
-                                        <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border border-slate-900/10 dark:border-slate-50/10 rounded-xl shadow-lg">
+                                    <motion.div initial={{ opacity: 0, scale: 0.95, y: -10 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95, y: -10 }} transition={{ duration: 0.2, ease: 'easeOut' }} className="absolute top-full w-48 left-1/2 -translate-x-1/2 pt-3">
+                                        {/* DEFINITIVE FIX: Replaced translucent (`bg-white/80`, `backdrop-blur-xl`) with a solid, opaque background for a cleaner, more modern aesthetic. */}
+                                        <div className="bg-white dark:bg-slate-900 border border-slate-900/10 dark:border-slate-800 rounded-xl shadow-lg">
                                             <div className="p-2">
                                                 {resourceLinks.map((link) => (
                                                     <Link key={link.href} href={link.href} onClick={() => setIsDesktopResourcesOpen(false)} className={`block text-center text-sm px-3 py-1.5 rounded-md transition-colors ${pathname === link.href ? 'font-semibold text-slate-900 dark:text-slate-100 bg-brand-lavender/20' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-900/5 dark:hover:bg-slate-50/5 hover:text-slate-900 dark:hover:text-slate-100'}`}>{link.label}</Link>
@@ -136,7 +137,6 @@ export default function NavBar() {
                         </nav>
                         
                         {/* Column 3: Actions (Aligned Right) */}
-                        {/* DEFINITIVE FIX: Increased responsive padding to `pr-4` for a larger mobile gap, while maintaining `md:pr-0` to keep the desktop layout unchanged. */}
                         <div className="justify-self-end flex items-center gap-2 pr-4 md:pr-0">
                             <Link href={mainLinks.join.href} className="hidden md:inline-flex text-sm font-semibold rounded-full px-4 py-1.5 transition-all duration-300 bg-slate-900 text-white hover:bg-slate-700 dark:bg-slate-50 dark:text-slate-900 dark:hover:bg-slate-200">
                                 {mainLinks.join.label}

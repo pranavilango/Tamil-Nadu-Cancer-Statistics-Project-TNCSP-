@@ -9,6 +9,9 @@ import { BookOpen, BrainCircuit, ShieldAlert, BarChartHorizontal, HeartPulse, Se
 import Sidebar from "../components/guide/SideBar";
 import OnPageSidebar, { Heading } from "../components/guide/OnPageSidebar";
 
+// Import the new VerificationBadge component
+import VerificationBadge from "../components/guide/VerificationBadge";
+
 // All original sections are imported and included
 import Introduction, { introductionHeadings } from "../components/guide/Introduction";
 import DiseaseMechanism, { diseaseMechanismHeadings } from "../components/guide/DiseaseMechanism";
@@ -179,6 +182,9 @@ function GuideView() {
           <List className="h-6 w-6" />
         </button>
       </div>
+
+      {/* Add the VerificationBadge component here */}
+      <VerificationBadge />
     </div>
   );
 }

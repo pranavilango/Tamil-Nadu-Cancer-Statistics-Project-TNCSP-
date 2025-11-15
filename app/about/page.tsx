@@ -29,6 +29,13 @@ const teamMembers = [
         linkedIn: "https://www.linkedin.com/in/krishnaraj-m-951b94213/"
     },
     {
+        name: "Aditi Rajendran",
+        role: "Head, Salem Wing",
+        bio: "Determined to break cancer related stereotypes, I strive to promote awareness of prevention methods through multilingual outreach.",
+        imageUrl: "/aditi.webp",
+        linkedIn: "https://www.linkedin.com/in/aditi-rajendran-0a0004392/"
+    },
+    {
         name: "Adharsh",
         role: "Fundraising Lead",
         bio: "In Tamil Nadu, awareness is rare—I want to break the silence around cancer and turn fear into early action.",
