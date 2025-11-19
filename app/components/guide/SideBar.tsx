@@ -1,4 +1,7 @@
 // --- File: app/components/guide/SideBar.tsx ---
+'use client';
+import { useGuide } from "../../guide/GuideContext";
+
 interface SidebarProps {
   sections: string[];
   activeSection: string;
@@ -8,6 +11,8 @@ interface SidebarProps {
 }
 
 export default function Sidebar({ sections, activeSection, onSectionClick, isOpen, onClose }: SidebarProps) {
+  const { content, language } = useGuide();
+
   return (
     <>
       <div 
@@ -24,16 +29,19 @@ export default function Sidebar({ sections, activeSection, onSectionClick, isOpe
         ${isOpen ? 'translate-x-0 z-50' : '-translate-x-full'}
       `}>
         <div className="md:hidden p-4 border-b border-slate-200 dark:border-slate-800 pt-20">
-            <h2 className="text-lg font-semibold text-slate-800 dark:text-slate-200">Guide Sections</h2>
+            <h2 className="text-lg font-semibold text-slate-800 dark:text-slate-200">{content.ui.guideSections}</h2>
         </div>
 
         <div className="hidden md:block p-6 pb-2">
-          <h2 className="text-sm font-semibold tracking-widest text-slate-500 dark:text-slate-400 uppercase mb-4">Guide Sections</h2>
+          <h2 className="text-sm font-semibold tracking-widest text-slate-500 dark:text-slate-400 uppercase mb-4">{content.ui.guideSections}</h2>
         </div>
         
         <nav className="flex-1 flex flex-col space-y-1 overflow-y-auto p-4 md:p-6 md:pt-0">
           {sections.map((section) => {
             const isActive = activeSection === section;
+            // Get translated label, fallback to section key if not found
+            const label = content.sections[section as keyof typeof content.sections]?.label || section;
+            
             return (
               <a
                 key={section}
@@ -49,7 +57,7 @@ export default function Sidebar({ sections, activeSection, onSectionClick, isOpe
                     : "text-slate-600 hover:bg-slate-900/5 dark:text-slate-400 dark:hover:bg-slate-50/5 hover:text-slate-900 dark:hover:text-slate-100"}
                 `}
               >
-                {section}
+                {label}
               </a>
             );
           })}

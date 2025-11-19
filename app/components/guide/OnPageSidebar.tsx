@@ -1,4 +1,9 @@
 // --- File: app/components/guide/OnPageSidebar.tsx ---
+'use client';
+
+import { useGuide } from "../../guide/GuideContext";
+import { headingTranslations } from "../../guide/content";
+
 export interface Heading {
   id: string;
   title: string;
@@ -14,6 +19,8 @@ interface OnPageSidebarProps {
 }
 
 export default function OnPageSidebar({ headings, activeHeading, onHeadingClick, isOpen, onClose }: OnPageSidebarProps) {
+  const { content, language } = useGuide();
+
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
     onHeadingClick(id);
@@ -40,17 +47,23 @@ export default function OnPageSidebar({ headings, activeHeading, onHeadingClick,
         ${isOpen ? 'translate-x-0 z-50' : 'translate-x-full'}
       `}>
         <div className="md:hidden p-4 border-b border-slate-200 dark:border-slate-800 pt-20">
-            <h2 className="text-lg font-semibold text-slate-800 dark:text-slate-200">On This Page</h2>
+            <h2 className="text-lg font-semibold text-slate-800 dark:text-slate-200">{content.ui.onThisPage}</h2>
         </div>
 
         <div className="hidden md:block p-6 pb-2">
-          <h2 className="text-sm font-semibold tracking-widest text-slate-500 dark:text-slate-400 uppercase mb-4">On This Page</h2>
+          <h2 className="text-sm font-semibold tracking-widest text-slate-500 dark:text-slate-400 uppercase mb-4">{content.ui.onThisPage}</h2>
         </div>
         
         <nav className="flex-1 flex flex-col space-y-1 overflow-y-auto p-4 md:p-6 md:pt-0">
           {headings.map((heading) => {
             const isActive = activeHeading === heading.id;
             const indentClass = heading.level === 3 ? 'pl-7' : 'pl-3';
+            
+            // Translate title if in Tamil
+            let displayTitle = heading.title;
+            if (language === 'ta' && headingTranslations[heading.id]) {
+              displayTitle = headingTranslations[heading.id];
+            }
 
             return (
               <a
@@ -66,7 +79,7 @@ export default function OnPageSidebar({ headings, activeHeading, onHeadingClick,
                 `}
               >
                 {isActive && <div className="absolute left-0 top-1/2 -translate-y-1/2 h-5 w-0.5 bg-brand-lavender rounded-full" />}
-                {formatTitle(heading.title)}
+                {formatTitle(displayTitle)}
               </a>
             );
           })}

@@ -57,6 +57,13 @@ const teamMembers = [
         linkedIn: ""
     },
     {
+        name: "Shambhavi Basu",
+        role: "Campaigner",
+        bio: "I hope to empower the public to take meaningful steps toward safeguarding the health of those they cherish.",
+        imageUrl: "/placeholder.webp",
+        linkedIn: ""
+    },
+    {
         name: "Aadarsh V",
         role: "Campaigner & LinkedIn Manager",
         bio: "Crafting intuitive charts and maps that bring our data to life and make complex findings understandable.",
@@ -64,12 +71,12 @@ const teamMembers = [
         linkedIn: "https://www.linkedin.com/in/aadarsh-v-b460742b0/"
     },
     {
-        name: "Shambhavi Basu",
+        name: "Sathvik Kumar S",
         role: "Campaigner",
-        bio: "I hope to empower the public to take meaningful steps toward safeguarding the health of those they cherish.",
-        imageUrl: "/placeholder.webp",
+        bio: "As a business student, I’m joining TNCSP to build leadership skills, work on real awareness campaigns, and create meaningful social impact.",
+        imageUrl: "/sathvik.webp",
         linkedIn: ""
-    },         
+    },        
 ];
 
 const principles = [

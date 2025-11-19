@@ -8,11 +8,11 @@ import { BookOpen, BrainCircuit, ShieldAlert, BarChartHorizontal, HeartPulse, Se
 
 import Sidebar from "../components/guide/SideBar";
 import OnPageSidebar, { Heading } from "../components/guide/OnPageSidebar";
-
-// Import the new VerificationBadge component
 import VerificationBadge from "../components/guide/VerificationBadge";
 
-// All original sections are imported and included
+import { GuideProvider, useGuide } from "./GuideContext";
+
+// All original sections are imported
 import Introduction, { introductionHeadings } from "../components/guide/Introduction";
 import DiseaseMechanism, { diseaseMechanismHeadings } from "../components/guide/DiseaseMechanism";
 import CausativeAgents, { causativeAgentsHeadings } from "../components/guide/CausativeAgents";
@@ -48,18 +48,20 @@ const headingsMap: { [key:string]: Heading[] } = {
 };
 
 const sectionMetadata = {
-  "Introduction": { icon: <BookOpen size={32} />, description: "Understanding the basics of one of the most complex diseases." },
-  "Disease Mechanism": { icon: <BrainCircuit size={32} />, description: "The biology behind cancer—explained simply and clearly." },
-  "Causative Agents": { icon: <ShieldAlert size={32} />, description: "A look at the genetic and environmental factors that trigger this disease." },
-  "Stages of Cancer": { icon: <BarChartHorizontal size={32} />, description: "From early signs to advanced spread—why staging is critical." },
-  "Symptoms": { icon: <HeartPulse size={32} />, description: "Spotting signs early can save a life. Learn what to watch for." },
-  "Detection": { icon: <Search size={32} />, description: "When found early, cancer can be treated more effectively." },
-  "Stigmas": { icon: <MessageSquareWarning size={32} />, description: "The battle beyond the body. Overcoming fear and misinformation." },
-  "Lifestyle Changes": { icon: <Zap size={32} />, description: "How everyday habits shape your risk—and your future." },
-  "Conclusion": { icon: <CheckCircle size={32} />, description: "Building a future where awareness leads to action and hope." },
+  "Introduction": { icon: <BookOpen size={32} /> },
+  "Disease Mechanism": { icon: <BrainCircuit size={32} /> },
+  "Causative Agents": { icon: <ShieldAlert size={32} /> },
+  "Stages of Cancer": { icon: <BarChartHorizontal size={32} /> },
+  "Symptoms": { icon: <HeartPulse size={32} /> },
+  "Detection": { icon: <Search size={32} /> },
+  "Stigmas": { icon: <MessageSquareWarning size={32} /> },
+  "Lifestyle Changes": { icon: <Zap size={32} /> },
+  "Conclusion": { icon: <CheckCircle size={32} /> },
 };
 
-function GuideView() {
+function GuideViewContent() {
+  const { language, toggleLanguage, content } = useGuide(); 
+  
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -110,15 +112,12 @@ function GuideView() {
   }, [activeSection]);
 
   const currentMetadata = sectionMetadata[activeSection as keyof typeof sectionMetadata];
+  const currentTranslatedData = content.sections[activeSection as keyof typeof content.sections] || content.sections["Introduction"];
 
   return (
-    // clip horizontal overflow on small viewports, allow visible overflow on md+ to keep desktop sticky behaviour
     <div className="relative isolate overflow-x-hidden md:overflow-visible">
       <div className="absolute inset-0 -z-10">
-        {/* light grid - safe to keep */}
         <div className="absolute inset-0 [background-image:linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] [background-size:36px_36px]"></div>
-
-        {/* hide the large decorative blobs on small screens (they can cause overflow) */}
         <div className="hidden md:block absolute left-0 top-1/4 w-[800px] h-[800px] bg-brand-lavender/10 dark:bg-brand-lavender/20 rounded-full blur-3xl opacity-30 pointer-events-none" />
         <div className="hidden md:block absolute right-0 bottom-1/4 w-[800px] h-[800px] bg-blue-300/10 dark:bg-blue-300/20 rounded-full blur-3xl opacity-30 pointer-events-none" />
       </div>
@@ -139,16 +138,31 @@ function GuideView() {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, ease: 'easeOut' }}
-                  className="py-10 md:py-16 text-center border-b border-slate-900/10 dark:border-slate-50/[0.06] mb-8 md:mb-12"
+                  className="relative py-10 md:py-16 text-center border-b border-slate-900/10 dark:border-slate-50/[0.06] mb-8 md:mb-12"
               >
+                  {/* 
+                      LANGUAGE TOGGLE BUTTON
+                      - Mobile: Centered top
+                      - Desktop: Top Right
+                      - Hover: Translucent Lavender bg, text stays slate/black
+                  */}
+                  <div className="flex justify-center mb-6 md:mb-0 md:absolute md:top-0 md:right-0 md:mt-4 md:justify-end z-10">
+                    <button
+                      onClick={toggleLanguage}
+                      className="px-4 py-1.5 text-sm font-bold rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 hover:bg-brand-lavender/20 dark:hover:bg-brand-lavender/20 transition-all shadow-sm"
+                    >
+                      {content.ui.toggleLabel}
+                    </button>
+                  </div>
+
                   <div className="inline-flex items-center justify-center w-14 h-14 md:w-16 md:h-16 mb-4 md:mb-6 text-brand-lavender bg-brand-lavender/10 rounded-2xl">
                       {currentMetadata.icon}
                   </div>
                   <h1 className="text-4xl sm:text-5xl font-semibold tracking-tighter text-slate-900 dark:text-slate-100">
-                      {activeSection}
+                      {currentTranslatedData.label}
                   </h1>
                   <p className="mt-4 text-base sm:text-lg max-w-2xl mx-auto text-slate-600 dark:text-slate-400">
-                      {currentMetadata.description}
+                      {currentTranslatedData.description}
                   </p>
               </motion.header>
               
@@ -165,7 +179,6 @@ function GuideView() {
         />
       </div>
 
-      {/* The mobile FABs are perfect and remain untouched. */}
       <div className="md:hidden z-40">
         <button 
           onClick={() => setIsLeftSidebarOpen(true)}
@@ -183,7 +196,6 @@ function GuideView() {
         </button>
       </div>
 
-      {/* Add the VerificationBadge component here */}
       <VerificationBadge />
     </div>
   );
@@ -191,8 +203,10 @@ function GuideView() {
 
 export default function GuidePage() {
   return (
-    <Suspense fallback={<div className="w-full h-screen flex items-center justify-center dark:text-white">Loading Guide...</div>}>
-      <GuideView />
-    </Suspense>
+    <GuideProvider>
+      <Suspense fallback={<div className="w-full h-screen flex items-center justify-center dark:text-white">Loading Guide...</div>}>
+        <GuideViewContent />
+      </Suspense>
+    </GuideProvider>
   );
 }
