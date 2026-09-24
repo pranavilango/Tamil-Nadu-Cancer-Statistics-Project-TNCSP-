@@ -1,8 +1,15 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Overview
 
-## Getting Started
+This project is hosted as an official website via Vercel at tncsp.org. It is a website I made for cancer statistics in the Indian state of Tamil Nadu. Apart from providing bilingual (Tamil and English) cancer biology knowledge to the public, housing a hospital finder tool, and having an interactive choropleth map, I also used this website to track the awareness campaign efforts of the cancer club at my school. During the campaigns, we had QR codes on our posters leading to the website. Since I was the only ‘close-to-technical’ co-founder in this initiative, I fully designed and iterated on the website. Additionally, I also got a little bit of Figma experience before starting web development for this project.
 
-First, run the development server:
+## Instructions to run this project:
+
+First, run:
+````bash
+npm install
+````
+
+Then, run the development server:
 
 ```bash
 npm run dev
@@ -16,21 +23,12 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## What I Learned
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Apart from typical Typescript web development, this project was one of my first experiences in integrating an API key in a website - in this case, it was the Google Maps API Key. Before embarking on this journey, I frankly had no idea Google Cloud Console even existed. As I corrected mishaps across a series of steps, I became more confident for such future experiences.
 
-## Learn More
+## References
 
-To learn more about Next.js, take a look at the following resources:
+Since I created this project a year ago in my previous laptop, I cannot find the exact articles, websites and YouTube videos I referred to. Apart from these resources, I used Google AI Studio, ChatGPT Codex and Claude Code for coding assistance.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## GO FSAB!
